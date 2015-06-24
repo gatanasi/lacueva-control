@@ -2,8 +2,6 @@ package com.lacueva.control.model;
 
 import java.util.Date;
 
-import com.lacueva.control.model.item.Item;
-
 public class Sale {
 
 	private Date date;
