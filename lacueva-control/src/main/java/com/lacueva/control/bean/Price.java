@@ -1,4 +1,4 @@
-package com.lacueva.control.model;
+package com.lacueva.control.bean;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

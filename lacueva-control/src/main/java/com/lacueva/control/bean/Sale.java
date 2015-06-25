@@ -1,4 +1,4 @@
-package com.lacueva.control.model;
+package com.lacueva.control.bean;
 
 import java.util.Date;
 

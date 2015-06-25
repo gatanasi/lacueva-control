@@ -1,4 +1,4 @@
-package com.lacueva.control.model;
+package com.lacueva.control.bean;
 
 public enum ItemType {
 	DVD("DVD"), BD("BD"), CONSUMABLE("CONSUMABLE"), ENVELOPE("ENVELOPE"), ENVELOPE_WITH_FLAP(
