@@ -2,42 +2,115 @@ package com.lacueva.control.model;
 
 import java.util.Date;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+
+/**
+ * Entity implementation class for Entity: Sale
+ *
+ */
+@Entity
+@Table(name = "CUEVA_SALES")
 public class Sale {
 
-	private Date date;
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO, generator = "CUEVA_SEQ_SALES_ID")
+	@SequenceGenerator(name = "CUEVA_SEQ_SALES_ID", sequenceName = "CUEVA_SEQ_SALES_ID", initialValue = 1, allocationSize = 1)
+	@Column(name = "SALE_ID")
+	private Long id;
 
-	private Item article;
+	@Column(name = "SALE_DATE", nullable = false)
+	private Date saleDate;
 
-	private int amount;
+	@OneToOne
+	@JoinColumn(name = "SALE_SHOP_ID")
+	private Shop saleShop;
 
-	public Sale(Date date, Item article, int amount) {
+	@OneToOne
+	@JoinColumn(name = "SALE_ITEM_ID")
+	private Item saleItem;
+
+	@Column(name = "SALE_QUANTITY")
+	private Integer saleQuantity;
+
+	@Column(name = "SALE_AMOUNT", nullable = false)
+	private Float saleAmount;
+
+	public Sale() {
 		super();
-		this.date = date;
-		this.article = article;
-		this.amount = amount;
 	}
 
-	public Date getDate() {
-		return date;
+	public Long getId() {
+		return id;
 	}
 
-	public void setDate(Date date) {
-		this.date = date;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
-	public Item getArticle() {
-		return article;
+	public Date getSaleDate() {
+		return saleDate;
 	}
 
-	public void setArticle(Item article) {
-		this.article = article;
+	public void setSaleDate(Date saleDate) {
+		this.saleDate = saleDate;
 	}
 
-	public int getAmount() {
-		return amount;
+	public Shop getSaleShop() {
+		return saleShop;
 	}
 
-	public void setAmount(int amount) {
-		this.amount = amount;
+	public void setSaleShop(Shop saleShop) {
+		this.saleShop = saleShop;
+	}
+
+	public Item getSaleItem() {
+		return saleItem;
+	}
+
+	public void setSaleItem(Item saleItem) {
+		this.saleItem = saleItem;
+	}
+
+	public Integer getSaleQuantity() {
+		return saleQuantity;
+	}
+
+	public void setSaleQuantity(Integer saleQuantity) {
+		this.saleQuantity = saleQuantity;
+	}
+
+	public Float getSaleAmount() {
+		return saleAmount;
+	}
+
+	public void setSaleAmount(Float saleAmount) {
+		this.saleAmount = saleAmount;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if ((obj != null) && (obj instanceof Item)) {
+			final Item that = (Item) obj;
+			return getId().equals(that.getId());
+		} else {
+			return false;
+		}
+	}
+
+	@Override
+	public int hashCode() {
+		if (getId() != null) {
+			return getId().intValue();
+		} else {
+			return 0;
+		}
 	}
 }

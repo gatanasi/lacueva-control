@@ -73,8 +73,8 @@ public class Item {
 	@Override
 	public boolean equals(Object obj) {
 		if ((obj != null) && (obj instanceof Item)) {
-			final Item thatTask = (Item) obj;
-			return getId().equals(thatTask.getId());
+			final Item that = (Item) obj;
+			return getId().equals(that.getId());
 		} else {
 			return false;
 		}
@@ -82,6 +82,10 @@ public class Item {
 
 	@Override
 	public int hashCode() {
-		return getId().intValue();
+		if (getId() != null) {
+			return getId().intValue();
+		} else {
+			return 0;
+		}
 	}
 }

@@ -1,41 +1,90 @@
 package com.lacueva.control.model;
 
+import java.util.Date;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+
+/**
+ * Entity implementation class for Entity: Shop
+ *
+ */
+@Entity
+@Table(name = "CUEVA_SHOPS")
 public class Shop {
 
-	private String name;
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO, generator = "CUEVA_SEQ_SHOPS_ID")
+	@SequenceGenerator(name = "CUEVA_SEQ_SHOPS_ID", sequenceName = "CUEVA_SEQ_SHOPS_ID", initialValue = 1, allocationSize = 1)
+	@Column(name = "SHOP_ID")
+	private Long id;
 
-	private int cash;
+	@Column(name = "SHOP_DATE", nullable = false)
+	private Date shopDate;
 
-	private Stock stock;
+	@Column(name = "SHOP_NAME", nullable = false)
+	private String shopName;
 
-	public Shop(String name, int cash, Stock stock) {
+	@Column(name = "SHOP_CASH")
+	private int shopCash;
+
+	public Shop() {
 		super();
-		this.name = name;
-		this.cash = cash;
-		this.stock = stock;
 	}
 
-	public String getName() {
-		return name;
+	public Long getId() {
+		return id;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
-	public int getCash() {
-		return cash;
+	public Date getShopDate() {
+		return shopDate;
 	}
 
-	public void setCash(int cash) {
-		this.cash = cash;
+	public void setShopDate(Date shopDate) {
+		this.shopDate = shopDate;
 	}
 
-	public Stock getStock() {
-		return stock;
+	public String getShopName() {
+		return shopName;
 	}
 
-	public void setStock(Stock stock) {
-		this.stock = stock;
+	public void setShopName(String shopName) {
+		this.shopName = shopName;
+	}
+
+	public int getShopCash() {
+		return shopCash;
+	}
+
+	public void setShopCash(int shopCash) {
+		this.shopCash = shopCash;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if ((obj != null) && (obj instanceof Item)) {
+			final Item that = (Item) obj;
+			return getId().equals(that.getId());
+		} else {
+			return false;
+		}
+	}
+
+	@Override
+	public int hashCode() {
+		if (getId() != null) {
+			return getId().intValue();
+		} else {
+			return 0;
+		}
 	}
 }
