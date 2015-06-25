@@ -73,6 +73,16 @@ public class Withdrawal {
 	}
 
 	@Override
+	public String toString()
+
+	{
+		return "Withdrawal [withdrawalId=" + getId() + ", withdrawalDate="
+				+ getWithdrawalDate() + ", withdrawalShopName="
+				+ getWithdrawalShop().getShopName() + ", withdrawalAmount="
+				+ getWithdrawalAmount() + "]";
+	}
+
+	@Override
 	public boolean equals(Object obj) {
 		if ((obj != null) && (obj instanceof Item)) {
 			final Item that = (Item) obj;

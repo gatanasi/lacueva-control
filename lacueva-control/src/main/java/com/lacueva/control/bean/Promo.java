@@ -71,6 +71,15 @@ public class Promo {
 	}
 
 	@Override
+	public String toString()
+
+	{
+		return "Promo [promoId=" + getId() + ", promoItemType="
+				+ getPromoItem().getItemType().getText() + ", promoQuantity="
+				+ getPromoQuantity() + ", promoValue=" + getPromoValue() + "]";
+	}
+
+	@Override
 	public boolean equals(Object obj) {
 		if ((obj != null) && (obj instanceof Item)) {
 			final Item that = (Item) obj;

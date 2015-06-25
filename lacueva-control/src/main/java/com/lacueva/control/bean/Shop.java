@@ -70,6 +70,15 @@ public class Shop {
 	}
 
 	@Override
+	public String toString()
+
+	{
+		return "Shop [shopId=" + getId() + ", shopDate=" + getShopDate()
+				+ ", shopName=" + getShopName() + ", shopCash=" + getShopCash()
+				+ "]";
+	}
+
+	@Override
 	public boolean equals(Object obj) {
 		if ((obj != null) && (obj instanceof Item)) {
 			final Item that = (Item) obj;

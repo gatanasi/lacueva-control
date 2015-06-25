@@ -96,6 +96,17 @@ public class Sale {
 	}
 
 	@Override
+	public String toString()
+
+	{
+		return "Sale [saleId=" + getId() + ", saleDate=" + getSaleDate()
+				+ ", saleShopName=" + getSaleShop().getShopName()
+				+ ", saleItemType=" + getSaleItem().getItemType().getText()
+				+ ", saleQuantity=" + getSaleQuantity() + ", saleAmount="
+				+ getSaleAmount() + "]";
+	}
+
+	@Override
 	public boolean equals(Object obj) {
 		if ((obj != null) && (obj instanceof Item)) {
 			final Item that = (Item) obj;

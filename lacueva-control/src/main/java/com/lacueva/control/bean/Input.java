@@ -97,6 +97,17 @@ public class Input {
 	}
 
 	@Override
+	public String toString()
+
+	{
+		return "Input [inputId=" + getId() + ", inputDate=" + getInputDate()
+				+ ", inputItemType=" + getInputItem().getItemType().getText()
+				+ ", inputQuantity=" + getInputQuantity()
+				+ ", inputProviderName=" + getInputProvider().getProviderName()
+				+ ", inputShopName=" + getInputShop().getShopName() + "]";
+	}
+
+	@Override
 	public boolean equals(Object obj) {
 		if ((obj != null) && (obj instanceof Item)) {
 			final Item that = (Item) obj;

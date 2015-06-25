@@ -60,6 +60,15 @@ public class Price {
 	}
 
 	@Override
+	public String toString()
+
+	{
+		return "Price [priceId=" + getId() + ", priceItemType="
+				+ getPriceItem().getItemType().getText() + ", priceValue="
+				+ getPriceValue() + "]";
+	}
+
+	@Override
 	public boolean equals(Object obj) {
 		if ((obj != null) && (obj instanceof Item)) {
 			final Item that = (Item) obj;

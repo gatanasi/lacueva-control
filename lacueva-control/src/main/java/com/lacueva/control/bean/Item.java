@@ -71,6 +71,15 @@ public class Item {
 	}
 
 	@Override
+	public String toString()
+
+	{
+		return "Item [itemId=" + getId() + ", itemType="
+				+ getItemType().getText() + ", itemWeight=" + getItemWeight()
+				+ ", itemBurnable=" + getItemBurnable() + "]";
+	}
+
+	@Override
 	public boolean equals(Object obj) {
 		if ((obj != null) && (obj instanceof Item)) {
 			final Item that = (Item) obj;

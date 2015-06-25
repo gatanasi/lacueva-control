@@ -85,6 +85,18 @@ public class BlankDisc {
 	}
 
 	@Override
+	public String toString()
+
+	{
+		return "BlankDisc [blankDiscId=" + getId() + ", blankDiscDate="
+				+ getBlankDiscDate() + ", blankDiscItemType="
+				+ getBlankDiscItem().getItemType().getText()
+				+ ", blankDiscQuantity=" + getBlankDiscQuantity()
+				+ ", blankDiscProviderName="
+				+ getBlankDiscProvider().getProviderName() + "]";
+	}
+
+	@Override
 	public boolean equals(Object obj) {
 		if ((obj != null) && (obj instanceof Item)) {
 			final Item that = (Item) obj;

@@ -85,6 +85,16 @@ public class Stock {
 	}
 
 	@Override
+	public String toString()
+
+	{
+		return "Stock [stockId=" + getId() + ", stockDate=" + getStockDate()
+				+ ", stockShopName=" + getStockShop().getShopName()
+				+ ", stockItemType=" + getStockItem().getItemType().getText()
+				+ ", stockQuantity=" + getStockQuantity() + "]";
+	}
+
+	@Override
 	public boolean equals(Object obj) {
 		if ((obj != null) && (obj instanceof Item)) {
 			final Item that = (Item) obj;

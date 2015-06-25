@@ -46,6 +46,14 @@ public class Provider {
 	}
 
 	@Override
+	public String toString()
+
+	{
+		return "Provider [providerId=" + getId() + ", providerName="
+				+ getProviderName() + "]";
+	}
+
+	@Override
 	public boolean equals(Object obj) {
 		if ((obj != null) && (obj instanceof Item)) {
 			final Item that = (Item) obj;
