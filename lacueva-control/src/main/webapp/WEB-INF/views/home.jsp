@@ -9,6 +9,6 @@
 	Home
 </h1>
 
-<P>  Bienvenido ${user}. </P>
+<P>  Bienvenido. </P>
 </body>
 </html>

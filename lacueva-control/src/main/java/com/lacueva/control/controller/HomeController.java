@@ -18,9 +18,7 @@ public class HomeController {
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Model model) {
-		logger.info("Welcome home! The client locale is {}.");
-
-		model.addAttribute("user", "Gabriel");
+		logger.info("Welcome home! The client locale is.");
 
 		return "home";
 	}

@@ -1,5 +1,6 @@
 package com.lacueva.control.bean;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -18,7 +19,12 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "CUEVA_WITHDRAWALS")
-public class Withdrawal {
+public class Withdrawal implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7513645680606430327L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO, generator = "CUEVA_SEQ_WITHDRAWALS_ID")

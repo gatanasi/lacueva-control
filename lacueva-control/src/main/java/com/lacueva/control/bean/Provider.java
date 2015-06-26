@@ -1,5 +1,7 @@
 package com.lacueva.control.bean;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -14,7 +16,12 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "CUEVA_PROVIDERS")
-public class Provider {
+public class Provider implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1188774249747124397L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO, generator = "CUEVA_SEQ_PROVIDERS_ID")

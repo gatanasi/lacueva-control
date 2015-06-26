@@ -4,7 +4,7 @@
 	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
 	<persistence-unit name="lacueva-control-hsql"
 		transaction-type="RESOURCE_LOCAL">
-		<provider>org.hibernate.ejb.HibernatePersistence</provider>
+		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 		<class>com.lacueva.control.bean.BlankDisc</class>
 		<class>com.lacueva.control.bean.Input</class>
 		<class>com.lacueva.control.bean.Item</class>
@@ -17,35 +17,16 @@
 		<class>com.lacueva.control.bean.Withdrawal</class>
 		<properties>
 			<property name="hibernate.dialect" value="org.hibernate.dialect.HSQLDialect" />
-			<property name="hibernate.hbm2ddl.auto" value="update" />
+			<property name="hibernate.hbm2ddl.auto" value="create" />
+			<property name="hibernate.show_sql" value="true" />
 			<property name="hibernate.ejb.naming_strategy" value="org.hibernate.cfg.ImprovedNamingStrategy" />
 			<property name="hibernate.cache.provider_class" value="org.hibernate.cache.EhCacheProvider" />
 			<property name="jadira.usertype.autoRegisterUserTypes"
 				value="true" />
 			<property name="jadira.usertype.databaseZone" value="jvm" />
-		</properties>
-	</persistence-unit>
-	<persistence-unit name="lacueva-control-oracle"
-		transaction-type="RESOURCE_LOCAL">
-		<provider>org.hibernate.ejb.HibernatePersistence</provider>
-		<class>com.lacueva.control.bean.BlankDisc</class>
-		<class>com.lacueva.control.bean.Input</class>
-		<class>com.lacueva.control.bean.Item</class>
-		<class>com.lacueva.control.bean.Price</class>
-		<class>com.lacueva.control.bean.Promo</class>
-		<class>com.lacueva.control.bean.Provider</class>
-		<class>com.lacueva.control.bean.Sale</class>
-		<class>com.lacueva.control.bean.Shop</class>
-		<class>com.lacueva.control.bean.Stock</class>
-		<class>com.lacueva.control.bean.Withdrawal</class>
-		<properties>
-			<property name="hibernate.dialect" value="org.hibernate.dialect.OracleDialect" />
-			<property name="hibernate.hbm2ddl.auto" value="validate" />
-			<property name="hibernate.ejb.naming_strategy" value="org.hibernate.cfg.ImprovedNamingStrategy" />
-			<property name="hibernate.max_fetch_depth" value="3" />
-			<property name="jadira.usertype.autoRegisterUserTypes"
+			<property
+				name="javax.persistence.schema-generation.create-database-schemas"
 				value="true" />
-			<property name="jadira.usertype.databaseZone" value="jvm" />
 		</properties>
 	</persistence-unit>
 </persistence>

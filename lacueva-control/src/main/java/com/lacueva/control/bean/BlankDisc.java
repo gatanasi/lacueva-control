@@ -1,5 +1,6 @@
 package com.lacueva.control.bean;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -18,7 +19,12 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "CUEVA_BLANK_DISCS")
-public class BlankDisc {
+public class BlankDisc implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1527961326372596100L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO, generator = "CUEVA_SEQ_BLANK_DISCS_ID")
