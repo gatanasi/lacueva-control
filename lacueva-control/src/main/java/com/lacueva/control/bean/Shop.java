@@ -1,12 +1,15 @@
 package com.lacueva.control.bean;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -32,6 +35,10 @@ public class Shop {
 
 	@Column(name = "SHOP_CASH")
 	private int shopCash;
+
+	@OneToMany
+	@JoinColumn(name = "SHOP_ITEMS")
+	private List<Item> shopItems;
 
 	public Shop() {
 		super();
@@ -69,13 +76,21 @@ public class Shop {
 		this.shopCash = shopCash;
 	}
 
+	public List<Item> getShopItems() {
+		return shopItems;
+	}
+
+	public void setShopItems(List<Item> shopItems) {
+		this.shopItems = shopItems;
+	}
+
 	@Override
 	public String toString()
 
 	{
 		return "Shop [shopId=" + getId() + ", shopDate=" + getShopDate()
 				+ ", shopName=" + getShopName() + ", shopCash=" + getShopCash()
-				+ "]";
+				+ ", shopItems=" + getShopItems() + "]";
 	}
 
 	@Override
