@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -13,6 +14,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  * Entity implementation class for Entity: Shop
@@ -33,6 +36,7 @@ public class Shop implements Serializable {
 	@Column(name = "SHOP_ID")
 	private Long id;
 
+	@Temporal(TemporalType.DATE)
 	@Column(name = "SHOP_DATE", nullable = false)
 	private Date shopDate;
 
@@ -42,7 +46,7 @@ public class Shop implements Serializable {
 	@Column(name = "SHOP_CASH")
 	private int shopCash;
 
-	@OneToMany
+	@OneToMany(fetch = FetchType.EAGER)
 	@JoinColumn(name = "SHOP_ITEMS")
 	private List<Item> shopItems;
 
@@ -101,8 +105,8 @@ public class Shop implements Serializable {
 
 	@Override
 	public boolean equals(Object obj) {
-		if ((obj != null) && (obj instanceof Item)) {
-			final Item that = (Item) obj;
+		if ((obj != null) && (obj instanceof Shop)) {
+			final Shop that = (Shop) obj;
 			return getId().equals(that.getId());
 		} else {
 			return false;

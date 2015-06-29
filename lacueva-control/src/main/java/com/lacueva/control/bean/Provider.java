@@ -62,8 +62,8 @@ public class Provider implements Serializable {
 
 	@Override
 	public boolean equals(Object obj) {
-		if ((obj != null) && (obj instanceof Item)) {
-			final Item that = (Item) obj;
+		if ((obj != null) && (obj instanceof Provider)) {
+			final Provider that = (Provider) obj;
 			return getId().equals(that.getId());
 		} else {
 			return false;

@@ -38,7 +38,7 @@ public class Item implements Serializable {
 	@Column(name = "ITEM_WEIGHT")
 	private Float itemWeight;
 
-	@Column(name = "ITEM_BURNABLE", nullable = false)
+	@Column(name = "ITEM_BURNABLE")
 	private Boolean itemBurnable;
 
 	public Item() {

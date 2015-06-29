@@ -5,6 +5,7 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -12,6 +13,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  * Entity implementation class for Entity: BlankDisc
@@ -32,17 +35,18 @@ public class BlankDisc implements Serializable {
 	@Column(name = "BLANK_ID")
 	private Long id;
 
+	@Temporal(TemporalType.DATE)
 	@Column(name = "BLANK_DATE", nullable = false)
 	private Date blankDiscDate;
 
-	@OneToOne
+	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "BLANK_ITEM_ID")
 	private Item blankDiscItem;
 
 	@Column(name = "BLANK_QUANTITY", nullable = false)
 	private Integer blankDiscQuantity;
 
-	@OneToOne
+	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "BLANK_PROVIDER_ID")
 	private Provider blankDiscProvider;
 
@@ -104,8 +108,8 @@ public class BlankDisc implements Serializable {
 
 	@Override
 	public boolean equals(Object obj) {
-		if ((obj != null) && (obj instanceof Item)) {
-			final Item that = (Item) obj;
+		if ((obj != null) && (obj instanceof BlankDisc)) {
+			final BlankDisc that = (BlankDisc) obj;
 			return getId().equals(that.getId());
 		} else {
 			return false;

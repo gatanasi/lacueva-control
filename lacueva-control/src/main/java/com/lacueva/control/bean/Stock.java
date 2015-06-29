@@ -12,6 +12,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  * Entity implementation class for Entity: Stock
@@ -32,6 +34,7 @@ public class Stock implements Serializable {
 	@Column(name = "STOCK_ID")
 	private Long id;
 
+	@Temporal(TemporalType.DATE)
 	@Column(name = "STOCK_DATE", nullable = false)
 	private Date stockDate;
 
@@ -102,8 +105,8 @@ public class Stock implements Serializable {
 
 	@Override
 	public boolean equals(Object obj) {
-		if ((obj != null) && (obj instanceof Item)) {
-			final Item that = (Item) obj;
+		if ((obj != null) && (obj instanceof Stock)) {
+			final Stock that = (Stock) obj;
 			return getId().equals(that.getId());
 		} else {
 			return false;

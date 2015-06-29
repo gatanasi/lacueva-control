@@ -12,6 +12,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  * Entity implementation class for Entity: Withdrawal
@@ -32,6 +34,7 @@ public class Withdrawal implements Serializable {
 	@Column(name = "WITHDRAWAL_ID")
 	private Long id;
 
+	@Temporal(TemporalType.DATE)
 	@Column(name = "WITHDRAWAL_DATE", nullable = false)
 	private Date withdrawalDate;
 
@@ -90,8 +93,8 @@ public class Withdrawal implements Serializable {
 
 	@Override
 	public boolean equals(Object obj) {
-		if ((obj != null) && (obj instanceof Item)) {
-			final Item that = (Item) obj;
+		if ((obj != null) && (obj instanceof Withdrawal)) {
+			final Withdrawal that = (Withdrawal) obj;
 			return getId().equals(that.getId());
 		} else {
 			return false;
