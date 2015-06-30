@@ -21,7 +21,7 @@ public abstract class GenericDaoImpl<T> implements GenericDao<T> {
 	public GenericDaoImpl() {
 		Type t = getClass().getGenericSuperclass();
 		ParameterizedType pt = (ParameterizedType) t;
-		type = (Class) pt.getActualTypeArguments()[0];
+		type = (Class<T>) pt.getActualTypeArguments()[0];
 	}
 
 	@Override
