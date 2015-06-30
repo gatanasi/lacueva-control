@@ -4,28 +4,28 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<title>LaCueva Control</title>
 <link href="<c:url value="/resources/prueba.css" />" rel="stylesheet" type="text/css" />
 </head>
 <body>
 	<div id='cssmenu'>
 		<ul>
-			<li><a href='#'><span>Home</span></a></li>
-			<li class='active has-sub'><a href='#'><span>Products</span></a>
+			<li><a href='active'><span>Home</span></a></li>
+			<li><a href='#'><span>Ventas</span></a></li>
+			<li><a href='#'><span>Ingresos</span></a></li>
+			<li><a href='#'><span>Retiros</span></a></li>
+			<li><a href='#'><span>V&iacute;rgenes</span></a></li>
+			<li><a href='#'><span>Inventarios</span></a></li>
+			<li class='has-sub'><a href='#'><span>Administraci&oacute;n</span></a>
 				<ul>
-					<li class='has-sub'><a href='#'><span>Product 1</span></a>
+					<li class='has-sub'><a href='#'><span>Items</span></a>
 						<ul>
 							<li><a href='#'><span>Sub Product</span></a></li>
 							<li class='last'><a href='#'><span>Sub Product</span></a></li>
 						</ul></li>
-					<li class='has-sub'><a href='#'><span>Product 2</span></a>
-						<ul>
-							<li><a href='#'><span>Sub Product</span></a></li>
-							<li class='last'><a href='#'><span>Sub Product</span></a></li>
-						</ul></li>
+					<li><a href='#'><span>Locales</span></a></li>
 				</ul></li>
-			<li><a href='#'><span>About</span></a></li>
-			<li class='last'><a href='#'><span>Contact</span></a></li>
+			<li><a href='#'><span>Cerrar sesi&oacute;n</span></a></li>
 		</ul>
 	</div>
 	<script type="text/javascript" src="<c:url value="/resources/jquery/jquery.min.js" />"></script>

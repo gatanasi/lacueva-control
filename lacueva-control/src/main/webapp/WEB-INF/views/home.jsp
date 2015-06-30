@@ -4,9 +4,9 @@
 <head>
 	<title>spring-mvc-showcase</title>
 	<link href="<c:url value="/resources/form.css" />" rel="stylesheet"  type="text/css" />		
-	<link href="<c:url value="/resources/jqueryui/jquery-ui.min.css" />" rel="stylesheet" type="text/css"/>
-	<link href="<c:url value="/resources/jqueryui/jquery-ui.theme.min.css" />" rel="stylesheet" type="text/css"/>
-	<link href="<c:url value="/resources/jqueryui/jquery-ui.structure.min.css" />" rel="stylesheet" type="text/css"/>
+	<link href="<c:url value="/resources/jqueryui/themes/UI-lightness/jquery-ui.min.css" />" rel="stylesheet" type="text/css"/>
+	<link href="<c:url value="/resources/jqueryui/themes/UI-lightness/jquery-ui.theme.min.css" />" rel="stylesheet" type="text/css"/>
+	<link href="<c:url value="/resources/jqueryui/themes/UI-lightness/jquery-ui.structure.min.css" />" rel="stylesheet" type="text/css"/>
 	
 	<!--
 		Used for including CSRF token in JSON requests
@@ -448,7 +448,7 @@
 		</ul>
 	</div>
 </div>
-<script type="text/javascript" src="<c:url value="/resources/jquery/jquery-1.11.3.min.js" />"></script>
+<script type="text/javascript" src="<c:url value="/resources/jquery/jquery.min.js" />"></script>
 <script type="text/javascript" src="<c:url value="/resources/jqueryform/jquery.form.min.js" />"></script>
 <script type="text/javascript" src="<c:url value="/resources/jqueryui/jquery-ui.min.js" />"></script>
 <script type="text/javascript" src="<c:url value="/resources/json2.js" />"></script>
