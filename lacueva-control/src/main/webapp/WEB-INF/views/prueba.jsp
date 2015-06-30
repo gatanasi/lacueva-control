@@ -10,12 +10,13 @@
 <body>
 	<div id='cssmenu'>
 		<ul>
-			<li><a href='active'><span>Home</span></a></li>
+			<li><a href='active'><span>Inicio</span></a></li>
 			<li><a href='#'><span>Ventas</span></a></li>
 			<li><a href='#'><span>Ingresos</span></a></li>
 			<li><a href='#'><span>Retiros</span></a></li>
 			<li><a href='#'><span>V&iacute;rgenes</span></a></li>
 			<li><a href='#'><span>Inventarios</span></a></li>
+			<li><a href='#'><span>Resumen</span></a></li>
 			<li class='has-sub'><a href='#'><span>Administraci&oacute;n</span></a>
 				<ul>
 					<li class='has-sub'><a href='#'><span>Items</span></a>
