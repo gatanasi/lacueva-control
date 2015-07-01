@@ -1,7 +1,10 @@
 package com.lacueva.control.dao.impl;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNull;
+
+import java.util.List;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
@@ -64,6 +67,20 @@ public class ItemDaoTest {
 		assertEquals(item.getItemType(), foundItem.getItemType());
 		assertEquals(item.getItemWeight(), foundItem.getItemWeight());
 		assertEquals(item.getItemBurnable(), foundItem.getItemBurnable());
+	}
+
+	@Test
+	public void testFindError() {
+		Item foundItem = itemDao.find(Long.valueOf(Integer.MAX_VALUE));
+
+		assertNull(foundItem);
+	}
+
+	@Test
+	public void testGetAll() {
+		List<Item> foundItems = itemDao.getAll();
+
+		assertNotEquals(0, foundItems.size());
 	}
 
 	@Test

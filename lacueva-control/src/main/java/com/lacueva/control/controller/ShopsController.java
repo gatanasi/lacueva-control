@@ -12,8 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class ShopsController {
 
-	private static final Logger logger = LoggerFactory
-			.getLogger(ShopsController.class);
+	private final Logger logger = LoggerFactory.getLogger(getClass());
 
 	@RequestMapping(value = "/locales", method = RequestMethod.GET)
 	public String shops() {

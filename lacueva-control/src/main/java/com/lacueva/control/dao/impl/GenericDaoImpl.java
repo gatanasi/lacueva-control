@@ -2,6 +2,7 @@ package com.lacueva.control.dao.impl;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -30,43 +31,57 @@ public abstract class GenericDaoImpl<T> implements GenericDao<T> {
 
 	@Override
 	@Transactional
-	public T create(final T t) {
-		logger.info("Persisting " + type.getSimpleName());
-		this.entityManager.persist(t);
-		logger.info("Persisted with data= " + t.toString());
-		return t;
+	public T create(final T obj) {
+		logger.debug("Persisting " + type.getSimpleName());
+		this.entityManager.persist(obj);
+		logger.debug("Persisted with data= " + obj.toString());
+		return obj;
 	}
 
 	@Override
 	@Transactional
 	public void delete(final Object id) {
-		logger.info("Deleting " + type.getSimpleName() + " with ID= "
+		logger.debug("Deleting " + type.getSimpleName() + " with ID= "
 				+ id.toString());
 		this.entityManager.remove(this.entityManager.getReference(type, id));
-		logger.info("Deleted " + type.getSimpleName() + " with ID= "
+		logger.debug("Deleted " + type.getSimpleName() + " with ID= "
 				+ id.toString());
 	}
 
 	@Override
 	public T find(final Object id) {
-		logger.info("Finding " + type.getSimpleName() + " with ID= "
+		logger.debug("Finding " + type.getSimpleName() + " with ID= "
 				+ id.toString());
 		T t = (T) this.entityManager.find(type, id);
 		if (t == null) {
-			logger.info(type.getSimpleName() + " with ID= " + id.toString()
+			logger.debug(type.getSimpleName() + " with ID= " + id.toString()
 					+ " NOT FOUND");
 		} else {
-			logger.info("Found with data= " + t.toString());
+			logger.debug("Found with data= " + t.toString());
 		}
 		return t;
 	}
 
 	@Override
 	@Transactional
-	public T update(final T t) {
-		logger.info("Merging " + type.getSimpleName());
-		T tM = (T) this.entityManager.merge(t);
-		logger.info("Merged with data= " + tM.toString());
+	public T update(final T obj) {
+		logger.debug("Merging " + type.getSimpleName());
+		T tM = (T) this.entityManager.merge(obj);
+		logger.debug("Merged with data= " + tM.toString());
 		return tM;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<T> getAll() {
+		logger.debug("Getting all " + type.getSimpleName());
+		List<T> tF = (List<T>) this.entityManager.createQuery(
+				"SELECT a FROM " + type.getSimpleName() + " a").getResultList();
+		if (tF == null || tF.size() == 0) {
+			logger.debug("No " + type.getSimpleName() + " FOUND");
+		} else {
+			logger.debug("Found with data= " + tF.toString());
+		}
+		return tF;
 	}
 }
