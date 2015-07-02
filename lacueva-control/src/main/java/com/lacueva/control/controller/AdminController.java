@@ -75,7 +75,7 @@ public class AdminController {
 			logger.info(item.toString());
 		}
 
-		String message = "Form submitted successfully.  Bound " + item;
+		String message = "Información grabada correctamente";
 
 		redirectAttrs.addFlashAttribute("message", message);
 
