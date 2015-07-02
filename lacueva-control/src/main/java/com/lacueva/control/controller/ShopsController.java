@@ -18,7 +18,7 @@ public class ShopsController {
 	public String shops() {
 		logger.info("Menu Locales");
 
-		return "shops";
+		return "inputs";
 	}
 
 }

@@ -82,12 +82,24 @@ public class AdminController {
 		return "redirect:/admin/items/create";
 	}
 
-	public void prepare(Model model) {
-		List<Item> itemsList;
+	@RequestMapping(value = "/shops", method = RequestMethod.GET)
+	public String shops(Model model) {
+		logger.info("Welcome items!");
 
+		prepare(model);
+		List<Shop> shopsList = shopDao.getAll();
+
+		model.addAttribute("shops", shopsList);
+
+		logger.info(shopsList.toString());
+
+		return "shops";
+	}
+
+	public void prepare(Model model) {
 		Shop shop;
 
-		itemsList = new ArrayList<Item>();
+		List<Item> itemsList = new ArrayList<Item>();
 		Item itemforList = new Item();
 		itemforList.setItemType("ENVELOPE_WITH_FLAP");
 		itemforList.setItemWeight(1.3f);
@@ -95,6 +107,14 @@ public class AdminController {
 		itemDao.create(itemforList);
 
 		itemsList.add(itemforList);
+
+		Item itemforList2 = new Item();
+		itemforList2.setItemType("DVD");
+		itemforList2.setItemWeight(14.8f);
+		itemforList2.setItemBurnable(true);
+		itemDao.create(itemforList2);
+
+		itemsList.add(itemforList2);
 
 		shop = new Shop();
 		try {

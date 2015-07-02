@@ -4,7 +4,7 @@
 <html>
 <head>
 	<title>Redirect Results</title>
-	<link href="<c:url value="/resources/form.css" />" rel="stylesheet"  type="text/css" />		
+	<link href="<c:url value="/resources/css/form.css" />" rel="stylesheet"  type="text/css" />		
 </head>
 <body>
 <div class="success">

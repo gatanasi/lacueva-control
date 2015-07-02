@@ -1,12 +1,31 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page session="false"%>
+<!DOCTYPE html>
 <html>
 <head>
-<title>La Cueva</title>
+<title>LaCueva Control</title>
+<link href="<c:url value="/resources/css/prueba.css" />" rel="stylesheet" type="text/css" />
 </head>
 <body>
-	<h1>Locales</h1>
 
-	<P></P>
+	<h1>Administraci&oacute;n de Locales</h1>
+	<table>
+		<tr>
+			<td width="100">Nombre</td>
+			<td width="100">Caja</td>
+			<td width="100">Art&iacute;culos</td>
+		</tr>
+		<c:forEach items="${shops}" var="shop">
+			<tr>
+				<td><c:out value="${shop.shopName}" /></td>
+				<td><c:out value="${shop.shopCash}" /></td>
+
+				<td><c:forEach items="${shop.shopItems}" var="shopItem">
+						<c:out value="${shopItem.itemType}" /> | 
+					</c:forEach></td>
+			</tr>
+		</c:forEach>
+	</table>
 </body>
 </html>
