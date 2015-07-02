@@ -122,7 +122,7 @@ public class Sale implements Serializable {
 
 	@Override
 	public boolean equals(Object obj) {
-		if ((obj != null) && (obj instanceof Sale)) {
+		if ((obj != null) && (obj instanceof Sale) && getId() != null) {
 			final Sale that = (Sale) obj;
 			return getId().equals(that.getId());
 		} else {

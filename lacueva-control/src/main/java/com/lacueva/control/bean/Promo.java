@@ -88,7 +88,7 @@ public class Promo implements Serializable {
 
 	@Override
 	public boolean equals(Object obj) {
-		if ((obj != null) && (obj instanceof Promo)) {
+		if ((obj != null) && (obj instanceof Promo) && getId() != null) {
 			final Promo that = (Promo) obj;
 			return getId().equals(that.getId());
 		} else {

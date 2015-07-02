@@ -118,7 +118,7 @@ public class Input implements Serializable {
 
 	@Override
 	public boolean equals(Object obj) {
-		if ((obj != null) && (obj instanceof Input)) {
+		if ((obj != null) && (obj instanceof Input) && getId() != null) {
 			final Input that = (Input) obj;
 			return getId().equals(that.getId());
 		} else {

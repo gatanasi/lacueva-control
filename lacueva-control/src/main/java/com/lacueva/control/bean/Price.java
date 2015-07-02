@@ -77,7 +77,7 @@ public class Price implements Serializable {
 
 	@Override
 	public boolean equals(Object obj) {
-		if ((obj != null) && (obj instanceof Price)) {
+		if ((obj != null) && (obj instanceof Price) && getId() != null) {
 			final Price that = (Price) obj;
 			return getId().equals(that.getId());
 		} else {

@@ -107,7 +107,7 @@ public class BlankDisc implements Serializable {
 
 	@Override
 	public boolean equals(Object obj) {
-		if ((obj != null) && (obj instanceof BlankDisc)) {
+		if ((obj != null) && (obj instanceof BlankDisc) && getId() != null) {
 			final BlankDisc that = (BlankDisc) obj;
 			return getId().equals(that.getId());
 		} else {

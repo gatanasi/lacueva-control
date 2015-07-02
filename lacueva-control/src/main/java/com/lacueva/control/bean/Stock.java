@@ -105,7 +105,7 @@ public class Stock implements Serializable {
 
 	@Override
 	public boolean equals(Object obj) {
-		if ((obj != null) && (obj instanceof Stock)) {
+		if ((obj != null) && (obj instanceof Stock) && getId() != null) {
 			final Stock that = (Stock) obj;
 			return getId().equals(that.getId());
 		} else {

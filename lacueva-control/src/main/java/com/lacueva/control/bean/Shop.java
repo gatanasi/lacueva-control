@@ -105,7 +105,7 @@ public class Shop implements Serializable {
 
 	@Override
 	public boolean equals(Object obj) {
-		if ((obj != null) && (obj instanceof Shop)) {
+		if ((obj != null) && (obj instanceof Shop) && getId() != null) {
 			final Shop that = (Shop) obj;
 			return getId().equals(that.getId());
 		} else {

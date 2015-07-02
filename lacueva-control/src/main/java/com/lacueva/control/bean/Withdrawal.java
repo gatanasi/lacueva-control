@@ -93,7 +93,7 @@ public class Withdrawal implements Serializable {
 
 	@Override
 	public boolean equals(Object obj) {
-		if ((obj != null) && (obj instanceof Withdrawal)) {
+		if ((obj != null) && (obj instanceof Withdrawal) && getId() != null) {
 			final Withdrawal that = (Withdrawal) obj;
 			return getId().equals(that.getId());
 		} else {

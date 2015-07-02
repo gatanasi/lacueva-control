@@ -9,6 +9,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+import org.springframework.format.annotation.NumberFormat;
 
 /**
  * Entity implementation class for Entity: Item
@@ -30,9 +34,12 @@ public class Item implements Serializable {
 	private Long id;
 
 	@Column(name = "ITEM_TYPE", nullable = false)
+	@NotNull
+	@Size(min = 1)
 	private String itemType;
 
 	@Column(name = "ITEM_WEIGHT")
+	@NumberFormat
 	private Float itemWeight;
 
 	@Column(name = "ITEM_BURNABLE")
@@ -85,7 +92,7 @@ public class Item implements Serializable {
 
 	@Override
 	public boolean equals(Object obj) {
-		if ((obj != null) && (obj instanceof Item)) {
+		if ((obj != null) && (obj instanceof Item) && getId() != null) {
 			final Item that = (Item) obj;
 			return getId().equals(that.getId());
 		} else {

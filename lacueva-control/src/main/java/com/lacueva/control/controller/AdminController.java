@@ -5,13 +5,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.validation.Valid;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.lacueva.control.bean.Item;
 import com.lacueva.control.bean.Sale;
@@ -40,8 +45,8 @@ public class AdminController {
 	private ItemDao itemDao;
 
 	@RequestMapping(value = "/items", method = RequestMethod.GET)
-	public String sales(Model model) {
-		logger.info("Welcome sales!");
+	public String items(Model model) {
+		logger.info("Welcome items!");
 
 		prepare(model);
 		List<Item> itemsList = itemDao.getAll();
@@ -51,6 +56,30 @@ public class AdminController {
 		logger.info(itemsList.toString());
 
 		return "items";
+	}
+
+	@RequestMapping(value = "/items/create", method = RequestMethod.GET)
+	public ModelAndView itemsCreate() {
+		return new ModelAndView("editItem", "item", new Item());
+
+	}
+
+	@RequestMapping(value = "/items/create", method = RequestMethod.POST)
+	public String processSubmit(@Valid @ModelAttribute Item item,
+			BindingResult result, Model model, RedirectAttributes redirectAttrs) {
+		if (result.hasErrors()) {
+			return "editItem";
+		}
+
+		if (item != null) {
+			logger.info(item.toString());
+		}
+
+		String message = "Form submitted successfully.  Bound " + item;
+
+		redirectAttrs.addFlashAttribute("message", message);
+
+		return "redirect:/admin/items/create";
 	}
 
 	public void prepare(Model model) {
