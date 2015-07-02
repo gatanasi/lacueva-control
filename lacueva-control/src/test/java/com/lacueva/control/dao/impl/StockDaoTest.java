@@ -16,7 +16,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.lacueva.control.bean.Item;
-import com.lacueva.control.bean.ItemType;
 import com.lacueva.control.bean.Shop;
 import com.lacueva.control.bean.Stock;
 import com.lacueva.control.commons.DateUtilThreadSafe;
@@ -49,7 +48,7 @@ public class StockDaoTest {
 	@Before
 	public void before() throws ParseException {
 		item = new Item();
-		item.setItemType(ItemType.DVD);
+		item.setItemType("DVD");
 		item.setItemWeight(16.4f);
 		item.setItemBurnable(false);
 

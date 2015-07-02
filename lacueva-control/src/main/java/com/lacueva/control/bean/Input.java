@@ -110,7 +110,7 @@ public class Input implements Serializable {
 
 	{
 		return "Input [inputId=" + getId() + ", inputDate=" + getInputDate()
-				+ ", inputItemType=" + getInputItem().getItemType().getText()
+				+ ", inputItemType=" + getInputItem().getItemType()
 				+ ", inputQuantity=" + getInputQuantity()
 				+ ", inputProviderName=" + getInputProvider().getProviderName()
 				+ ", inputShopName=" + getInputShop().getShopName() + "]";

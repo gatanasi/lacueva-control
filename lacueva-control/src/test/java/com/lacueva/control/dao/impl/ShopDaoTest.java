@@ -19,7 +19,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.lacueva.control.bean.Item;
-import com.lacueva.control.bean.ItemType;
 import com.lacueva.control.bean.Shop;
 import com.lacueva.control.commons.DateUtilThreadSafe;
 import com.lacueva.control.dao.ItemDao;
@@ -46,7 +45,7 @@ public class ShopDaoTest {
 	public void before() throws ParseException {
 		itemsList = new ArrayList<Item>();
 		Item itemforList = new Item();
-		itemforList.setItemType(ItemType.ENVELOPE_WITH_FLAP);
+		itemforList.setItemType("ENVELOPE_WITH_FLAP");
 		itemforList.setItemWeight(1.3f);
 		itemforList.setItemBurnable(false);
 		itemDao.create(itemforList);
@@ -66,7 +65,7 @@ public class ShopDaoTest {
 	public void testCreate() throws ParseException {
 		List<Item> itemsListCreate = new ArrayList<Item>();
 		Item itemforListCreate = new Item();
-		itemforListCreate.setItemType(ItemType.DVD);
+		itemforListCreate.setItemType("DVD");
 		itemforListCreate.setItemWeight(16.4f);
 		itemforListCreate.setItemBurnable(false);
 		itemDao.create(itemforListCreate);

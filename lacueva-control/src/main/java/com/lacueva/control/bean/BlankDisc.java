@@ -100,9 +100,8 @@ public class BlankDisc implements Serializable {
 	{
 		return "BlankDisc [blankDiscId=" + getId() + ", blankDiscDate="
 				+ getBlankDiscDate() + ", blankDiscItemType="
-				+ getBlankDiscItem().getItemType().getText()
-				+ ", blankDiscQuantity=" + getBlankDiscQuantity()
-				+ ", blankDiscProviderName="
+				+ getBlankDiscItem().getItemType() + ", blankDiscQuantity="
+				+ getBlankDiscQuantity() + ", blankDiscProviderName="
 				+ getBlankDiscProvider().getProviderName() + "]";
 	}
 

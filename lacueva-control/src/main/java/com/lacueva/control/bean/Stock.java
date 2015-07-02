@@ -99,7 +99,7 @@ public class Stock implements Serializable {
 	{
 		return "Stock [stockId=" + getId() + ", stockDate=" + getStockDate()
 				+ ", stockShopName=" + getStockShop().getShopName()
-				+ ", stockItemType=" + getStockItem().getItemType().getText()
+				+ ", stockItemType=" + getStockItem().getItemType()
 				+ ", stockQuantity=" + getStockQuantity() + "]";
 	}
 

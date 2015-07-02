@@ -71,7 +71,7 @@ public class Price implements Serializable {
 
 	{
 		return "Price [priceId=" + getId() + ", priceItemType="
-				+ getPriceItem().getItemType().getText() + ", priceValue="
+				+ getPriceItem().getItemType() + ", priceValue="
 				+ getPriceValue() + "]";
 	}
 

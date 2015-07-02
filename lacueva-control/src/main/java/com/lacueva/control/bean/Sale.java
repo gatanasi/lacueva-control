@@ -115,7 +115,7 @@ public class Sale implements Serializable {
 	{
 		return "Sale [saleId=" + getId() + ", saleDate=" + getSaleDate()
 				+ ", saleShopName=" + getSaleShop().getShopName()
-				+ ", saleItemType=" + getSaleItem().getItemType().getText()
+				+ ", saleItemType=" + getSaleItem().getItemType()
 				+ ", saleQuantity=" + getSaleQuantity() + ", saleAmount="
 				+ getSaleAmount() + "]";
 	}

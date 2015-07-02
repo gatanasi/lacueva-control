@@ -17,7 +17,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.lacueva.control.bean.BlankDisc;
 import com.lacueva.control.bean.Item;
-import com.lacueva.control.bean.ItemType;
 import com.lacueva.control.bean.Provider;
 import com.lacueva.control.commons.DateUtilThreadSafe;
 import com.lacueva.control.dao.BlankDiscDao;
@@ -49,7 +48,7 @@ public class BlankDiscDaoTest {
 	@Before
 	public void before() throws ParseException {
 		item = new Item();
-		item.setItemType(ItemType.DVD);
+		item.setItemType("DVD");
 		item.setItemWeight(16.4f);
 		item.setItemBurnable(false);
 

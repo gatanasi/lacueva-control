@@ -82,7 +82,7 @@ public class Promo implements Serializable {
 
 	{
 		return "Promo [promoId=" + getId() + ", promoItemType="
-				+ getPromoItem().getItemType().getText() + ", promoQuantity="
+				+ getPromoItem().getItemType() + ", promoQuantity="
 				+ getPromoQuantity() + ", promoValue=" + getPromoValue() + "]";
 	}
 

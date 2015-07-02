@@ -14,7 +14,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.lacueva.control.bean.Item;
-import com.lacueva.control.bean.ItemType;
 import com.lacueva.control.bean.Price;
 import com.lacueva.control.dao.ItemDao;
 import com.lacueva.control.dao.PriceDao;
@@ -39,7 +38,7 @@ public class PriceDaoTest {
 	@Before
 	public void before() {
 		item = new Item();
-		item.setItemType(ItemType.DVD);
+		item.setItemType("DVD");
 		item.setItemWeight(16.4f);
 		item.setItemBurnable(false);
 

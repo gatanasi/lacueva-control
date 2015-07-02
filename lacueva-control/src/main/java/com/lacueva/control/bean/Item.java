@@ -4,8 +4,6 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -32,8 +30,7 @@ public class Item implements Serializable {
 	private Long id;
 
 	@Column(name = "ITEM_TYPE", nullable = false)
-	@Enumerated(EnumType.STRING)
-	private ItemType itemType;
+	private String itemType;
 
 	@Column(name = "ITEM_WEIGHT")
 	private Float itemWeight;
@@ -53,11 +50,11 @@ public class Item implements Serializable {
 		this.id = id;
 	}
 
-	public ItemType getItemType() {
+	public String getItemType() {
 		return itemType;
 	}
 
-	public void setItemType(ItemType itemType) {
+	public void setItemType(String itemType) {
 		this.itemType = itemType;
 	}
 
@@ -81,9 +78,9 @@ public class Item implements Serializable {
 	public String toString()
 
 	{
-		return "Item [itemId=" + getId() + ", itemType="
-				+ getItemType().getText() + ", itemWeight=" + getItemWeight()
-				+ ", itemBurnable=" + getItemBurnable() + "]";
+		return "Item [itemId=" + getId() + ", itemType=" + getItemType()
+				+ ", itemWeight=" + getItemWeight() + ", itemBurnable="
+				+ getItemBurnable() + "]";
 	}
 
 	@Override

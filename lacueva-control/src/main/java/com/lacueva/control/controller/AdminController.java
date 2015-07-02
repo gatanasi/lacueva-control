@@ -25,8 +25,8 @@ import com.lacueva.control.dao.ShopDao;
  * Handles requests for the application sales.
  */
 @Controller
-@RequestMapping(value = "/sales")
-public class SalesController {
+@RequestMapping(value = "/admin")
+public class AdminController {
 
 	private final Logger logger = LoggerFactory.getLogger(getClass());
 
@@ -39,26 +39,18 @@ public class SalesController {
 	@Inject
 	private ItemDao itemDao;
 
-	@RequestMapping(value = "/list", method = RequestMethod.GET)
+	@RequestMapping(value = "/items", method = RequestMethod.GET)
 	public String sales(Model model) {
 		logger.info("Welcome sales!");
 
 		prepare(model);
-		List<Sale> salesList = new ArrayList<Sale>();
-		try {
-			salesList = saleDao.findSalesByShopAndBetweenDates((Shop) model
-					.asMap().get("shop"), DateUtilThreadSafe
-					.parse("2015-02-09"), DateUtilThreadSafe
-					.parse("2015-02-12"));
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
+		List<Item> itemsList = itemDao.getAll();
 
-		model.addAttribute("sales", salesList);
+		model.addAttribute("items", itemsList);
 
-		logger.info(salesList.toString());
+		logger.info(itemsList.toString());
 
-		return "sales";
+		return "items";
 	}
 
 	public void prepare(Model model) {

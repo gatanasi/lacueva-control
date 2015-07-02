@@ -10,22 +10,18 @@
 </head>
 <body>
 
-	<h1>Ventas local ${shop.shopName}</h1>
+	<h1>Administraci&oacute;n de Art&iacute;culos</h1>
 	<table>
 		<tr>
-			<td width="0">Id</td>
-			<td width="100">saleDate</td>
-			<td width="100">itemType</td>
-			<td width="100">saleQuantity</td>
-			<td width="100">saleAmount</td>
+			<td width="100">Tipo</td>
+			<td width="100">Peso</td>
+			<td width="100">Grabable</td>
 		</tr>
-		<c:forEach items="${sales}" var="sale">
+		<c:forEach items="${items}" var="item">
 			<tr>
-				<td><c:out value="${sale.id}" /></td>
-				<td><c:out value="${sale.saleDate}" /></td>
-				<td><c:out value="${sale.saleItem.itemType}" /></td>
-				<td><c:out value="${sale.saleQuantity}" /></td>
-				<td><c:out value="${sale.saleAmount}" /></td>
+				<td><c:out value="${item.itemType}" /></td>
+				<td><c:out value="${item.itemWeight}" /></td>
+				<td><c:out value="${item.itemBurnable}" /></td>
 			</tr>
 		</c:forEach>
 	</table>
