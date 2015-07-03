@@ -32,6 +32,10 @@ public class Price implements Serializable {
 	private Long id;
 
 	@OneToOne
+	@JoinColumn(name = "PRICE_SHOP_ID")
+	private Shop priceShop;
+
+	@OneToOne
 	@JoinColumn(name = "PRICE_ITEM_ID")
 	private Item priceItem;
 

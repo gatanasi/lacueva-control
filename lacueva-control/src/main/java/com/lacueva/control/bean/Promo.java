@@ -32,6 +32,10 @@ public class Promo implements Serializable {
 	private Long id;
 
 	@OneToOne
+	@JoinColumn(name = "PROMO_SHOP_ID")
+	private Shop promoShop;
+
+	@OneToOne
 	@JoinColumn(name = "PROMO_ITEM_ID")
 	private Item promoItem;
 
