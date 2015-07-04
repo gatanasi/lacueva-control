@@ -1,26 +1,27 @@
-<%@ include file="header.jsp"%>
-<div id="shops">
-	<h1>Administraci&oacute;n de Locales</h1>
-</div>
-<div class="table-responsive">
-	<table class="table table-condensed">
-		<tr>
-			<td width="100">Nombre</td>
-			<td width="100">Caja</td>
-			<td width="100">Art&iacute;culos</td>
-		</tr>
-		<c:forEach items="${shops}" var="shop">
-			<tr>
-				<td><c:out value="${shop.shopName}" /></td>
-				<td><c:out value="${shop.shopCash}" /></td>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<div class="panel panel-primary">
+	<div class="panel-heading">
+		<h3 class="panel-title">Administraci&oacute;n de Locales</h3>
+	</div>
+	<div class="panel-body">
+		<div id="table">
+			<table class="table table-condensed">
+				<tr>
+					<th>Nombre</th>
+					<th>Caja</th>
+					<th>Art&iacute;culos</th>
+				</tr>
+				<c:forEach items="${shops}" var="shop">
+					<tr>
+						<td class="text"><c:out value="${shop.shopName}" /></td>
+						<td class="text"><c:out value="${shop.shopCash}" /></td>
 
-				<td><c:forEach items="${shop.shopItems}" var="shopItem">
-						<c:out value="${shopItem.itemType}" /> | 
+						<td class="text"><c:forEach items="${shop.shopItems}" var="shopItem">
+								<c:out value="${shopItem.itemType}" /> | 
 					</c:forEach></td>
-			</tr>
-		</c:forEach>
-	</table>
+					</tr>
+				</c:forEach>
+			</table>
+		</div>
+	</div>
 </div>
-<script type="text/javascript" src="<c:url value="/resources/js/jquery/jquery.min.js" />"></script>
-<script type="text/javascript" src="<c:url value="/resources/js/bootstrap/bootstrap.min.js" />"></script>
-<%@ include file="footer.jsp"%>

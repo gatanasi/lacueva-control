@@ -44,8 +44,6 @@
 		</div>
 	</form:form>
 </div>
-<script type="text/javascript" src="<c:url value="/resources/js/jquery/jquery.min.js" />"></script>
-<script type="text/javascript" src="<c:url value="/resources/js/bootstrap/bootstrap.min.js" />"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
 		$("#form").submit(function() {
