@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.slf4j.Logger;
@@ -47,7 +48,6 @@ public class AdminController {
 	public String items(Model model) {
 		logger.info("Welcome items!");
 
-		prepare(model);
 		List<Item> itemsList = itemDao.getAll();
 
 		model.addAttribute("items", itemsList);
@@ -85,7 +85,6 @@ public class AdminController {
 	public String shops(Model model) {
 		logger.info("Welcome items!");
 
-		prepare(model);
 		List<Shop> shopsList = shopDao.getAll();
 
 		model.addAttribute("shops", shopsList);
@@ -95,12 +94,14 @@ public class AdminController {
 		return "shops";
 	}
 
-	public void prepare(Model model) {
+	@RequestMapping(value = "/logout", method = RequestMethod.GET)
+	public String prepare(HttpSession httpSession) {
+
 		Shop shop;
 
 		List<Item> itemsList = new ArrayList<Item>();
 		Item itemforList = new Item();
-		itemforList.setItemType("ENVELOPE_WITH_FLAP");
+		itemforList.setItemType("Sobre");
 		itemforList.setItemWeight(1.3f);
 		itemforList.setItemBurnable(false);
 		itemDao.create(itemforList);
@@ -124,14 +125,12 @@ public class AdminController {
 		shop.setShopName("Shop1");
 		shop.setShopCash(2000);
 		shop.setShopItems(itemsList);
-
 		shopDao.create(shop);
 
 		Item item = new Item();
 		item.setItemType("DVD");
 		item.setItemWeight(16.4f);
 		item.setItemBurnable(false);
-
 		itemDao.create(item);
 
 		Sale sale = new Sale();
@@ -144,15 +143,12 @@ public class AdminController {
 		sale.setSaleItem(item);
 		sale.setSaleQuantity(50);
 		sale.setSaleAmount(10f);
-		;
-
 		saleDao.create(sale);
 
 		Item item2 = new Item();
 		item2.setItemType("BD");
 		item2.setItemWeight(10f);
 		item2.setItemBurnable(true);
-
 		itemDao.create(item2);
 
 		Sale sale2 = new Sale();
@@ -165,10 +161,10 @@ public class AdminController {
 		sale2.setSaleItem(item2);
 		sale2.setSaleQuantity(50);
 		sale2.setSaleAmount(10f);
-		;
-
 		saleDao.create(sale2);
 
-		model.addAttribute("shop", shop);
+		httpSession.setAttribute("shop", shop);
+
+		return "redirect:/";
 	}
 }

@@ -5,7 +5,7 @@
 	</div>
 	<div class="panel-body">
 		<div id="table">
-			<table class="table table-condensed">
+			<table class="table table-striped table-bordered" id="shopsTable">
 				<tr>
 					<th>Nombre</th>
 					<th>Caja</th>
