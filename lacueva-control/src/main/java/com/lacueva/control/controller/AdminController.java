@@ -27,10 +27,9 @@ import com.lacueva.control.dao.SaleDao;
 import com.lacueva.control.dao.ShopDao;
 
 /**
- * Handles requests for the application sales.
+ * Handles requests for the application admin.
  */
 @Controller
-@RequestMapping(value = "/admin")
 public class AdminController {
 
 	private final Logger logger = LoggerFactory.getLogger(getClass());

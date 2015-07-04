@@ -113,11 +113,20 @@ public class Sale implements Serializable {
 	public String toString()
 
 	{
-		return "Sale [saleId=" + getId() + ", saleDate=" + getSaleDate()
-				+ ", saleShopName=" + getSaleShop().getShopName()
-				+ ", saleItemType=" + getSaleItem().getItemType()
-				+ ", saleQuantity=" + getSaleQuantity() + ", saleAmount="
-				+ getSaleAmount() + "]";
+		StringBuilder sb = new StringBuilder("Sale [");
+		sb.append("saleId=").append(getId()).append(", saleDate=")
+				.append(getSaleDate()).append(", saleShopName=");
+		if (getSaleShop() != null) {
+			sb.append(getSaleShop().getShopName());
+		}
+		sb.append(", saleItemType=");
+		if (getSaleItem() != null) {
+			sb.append(getSaleItem().getItemType());
+		}
+		sb.append(", saleQuantity=").append(getSaleQuantity())
+				.append(", saleAmount=").append(getSaleAmount()).append("]");
+
+		return sb.toString();
 	}
 
 	@Override
