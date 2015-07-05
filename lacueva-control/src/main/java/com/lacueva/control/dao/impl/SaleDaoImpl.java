@@ -1,5 +1,6 @@
 package com.lacueva.control.dao.impl;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -17,22 +18,30 @@ public class SaleDaoImpl extends GenericDaoImpl<Sale> implements SaleDao {
 
 	@Override
 	public List<Sale> findSalesByShopAndDate(Shop shop, Date date) {
-		TypedQuery<Sale> query = entityManager.createNamedQuery(
-				"Sales.findByShopAndDate", Sale.class);
-		query.setParameter("shop", shop);
-		query.setParameter("date", date, TemporalType.DATE);
-		return query.getResultList();
+		if (shop == null || shop.getId() == null || date == null) {
+			return new ArrayList<Sale>();
+		} else {
+			TypedQuery<Sale> query = entityManager.createNamedQuery(
+					"Sales.findByShopAndDate", Sale.class);
+			query.setParameter("shop", shop);
+			query.setParameter("date", date, TemporalType.DATE);
+			return query.getResultList();
+		}
 	}
 
 	@Override
 	public List<Sale> findSalesByShopAndBetweenDates(Shop shop, Date startDate,
 			Date endDate) {
-		TypedQuery<Sale> query = entityManager.createNamedQuery(
-				"Sales.findByShopAndBetweenDates", Sale.class);
-		query.setParameter("shop", shop);
-		query.setParameter("startDate", startDate, TemporalType.DATE);
-		query.setParameter("endDate", endDate, TemporalType.DATE);
-		return query.getResultList();
+		if (shop == null || shop.getId() == null || startDate == null
+				|| endDate == null) {
+			return new ArrayList<Sale>();
+		} else {
+			TypedQuery<Sale> query = entityManager.createNamedQuery(
+					"Sales.findByShopAndBetweenDates", Sale.class);
+			query.setParameter("shop", shop);
+			query.setParameter("startDate", startDate, TemporalType.DATE);
+			query.setParameter("endDate", endDate, TemporalType.DATE);
+			return query.getResultList();
+		}
 	}
-
 }

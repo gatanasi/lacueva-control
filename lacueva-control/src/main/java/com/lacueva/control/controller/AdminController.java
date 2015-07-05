@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
-import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.slf4j.Logger;
@@ -16,6 +15,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -31,6 +32,7 @@ import com.lacueva.control.dao.ShopDao;
  * Handles requests for the application admin.
  */
 @Controller
+@SessionAttributes("currShop")
 public class AdminController {
 
 	private final Logger logger = LoggerFactory.getLogger(getClass());
@@ -94,8 +96,15 @@ public class AdminController {
 		return "shops";
 	}
 
+	@RequestMapping(value = "/dashboard", method = RequestMethod.GET)
+	public String dashboard(SessionStatus status) {
+		status.setComplete();
+		return "redirect:/";
+
+	}
+
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)
-	public String prepare(HttpSession httpSession) {
+	public String prepare(Model model) {
 
 		Shop shop;
 
@@ -163,7 +172,7 @@ public class AdminController {
 		sale2.setSaleAmount(10f);
 		saleDao.create(sale2);
 
-		httpSession.setAttribute("shop", shop);
+		model.addAttribute("currShop", shop);
 
 		return "redirect:/";
 	}

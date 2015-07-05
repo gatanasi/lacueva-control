@@ -1,11 +1,11 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <div class="panel panel-primary">
 	<div class="panel-heading">
-		<h3 class="panel-title">Ventas local ${shop.shopName}</h3>
+		<h3 class="panel-title">Ventas local ${currShop.shopName}</h3>
 	</div>
 	<div class="panel-body">
 		<div id="table">
-			<table class="table table-striped table-bordered" id="itemsTable">
+			<table class="table table-striped table-bordered" id="salesTable">
 				<tr>
 					<th>Fecha</th>
 					<th>Tipo</th>
