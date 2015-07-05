@@ -97,10 +97,19 @@ public class Stock implements Serializable {
 	public String toString()
 
 	{
-		return "Stock [stockId=" + getId() + ", stockDate=" + getStockDate()
-				+ ", stockShopName=" + getStockShop().getShopName()
-				+ ", stockItemType=" + getStockItem().getItemType()
-				+ ", stockQuantity=" + getStockQuantity() + "]";
+		StringBuilder sb = new StringBuilder("Stock [");
+		sb.append("stockId=").append(getId()).append(", stockDate=")
+				.append(getStockDate()).append(", stockShopName=");
+		if (getStockShop() != null) {
+			sb.append(getStockShop().getShopName());
+		}
+		sb.append(", stockItemType=");
+		if (getStockItem() != null) {
+			sb.append(getStockItem().getItemType());
+		}
+		sb.append(", stockQuantity=").append(getStockQuantity()).append("]");
+
+		return sb.toString();
 	}
 
 	@Override

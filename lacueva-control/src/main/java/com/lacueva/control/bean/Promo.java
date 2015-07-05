@@ -85,9 +85,15 @@ public class Promo implements Serializable {
 	public String toString()
 
 	{
-		return "Promo [promoId=" + getId() + ", promoItemType="
-				+ getPromoItem().getItemType() + ", promoQuantity="
-				+ getPromoQuantity() + ", promoValue=" + getPromoValue() + "]";
+		StringBuilder sb = new StringBuilder("Promo [");
+		sb.append("promoId=").append(getId()).append(", promoItemType=");
+		if (getPromoItem() != null) {
+			sb.append(getPromoItem().getItemType());
+		}
+		sb.append(", promoQuantity=").append(getPromoQuantity())
+				.append(", promoValue=").append(getPromoValue()).append("]");
+
+		return sb.toString();
 	}
 
 	@Override

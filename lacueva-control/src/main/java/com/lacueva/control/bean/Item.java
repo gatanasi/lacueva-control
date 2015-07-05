@@ -85,9 +85,13 @@ public class Item implements Serializable {
 	public String toString()
 
 	{
-		return "Item [itemId=" + getId() + ", itemType=" + getItemType()
-				+ ", itemWeight=" + getItemWeight() + ", itemBurnable="
-				+ getItemBurnable() + "]";
+		StringBuilder sb = new StringBuilder("Item [");
+		sb.append("itemId=").append(getId()).append(", itemType=")
+				.append(getItemType()).append(", itemWeight=")
+				.append(getItemWeight()).append(", itemBurnable=")
+				.append(getItemBurnable()).append("]");
+
+		return sb.toString();
 	}
 
 	@Override

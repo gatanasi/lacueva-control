@@ -56,8 +56,11 @@ public class Provider implements Serializable {
 	public String toString()
 
 	{
-		return "Provider [providerId=" + getId() + ", providerName="
-				+ getProviderName() + "]";
+		StringBuilder sb = new StringBuilder("Provider [");
+		sb.append("providerId=").append(getId()).append(", providerName=")
+				.append(getProviderName()).append("]");
+
+		return sb.toString();
 	}
 
 	@Override

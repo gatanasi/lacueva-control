@@ -109,11 +109,24 @@ public class Input implements Serializable {
 	public String toString()
 
 	{
-		return "Input [inputId=" + getId() + ", inputDate=" + getInputDate()
-				+ ", inputItemType=" + getInputItem().getItemType()
-				+ ", inputQuantity=" + getInputQuantity()
-				+ ", inputProviderName=" + getInputProvider().getProviderName()
-				+ ", inputShopName=" + getInputShop().getShopName() + "]";
+		StringBuilder sb = new StringBuilder("Input");
+		sb.append("inputId=").append(getId()).append(", inputDate=")
+				.append(getInputDate()).append(", inputItemType=");
+		if (getInputItem() != null) {
+			sb.append(getInputItem().getItemType());
+		}
+		sb.append(", inputQuantity=").append(getInputQuantity())
+				.append(", inputProviderName=");
+		if (getInputProvider() != null) {
+			sb.append(getInputProvider().getProviderName());
+		}
+		sb.append(", inputShopName=");
+		if (getInputShop() != null) {
+			sb.append(getInputShop().getShopName());
+		}
+		sb.append("]");
+
+		return sb.toString();
 	}
 
 	@Override

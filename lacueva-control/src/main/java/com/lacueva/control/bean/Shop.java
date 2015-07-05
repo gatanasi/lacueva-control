@@ -98,9 +98,14 @@ public class Shop implements Serializable {
 	public String toString()
 
 	{
-		return "Shop [shopId=" + getId() + ", shopDate=" + getShopDate()
-				+ ", shopName=" + getShopName() + ", shopCash=" + getShopCash()
-				+ ", shopItems=" + getShopItems() + "]";
+		StringBuilder sb = new StringBuilder("Shop [");
+		sb.append("shopId=").append(getId()).append(", shopDate=")
+				.append(getShopDate()).append(", shopName=")
+				.append(getShopName()).append(", shopCash=")
+				.append(getShopCash()).append(", shopItems=")
+				.append(getShopItems()).append("]");
+
+		return sb.toString();
 	}
 
 	@Override

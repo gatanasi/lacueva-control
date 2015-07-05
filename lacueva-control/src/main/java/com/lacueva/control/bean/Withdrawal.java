@@ -85,10 +85,16 @@ public class Withdrawal implements Serializable {
 	public String toString()
 
 	{
-		return "Withdrawal [withdrawalId=" + getId() + ", withdrawalDate="
-				+ getWithdrawalDate() + ", withdrawalShopName="
-				+ getWithdrawalShop().getShopName() + ", withdrawalAmount="
-				+ getWithdrawalAmount() + "]";
+		StringBuilder sb = new StringBuilder("Withdrawal [");
+		sb.append("withdrawalId=").append(getId()).append(", withdrawalDate=")
+				.append(getWithdrawalDate()).append(", withdrawalShopName=");
+		if (getWithdrawalShop() != null) {
+			sb.append(getWithdrawalShop().getShopName());
+		}
+		sb.append(", withdrawalAmount=").append(getWithdrawalAmount())
+				.append("]");
+
+		return sb.toString();
 	}
 
 	@Override

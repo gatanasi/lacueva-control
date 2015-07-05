@@ -74,9 +74,14 @@ public class Price implements Serializable {
 	public String toString()
 
 	{
-		return "Price [priceId=" + getId() + ", priceItemType="
-				+ getPriceItem().getItemType() + ", priceValue="
-				+ getPriceValue() + "]";
+		StringBuilder sb = new StringBuilder("Price [");
+		sb.append("priceId=").append(getId()).append(", priceItemType=");
+		if (getPriceItem() != null) {
+			sb.append(getPriceItem().getItemType());
+		}
+		sb.append(", priceValue=").append(getPriceValue()).append("]");
+
+		return sb.toString();
 	}
 
 	@Override
