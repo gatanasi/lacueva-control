@@ -26,15 +26,16 @@
 					</c:forEach>
 				</tbody>
 			</table>
-			<input type="submit">
+			<div id="controlButtons">
+				<button value="add" id="addbtn">Agregar fila</button>
+				<button value="delete" id="delbtn">Borrar fila seleccionada</button>
+			</div>
 		</div>
 	</div>
 </div>
-<div id="controlButtons">
-	<button value="add" id="addbtn">Add row</button>
-	<button value="delete" id="delbtn">Delete row</button>
-</div>
 
-<link href="<c:url value="/resources/css/datatables/jquery.dataTables.min.css" />" rel="stylesheet" type="text/css" />
+<!--<link href="<c:url value="/resources/css/datatables/jquery.dataTables.min.css" />" rel="stylesheet" type="text/css" />-->
+<link href="<c:url value="/resources/css/datatables/dataTables.bootstrap.css" />" rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="<c:url value="/resources/js/datatables/jquery.dataTables.min.js" />" defer></script>
+<script type="text/javascript" src="<c:url value="/resources/js/datatables/dataTables.bootstrap.min.js" />" defer></script>
 <script type="text/javascript" src="<c:url value="/resources/js/sales.js" />" defer></script>
