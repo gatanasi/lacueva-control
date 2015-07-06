@@ -6,6 +6,6 @@ import com.lacueva.control.bean.Price;
 import com.lacueva.control.dao.PriceDao;
 
 @Repository("priceDao")
-public class PriceDaoImpl extends GenericDaoImpl<Price> implements PriceDao {
+public class PriceDaoImpl extends GenericDaoImpl<Price>implements PriceDao {
 
 }

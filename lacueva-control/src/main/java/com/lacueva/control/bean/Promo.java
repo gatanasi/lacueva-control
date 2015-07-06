@@ -90,8 +90,8 @@ public class Promo implements Serializable {
 		if (getPromoItem() != null) {
 			sb.append(getPromoItem().getItemType());
 		}
-		sb.append(", promoQuantity=").append(getPromoQuantity())
-				.append(", promoValue=").append(getPromoValue()).append("]");
+		sb.append(", promoQuantity=").append(getPromoQuantity()).append(", promoValue=").append(getPromoValue())
+				.append("]");
 
 		return sb.toString();
 	}

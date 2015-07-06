@@ -65,8 +65,7 @@ public class PromoDaoTest {
 
 		assertEquals(promoCreate, foundPromo);
 		assertEquals(promoCreate.getPromoItem(), foundPromo.getPromoItem());
-		assertEquals(promoCreate.getPromoQuantity(),
-				foundPromo.getPromoQuantity());
+		assertEquals(promoCreate.getPromoQuantity(), foundPromo.getPromoQuantity());
 		assertEquals(promoCreate.getPromoValue(), foundPromo.getPromoValue());
 	}
 
@@ -103,8 +102,7 @@ public class PromoDaoTest {
 
 		assertEquals(updatedPromo, foundPromo);
 		assertEquals(updatedPromo.getPromoItem(), foundPromo.getPromoItem());
-		assertEquals(updatedPromo.getPromoQuantity(),
-				foundPromo.getPromoQuantity());
+		assertEquals(updatedPromo.getPromoQuantity(), foundPromo.getPromoQuantity());
 		assertEquals(updatedPromo.getPromoValue(), foundPromo.getPromoValue());
 	}
 }
