@@ -86,7 +86,8 @@ public class StockDaoTest {
 		assertEquals(stockCreate.getStockDate(), foundStock.getStockDate());
 		assertEquals(stockCreate.getStockShop(), foundStock.getStockShop());
 		assertEquals(stockCreate.getStockItem(), foundStock.getStockItem());
-		assertEquals(stockCreate.getStockQuantity(), foundStock.getStockQuantity());
+		assertEquals(stockCreate.getStockQuantity(),
+				foundStock.getStockQuantity());
 	}
 
 	@Test
@@ -126,6 +127,7 @@ public class StockDaoTest {
 		assertEquals(updatedStock.getStockDate(), foundStock.getStockDate());
 		assertEquals(updatedStock.getStockShop(), foundStock.getStockShop());
 		assertEquals(updatedStock.getStockItem(), foundStock.getStockItem());
-		assertEquals(updatedStock.getStockQuantity(), foundStock.getStockQuantity());
+		assertEquals(updatedStock.getStockQuantity(),
+				foundStock.getStockQuantity());
 	}
 }

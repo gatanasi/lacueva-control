@@ -12,7 +12,8 @@ public class DateUtilThreadSafe {
 	 * ThreadLocal ensures they are not called from different threads at the
 	 * same time, without resorting to synchronization
 	 */
-	static class FormattersThreadCache extends ThreadLocal<Map<String, SimpleDateFormat>> {
+	static class FormattersThreadCache extends
+			ThreadLocal<Map<String, SimpleDateFormat>> {
 		@Override
 		protected Map<String, SimpleDateFormat> initialValue() {
 			return new HashMap<String, SimpleDateFormat>();

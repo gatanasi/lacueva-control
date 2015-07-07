@@ -99,8 +99,10 @@ public class Shop implements Serializable {
 
 	{
 		StringBuilder sb = new StringBuilder("Shop [");
-		sb.append("shopId=").append(getId()).append(", shopDate=").append(getShopDate()).append(", shopName=")
-				.append(getShopName()).append(", shopCash=").append(getShopCash()).append(", shopItems=")
+		sb.append("shopId=").append(getId()).append(", shopDate=")
+				.append(getShopDate()).append(", shopName=")
+				.append(getShopName()).append(", shopCash=")
+				.append(getShopCash()).append(", shopItems=")
 				.append(getShopItems()).append("]");
 
 		return sb.toString();

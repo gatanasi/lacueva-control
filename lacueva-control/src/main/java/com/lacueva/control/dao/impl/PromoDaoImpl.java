@@ -12,17 +12,19 @@ import com.lacueva.control.bean.Shop;
 import com.lacueva.control.dao.PromoDao;
 
 @Repository("promoDao")
-public class PromoDaoImpl extends GenericDaoImpl<Promo>implements PromoDao {
+public class PromoDaoImpl extends GenericDaoImpl<Promo> implements PromoDao {
 
 	@Override
-	public Promo findPromoByShopAndItemAndQty(final Shop shop, final Item item, final Integer quantity) {
-		if (shop == null || shop.getId() == null || item == null || item.getId() == null) {
+	public Promo findPromoByShopAndItemAndQty(final Shop shop, final Item item,
+			final Integer quantity) {
+		if (shop == null || shop.getId() == null || item == null
+				|| item.getId() == null) {
 			return new Promo();
 		} else {
 			Integer quantityFind = (quantity == null) ? 0 : quantity;
 
-			TypedQuery<Promo> query = entityManager.createNamedQuery("Promos.findPromoByShopAndItemAndQty",
-					Promo.class);
+			TypedQuery<Promo> query = entityManager.createNamedQuery(
+					"Promos.findPromoByShopAndItemAndQty", Promo.class);
 			query.setParameter("shop", shop);
 			query.setParameter("item", item);
 			query.setParameter("quantity", quantityFind);

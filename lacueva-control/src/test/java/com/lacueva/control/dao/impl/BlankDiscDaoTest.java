@@ -71,7 +71,8 @@ public class BlankDiscDaoTest {
 	@Test
 	public void testCreate() throws ParseException {
 		BlankDisc blankDiscCreate = new BlankDisc();
-		blankDiscCreate.setBlankDiscDate(DateUtilThreadSafe.parse("2015-06-01"));
+		blankDiscCreate
+				.setBlankDiscDate(DateUtilThreadSafe.parse("2015-06-01"));
 		blankDiscCreate.setBlankDiscItem(item);
 		blankDiscCreate.setBlankDiscQuantity(12);
 		blankDiscCreate.setBlankDiscProvider(provider);
@@ -81,10 +82,14 @@ public class BlankDiscDaoTest {
 		BlankDisc foundBlankDisc = blankDiscDao.find(blankDiscCreate.getId());
 
 		assertEquals(blankDiscCreate, foundBlankDisc);
-		assertEquals(blankDiscCreate.getBlankDiscDate(), foundBlankDisc.getBlankDiscDate());
-		assertEquals(blankDiscCreate.getBlankDiscItem(), foundBlankDisc.getBlankDiscItem());
-		assertEquals(blankDiscCreate.getBlankDiscQuantity(), foundBlankDisc.getBlankDiscQuantity());
-		assertEquals(blankDiscCreate.getBlankDiscProvider(), foundBlankDisc.getBlankDiscProvider());
+		assertEquals(blankDiscCreate.getBlankDiscDate(),
+				foundBlankDisc.getBlankDiscDate());
+		assertEquals(blankDiscCreate.getBlankDiscItem(),
+				foundBlankDisc.getBlankDiscItem());
+		assertEquals(blankDiscCreate.getBlankDiscQuantity(),
+				foundBlankDisc.getBlankDiscQuantity());
+		assertEquals(blankDiscCreate.getBlankDiscProvider(),
+				foundBlankDisc.getBlankDiscProvider());
 	}
 
 	@Test
@@ -92,10 +97,14 @@ public class BlankDiscDaoTest {
 		BlankDisc foundBlankDisc = blankDiscDao.find(blankDisc.getId());
 
 		assertEquals(blankDisc, foundBlankDisc);
-		assertEquals(blankDisc.getBlankDiscDate(), foundBlankDisc.getBlankDiscDate());
-		assertEquals(blankDisc.getBlankDiscItem(), foundBlankDisc.getBlankDiscItem());
-		assertEquals(blankDisc.getBlankDiscQuantity(), foundBlankDisc.getBlankDiscQuantity());
-		assertEquals(blankDisc.getBlankDiscProvider(), foundBlankDisc.getBlankDiscProvider());
+		assertEquals(blankDisc.getBlankDiscDate(),
+				foundBlankDisc.getBlankDiscDate());
+		assertEquals(blankDisc.getBlankDiscItem(),
+				foundBlankDisc.getBlankDiscItem());
+		assertEquals(blankDisc.getBlankDiscQuantity(),
+				foundBlankDisc.getBlankDiscQuantity());
+		assertEquals(blankDisc.getBlankDiscProvider(),
+				foundBlankDisc.getBlankDiscProvider());
 	}
 
 	@Test
@@ -121,9 +130,13 @@ public class BlankDiscDaoTest {
 		BlankDisc foundBlankDisc = blankDiscDao.find(blankDisc.getId());
 
 		assertEquals(updatedBlankDisc, foundBlankDisc);
-		assertEquals(updatedBlankDisc.getBlankDiscDate(), foundBlankDisc.getBlankDiscDate());
-		assertEquals(updatedBlankDisc.getBlankDiscItem(), foundBlankDisc.getBlankDiscItem());
-		assertEquals(updatedBlankDisc.getBlankDiscQuantity(), foundBlankDisc.getBlankDiscQuantity());
-		assertEquals(updatedBlankDisc.getBlankDiscProvider(), foundBlankDisc.getBlankDiscProvider());
+		assertEquals(updatedBlankDisc.getBlankDiscDate(),
+				foundBlankDisc.getBlankDiscDate());
+		assertEquals(updatedBlankDisc.getBlankDiscItem(),
+				foundBlankDisc.getBlankDiscItem());
+		assertEquals(updatedBlankDisc.getBlankDiscQuantity(),
+				foundBlankDisc.getBlankDiscQuantity());
+		assertEquals(updatedBlankDisc.getBlankDiscProvider(),
+				foundBlankDisc.getBlankDiscProvider());
 	}
 }

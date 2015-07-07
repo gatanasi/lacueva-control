@@ -99,12 +99,13 @@ public class BlankDisc implements Serializable {
 
 	{
 		StringBuilder sb = new StringBuilder("BlankDisc");
-		sb.append("blankDiscId=").append(getId()).append(", blankDiscDate=").append(getBlankDiscDate())
-				.append(", blankDiscItemType=");
+		sb.append("blankDiscId=").append(getId()).append(", blankDiscDate=")
+				.append(getBlankDiscDate()).append(", blankDiscItemType=");
 		if (getBlankDiscItem() != null) {
 			sb.append(getBlankDiscItem().getItemType());
 		}
-		sb.append(", blankDiscQuantity=").append(getBlankDiscQuantity()).append(", blankDiscProviderName=");
+		sb.append(", blankDiscQuantity=").append(getBlankDiscQuantity())
+				.append(", blankDiscProviderName=");
 		if (getBlankDiscProvider() != null) {
 			sb.append(getBlankDiscProvider().getProviderName());
 		}

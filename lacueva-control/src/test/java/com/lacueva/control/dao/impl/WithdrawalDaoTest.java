@@ -58,18 +58,23 @@ public class WithdrawalDaoTest {
 	@Test
 	public void testCreate() throws ParseException {
 		Withdrawal withdrawalCreate = new Withdrawal();
-		withdrawalCreate.setWithdrawalDate(DateUtilThreadSafe.parse("2015-06-01"));
+		withdrawalCreate.setWithdrawalDate(DateUtilThreadSafe
+				.parse("2015-06-01"));
 		withdrawalCreate.setWithdrawalShop(shop);
 		withdrawalCreate.setWithdrawalAmount(15f);
 
 		withdrawalDao.create(withdrawalCreate);
 
-		Withdrawal foundWithdrawal = withdrawalDao.find(withdrawalCreate.getId());
+		Withdrawal foundWithdrawal = withdrawalDao.find(withdrawalCreate
+				.getId());
 
 		assertEquals(withdrawalCreate, foundWithdrawal);
-		assertEquals(withdrawalCreate.getWithdrawalDate(), foundWithdrawal.getWithdrawalDate());
-		assertEquals(withdrawalCreate.getWithdrawalShop(), foundWithdrawal.getWithdrawalShop());
-		assertEquals(withdrawalCreate.getWithdrawalAmount(), foundWithdrawal.getWithdrawalAmount());
+		assertEquals(withdrawalCreate.getWithdrawalDate(),
+				foundWithdrawal.getWithdrawalDate());
+		assertEquals(withdrawalCreate.getWithdrawalShop(),
+				foundWithdrawal.getWithdrawalShop());
+		assertEquals(withdrawalCreate.getWithdrawalAmount(),
+				foundWithdrawal.getWithdrawalAmount());
 	}
 
 	@Test
@@ -77,9 +82,12 @@ public class WithdrawalDaoTest {
 		Withdrawal foundWithdrawal = withdrawalDao.find(withdrawal.getId());
 
 		assertEquals(withdrawal, foundWithdrawal);
-		assertEquals(withdrawal.getWithdrawalDate(), foundWithdrawal.getWithdrawalDate());
-		assertEquals(withdrawal.getWithdrawalShop(), foundWithdrawal.getWithdrawalShop());
-		assertEquals(withdrawal.getWithdrawalAmount(), foundWithdrawal.getWithdrawalAmount());
+		assertEquals(withdrawal.getWithdrawalDate(),
+				foundWithdrawal.getWithdrawalDate());
+		assertEquals(withdrawal.getWithdrawalShop(),
+				foundWithdrawal.getWithdrawalShop());
+		assertEquals(withdrawal.getWithdrawalAmount(),
+				foundWithdrawal.getWithdrawalAmount());
 	}
 
 	@Test
@@ -104,8 +112,11 @@ public class WithdrawalDaoTest {
 		Withdrawal foundWithdrawal = withdrawalDao.find(withdrawal.getId());
 
 		assertEquals(updatedWithdrawal, foundWithdrawal);
-		assertEquals(updatedWithdrawal.getWithdrawalDate(), foundWithdrawal.getWithdrawalDate());
-		assertEquals(updatedWithdrawal.getWithdrawalShop(), foundWithdrawal.getWithdrawalShop());
-		assertEquals(updatedWithdrawal.getWithdrawalAmount(), foundWithdrawal.getWithdrawalAmount());
+		assertEquals(updatedWithdrawal.getWithdrawalDate(),
+				foundWithdrawal.getWithdrawalDate());
+		assertEquals(updatedWithdrawal.getWithdrawalShop(),
+				foundWithdrawal.getWithdrawalShop());
+		assertEquals(updatedWithdrawal.getWithdrawalAmount(),
+				foundWithdrawal.getWithdrawalAmount());
 	}
 }

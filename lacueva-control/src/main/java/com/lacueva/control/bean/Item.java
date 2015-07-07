@@ -86,8 +86,10 @@ public class Item implements Serializable {
 
 	{
 		StringBuilder sb = new StringBuilder("Item [");
-		sb.append("itemId=").append(getId()).append(", itemType=").append(getItemType()).append(", itemWeight=")
-				.append(getItemWeight()).append(", itemBurnable=").append(getItemBurnable()).append("]");
+		sb.append("itemId=").append(getId()).append(", itemType=")
+				.append(getItemType()).append(", itemWeight=")
+				.append(getItemWeight()).append(", itemBurnable=")
+				.append(getItemBurnable()).append("]");
 
 		return sb.toString();
 	}

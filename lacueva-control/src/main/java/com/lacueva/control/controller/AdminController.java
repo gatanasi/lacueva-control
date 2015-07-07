@@ -80,8 +80,8 @@ public class AdminController {
 	}
 
 	@RequestMapping(value = "/items/create", method = RequestMethod.POST)
-	public String processSubmit(@Valid @ModelAttribute Item item, BindingResult result, Model model,
-			RedirectAttributes redirectAttrs) {
+	public String processSubmit(@Valid @ModelAttribute Item item,
+			BindingResult result, Model model, RedirectAttributes redirectAttrs) {
 		if (result.hasErrors()) {
 			return "editItem";
 		}

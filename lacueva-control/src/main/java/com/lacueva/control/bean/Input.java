@@ -110,11 +110,13 @@ public class Input implements Serializable {
 
 	{
 		StringBuilder sb = new StringBuilder("Input");
-		sb.append("inputId=").append(getId()).append(", inputDate=").append(getInputDate()).append(", inputItemType=");
+		sb.append("inputId=").append(getId()).append(", inputDate=")
+				.append(getInputDate()).append(", inputItemType=");
 		if (getInputItem() != null) {
 			sb.append(getInputItem().getItemType());
 		}
-		sb.append(", inputQuantity=").append(getInputQuantity()).append(", inputProviderName=");
+		sb.append(", inputQuantity=").append(getInputQuantity())
+				.append(", inputProviderName=");
 		if (getInputProvider() != null) {
 			sb.append(getInputProvider().getProviderName());
 		}

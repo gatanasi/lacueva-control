@@ -12,14 +12,16 @@ import com.lacueva.control.bean.Shop;
 import com.lacueva.control.dao.PriceDao;
 
 @Repository("priceDao")
-public class PriceDaoImpl extends GenericDaoImpl<Price>implements PriceDao {
+public class PriceDaoImpl extends GenericDaoImpl<Price> implements PriceDao {
 
 	@Override
 	public Price findPriceByShopAndItem(final Shop shop, final Item item) {
-		if (shop == null || shop.getId() == null || item == null || item.getId() == null) {
+		if (shop == null || shop.getId() == null || item == null
+				|| item.getId() == null) {
 			return new Price();
 		} else {
-			TypedQuery<Price> query = entityManager.createNamedQuery("Prices.findPriceByShopAndItem", Price.class);
+			TypedQuery<Price> query = entityManager.createNamedQuery(
+					"Prices.findPriceByShopAndItem", Price.class);
 			query.setParameter("shop", shop);
 			query.setParameter("item", item);
 

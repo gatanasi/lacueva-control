@@ -98,7 +98,8 @@ public class Stock implements Serializable {
 
 	{
 		StringBuilder sb = new StringBuilder("Stock [");
-		sb.append("stockId=").append(getId()).append(", stockDate=").append(getStockDate()).append(", stockShopName=");
+		sb.append("stockId=").append(getId()).append(", stockDate=")
+				.append(getStockDate()).append(", stockShopName=");
 		if (getStockShop() != null) {
 			sb.append(getStockShop().getShopName());
 		}

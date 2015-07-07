@@ -140,26 +140,30 @@ public class SaleDaoTest {
 
 	@Test
 	public void testFindSalesByShopAndDate() throws ParseException {
-		List<Sale> foundSales = saleDao.findSalesByShopAndDate(shop, DateUtilThreadSafe.parse("2015-02-10"));
+		List<Sale> foundSales = saleDao.findSalesByShopAndDate(shop,
+				DateUtilThreadSafe.parse("2015-02-10"));
 
 		assertEquals(sale, foundSales.get(0));
 		assertEquals(sale.getSaleDate(), foundSales.get(0).getSaleDate());
 		assertEquals(sale.getSaleShop(), foundSales.get(0).getSaleShop());
 		assertEquals(sale.getSaleItem(), foundSales.get(0).getSaleItem());
-		assertEquals(sale.getSaleQuantity(), foundSales.get(0).getSaleQuantity());
+		assertEquals(sale.getSaleQuantity(), foundSales.get(0)
+				.getSaleQuantity());
 		assertEquals(sale.getSaleAmount(), foundSales.get(0).getSaleAmount());
 	}
 
 	@Test
 	public void testFindSalesByShopAndBetweenDates() throws ParseException {
-		List<Sale> foundSales = saleDao.findSalesByShopAndBetweenDates(shop, DateUtilThreadSafe.parse("2015-02-01"),
+		List<Sale> foundSales = saleDao.findSalesByShopAndBetweenDates(shop,
+				DateUtilThreadSafe.parse("2015-02-01"),
 				DateUtilThreadSafe.parse("2015-03-01"));
 
 		assertEquals(sale, foundSales.get(0));
 		assertEquals(sale.getSaleDate(), foundSales.get(0).getSaleDate());
 		assertEquals(sale.getSaleShop(), foundSales.get(0).getSaleShop());
 		assertEquals(sale.getSaleItem(), foundSales.get(0).getSaleItem());
-		assertEquals(sale.getSaleQuantity(), foundSales.get(0).getSaleQuantity());
+		assertEquals(sale.getSaleQuantity(), foundSales.get(0)
+				.getSaleQuantity());
 		assertEquals(sale.getSaleAmount(), foundSales.get(0).getSaleAmount());
 	}
 }
