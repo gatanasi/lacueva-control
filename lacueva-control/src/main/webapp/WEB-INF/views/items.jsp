@@ -30,6 +30,9 @@
 <script type="text/javascript">
 	$(document).ready(function() {
 
+		$('div.loading').remove();
+		$('#bodyDiv').show();
+		
 		$(".modificar").bind("click", Modificar);
 		$(".eliminar").bind("click", Eliminar);
 

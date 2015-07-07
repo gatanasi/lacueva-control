@@ -9,32 +9,38 @@
 			<table class="table table-striped table-bordered" id="salesTable">
 				<thead>
 					<tr>
-						<th>Fecha</th>
 						<th>Tipo</th>
 						<th>Cantidad</th>
 						<th>Importe total</th>
+						<th>&nbsp;</th>
 					</tr>
 				</thead>
 				<tbody>
 					<c:forEach items="${sales}" var="sale">
 						<tr>
-							<td class="text"><c:out value="${sale.saleDate}" /></td>
-							<td class="text"><input type="text" name="item_type_" value="<c:out value="${sale.saleItem.itemType}" />"></td>
-							<td class="text"><input type="text" name="sale_quantity_${sale.id}" value="<c:out value="${sale.saleQuantity}" />"></td>
-							<td class="text"><input type="text" name="sale_amount_" value="<c:out value="${sale.saleAmount}" />"></td>
+							<td><select name="item_type">
+									<option value="<c:out value="${sale.saleItem.itemType}" />"></option>
+							</select></td>
+							<td><input type="text" name="sale_quantity" value="<c:out value="${sale.saleQuantity}" />"></td>
+							<td><input type="text" name="sale_amount" value="<c:out value="${sale.saleAmount}" />"></td>
+							<td><button name="delbtn" type="button" class="btn btn-warning">Eliminar</button></td>
 						</tr>
 					</c:forEach>
 				</tbody>
+				<tfoot>
+					<tr>
+						<th colspan="2" class="text-right" rowspan="1">Total:</th>
+						<th rowspan="1" colspan="2"></th>
+					</tr>
+					<tr>
+						<th colspan="4" rowspan="1"><button id="addbtn" type="button" class="btn btn-default">Agregar l&iacute;nea</button></th>
+					</tr>
+				</tfoot>
 			</table>
-			<div id="controlButtons">
-				<button value="add" id="addbtn">Agregar fila</button>
-				<button value="delete" id="delbtn">Borrar fila seleccionada</button>
-			</div>
 		</div>
 	</div>
 </div>
 
-<!--<link href="<c:url value="/resources/css/datatables/jquery.dataTables.min.css" />" rel="stylesheet" type="text/css" />-->
 <link href="<c:url value="/resources/css/datatables/dataTables.bootstrap.css" />" rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="<c:url value="/resources/js/datatables/jquery.dataTables.min.js" />" defer></script>
 <script type="text/javascript" src="<c:url value="/resources/js/datatables/dataTables.bootstrap.min.js" />" defer></script>

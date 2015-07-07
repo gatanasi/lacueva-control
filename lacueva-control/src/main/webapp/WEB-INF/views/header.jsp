@@ -13,12 +13,6 @@
 <script type="text/javascript" src="<c:url value="/resources/js/jquery/jquery.min.js" />" defer></script>
 <script type="text/javascript" src="<c:url value="/resources/js/bootstrap/bootstrap.min.js" />" defer></script>
 <script type="text/javascript" src="<c:url value="/resources/js/main.js" />" defer></script>
-<!--
-		Used for including CSRF token in JSON requests
-		Also see bottom of this file for adding CSRF token to JQuery AJAX requests
-	
-<meta name="_csrf" content="${_csrf.token}" />
-<meta name="_csrf_header" content="${_csrf.headerName}" />-->
 </head>
 <body style="padding-top: 60px">
 	<nav class="navbar navbar-inverse navbar-fixed-top">
@@ -37,7 +31,8 @@
 					<li id="navblankdiscs"><a href='#blankdiscs'>V&iacute;rgenes</a></li>
 					<li id="navstocks"><a href='#stocks'>Inventarios</a></li>
 					<li id="navdashboard"><a href='#dashboard'>Resumen</a></li>
-					<li id="navadmin" class="dropdown"><a href="#navadmin" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Administraci&oacute;n <span class="caret"></span></a>
+					<li id="navadmin" class="dropdown"><a href="#navadmin" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Administraci&oacute;n <span
+							class="caret"></span></a>
 						<ul class="dropdown-menu" role="menu">
 							<li id="navitems"><a href="#items">Art&iacute;culos</a></li>
 							<li role="separator" class="divider"></li>
