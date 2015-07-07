@@ -1,6 +1,5 @@
 package com.lacueva.control.controller;
 
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -27,7 +26,6 @@ import com.lacueva.control.bean.Promo;
 import com.lacueva.control.bean.Provider;
 import com.lacueva.control.bean.Sale;
 import com.lacueva.control.bean.Shop;
-import com.lacueva.control.commons.DateUtilThreadSafe;
 import com.lacueva.control.dao.ItemDao;
 import com.lacueva.control.dao.PriceDao;
 import com.lacueva.control.dao.PromoDao;
@@ -200,11 +198,7 @@ public class AdminController {
 
 		Shop shop1 = new Shop();
 
-		try {
-			shop1.setShopDate(DateUtilThreadSafe.parse(new Date().toString()));
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
+		shop1.setShopDate(new Date());
 		shop1.setShopName("Shop1");
 		shop1.setShopCash(2000);
 		shop1.setShopItems(itemsForShop1);
@@ -212,11 +206,7 @@ public class AdminController {
 
 		Shop shop2 = new Shop();
 
-		try {
-			shop2.setShopDate(DateUtilThreadSafe.parse(new Date().toString()));
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
+		shop2.setShopDate(new Date());
 		shop2.setShopName("Shop2");
 		shop2.setShopCash(6000);
 		shop2.setShopItems(itemsForShop2);
@@ -267,11 +257,8 @@ public class AdminController {
 		promoDao.create(promo2);
 
 		Sale sale1 = new Sale();
-		try {
-			sale1.setSaleDate(DateUtilThreadSafe.parse(new Date().toString()));
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
+
+		sale1.setSaleDate(new Date());
 		sale1.setSaleShop(shop1);
 		sale1.setSaleItem(item1);
 		sale1.setSaleQuantity(15);
@@ -279,11 +266,8 @@ public class AdminController {
 		saleDao.create(sale1);
 
 		Sale sale2 = new Sale();
-		try {
-			sale2.setSaleDate(DateUtilThreadSafe.parse(new Date().toString()));
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
+
+		sale2.setSaleDate(new Date());
 		sale2.setSaleShop(shop1);
 		sale2.setSaleItem(item3);
 		sale2.setSaleQuantity(3);
@@ -291,11 +275,8 @@ public class AdminController {
 		saleDao.create(sale2);
 
 		Sale sale3 = new Sale();
-		try {
-			sale3.setSaleDate(DateUtilThreadSafe.parse(new Date().toString()));
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
+
+		sale3.setSaleDate(new Date());
 		sale3.setSaleShop(shop1);
 		sale3.setSaleItem(item11);
 		sale3.setSaleQuantity(1);
@@ -303,11 +284,8 @@ public class AdminController {
 		saleDao.create(sale3);
 
 		Sale sale4 = new Sale();
-		try {
-			sale4.setSaleDate(DateUtilThreadSafe.parse(new Date().toString()));
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
+
+		sale4.setSaleDate(new Date());
 		sale4.setSaleShop(shop2);
 		sale4.setSaleItem(item1);
 		sale4.setSaleQuantity(20);
@@ -315,11 +293,8 @@ public class AdminController {
 		saleDao.create(sale4);
 
 		Sale sale5 = new Sale();
-		try {
-			sale5.setSaleDate(DateUtilThreadSafe.parse(new Date().toString()));
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
+
+		sale5.setSaleDate(new Date());
 		sale5.setSaleShop(shop2);
 		sale5.setSaleItem(item3);
 		sale5.setSaleQuantity(7);

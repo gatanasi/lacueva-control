@@ -9,7 +9,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
@@ -23,9 +22,7 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name = "CUEVA_SALES")
-@NamedQueries({
-		@NamedQuery(name = "Sales.findByShopAndDate", query = "SELECT sales FROM Sale sales WHERE sales.saleShop = :shop AND sales.saleDate = :date ORDER BY sales.id ASC"),
-		@NamedQuery(name = "Sales.findByShopAndBetweenDates", query = "SELECT sales FROM Sale sales WHERE sales.saleShop = :shop AND sales.saleDate BETWEEN :startDate AND :endDate ORDER BY sales.id ASC"), })
+@NamedQuery(name = "Sales.findByShopAndBetweenDates", query = "SELECT sales FROM Sale sales WHERE sales.saleShop = :shop AND sales.saleDate BETWEEN :startDate AND :endDate ORDER BY sales.id ASC")
 public class Sale implements Serializable {
 
 	/**
@@ -39,7 +36,7 @@ public class Sale implements Serializable {
 	@Column(name = "SALE_ID")
 	private Long id;
 
-	@Temporal(TemporalType.DATE)
+	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "SALE_DATE", nullable = false)
 	private Date saleDate;
 

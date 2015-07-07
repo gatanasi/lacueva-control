@@ -7,7 +7,7 @@ import com.lacueva.control.bean.Sale;
 import com.lacueva.control.bean.Shop;
 
 public interface SaleDao extends GenericDao<Sale> {
-	public List<Sale> findSalesByShopAndDate(Shop shop, Date date);
+	public List<Sale> findSalesByShopAndDate(final Shop shop, final Date date);
 
-	public List<Sale> findSalesByShopAndBetweenDates(Shop shop, Date startDate, Date endDate);
+	public List<Sale> findSalesByShopAndBetweenDates(final Shop shop, final Date startDate, final Date endDate);
 }

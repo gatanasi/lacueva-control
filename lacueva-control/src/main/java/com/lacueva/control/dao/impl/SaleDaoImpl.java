@@ -1,6 +1,8 @@
 package com.lacueva.control.dao.impl;
 
+import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -11,6 +13,7 @@ import org.springframework.stereotype.Repository;
 
 import com.lacueva.control.bean.Sale;
 import com.lacueva.control.bean.Shop;
+import com.lacueva.control.commons.DateUtilThreadSafe;
 import com.lacueva.control.dao.SaleDao;
 
 @Repository("saleDao")
@@ -21,9 +24,23 @@ public class SaleDaoImpl extends GenericDaoImpl<Sale>implements SaleDao {
 		if (shop == null || shop.getId() == null || date == null) {
 			return new ArrayList<Sale>();
 		} else {
-			TypedQuery<Sale> query = entityManager.createNamedQuery("Sales.findByShopAndDate", Sale.class);
+			Date today;
+			try {
+				today = DateUtilThreadSafe.parse(DateUtilThreadSafe.format(date));
+			} catch (ParseException e) {
+				e.printStackTrace();
+				today = new Date();
+			}
+
+			Calendar calendar = Calendar.getInstance();
+			calendar.setTime(date);
+			calendar.add(Calendar.DATE, 1);
+			Date tomorrow = calendar.getTime();
+
+			TypedQuery<Sale> query = entityManager.createNamedQuery("Sales.findByShopAndBetweenDates", Sale.class);
 			query.setParameter("shop", shop);
-			query.setParameter("date", date, TemporalType.DATE);
+			query.setParameter("startDate", today, TemporalType.DATE);
+			query.setParameter("endDate", tomorrow, TemporalType.DATE);
 			return query.getResultList();
 		}
 	}

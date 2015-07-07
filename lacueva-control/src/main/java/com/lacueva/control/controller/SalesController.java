@@ -1,6 +1,7 @@
 package com.lacueva.control.controller;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -22,7 +23,6 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import com.lacueva.control.bean.Sale;
 import com.lacueva.control.bean.Shop;
-import com.lacueva.control.commons.DateUtilThreadSafe;
 import com.lacueva.control.dao.SaleDao;
 
 /**
@@ -59,12 +59,7 @@ public class SalesController {
 		logger.info("Welcome sales!");
 
 		List<Sale> salesList = new ArrayList<Sale>();
-		try {
-			salesList = saleDao.findSalesByShopAndBetweenDates(currShop, DateUtilThreadSafe.parse("2015-02-09"),
-					DateUtilThreadSafe.parse("2015-02-12"));
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		salesList = saleDao.findSalesByShopAndDate(currShop, new Date());
 
 		model.addAttribute("sales", salesList);
 
