@@ -17,7 +17,7 @@ import com.lacueva.control.dao.SaleDao;
 public class SaleDaoImpl extends GenericDaoImpl<Sale>implements SaleDao {
 
 	@Override
-	public List<Sale> findSalesByShopAndDate(Shop shop, Date date) {
+	public List<Sale> findSalesByShopAndDate(final Shop shop, final Date date) {
 		if (shop == null || shop.getId() == null || date == null) {
 			return new ArrayList<Sale>();
 		} else {
@@ -29,7 +29,7 @@ public class SaleDaoImpl extends GenericDaoImpl<Sale>implements SaleDao {
 	}
 
 	@Override
-	public List<Sale> findSalesByShopAndBetweenDates(Shop shop, Date startDate, Date endDate) {
+	public List<Sale> findSalesByShopAndBetweenDates(final Shop shop, final Date startDate, final Date endDate) {
 		if (shop == null || shop.getId() == null || startDate == null || endDate == null) {
 			return new ArrayList<Sale>();
 		} else {

@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -18,6 +19,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "CUEVA_PRICES")
+@NamedQuery(name = "Prices.findPriceByShopAndItem", query = "SELECT prices FROM Price prices WHERE prices.priceShop = :shop AND prices.priceItem = :item")
 public class Price implements Serializable {
 
 	/**
@@ -54,6 +56,14 @@ public class Price implements Serializable {
 		this.id = id;
 	}
 
+	public Shop getPriceShop() {
+		return priceShop;
+	}
+
+	public void setPriceShop(Shop priceShop) {
+		this.priceShop = priceShop;
+	}
+
 	public Item getPriceItem() {
 		return priceItem;
 	}
@@ -75,7 +85,11 @@ public class Price implements Serializable {
 
 	{
 		StringBuilder sb = new StringBuilder("Price [");
-		sb.append("priceId=").append(getId()).append(", priceItemType=");
+		sb.append("priceId=").append(getId()).append(", priceShopName=");
+		if (getPriceShop() != null) {
+			sb.append(getPriceShop().getShopName());
+		}
+		sb.append(", priceItemType=");
 		if (getPriceItem() != null) {
 			sb.append(getPriceItem().getItemType());
 		}

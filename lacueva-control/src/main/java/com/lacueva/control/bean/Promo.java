@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -18,6 +19,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "CUEVA_PROMOS")
+@NamedQuery(name = "Promos.findPromoByShopAndItemAndQty", query = "SELECT promos FROM Promo promos WHERE promos.promoShop = :shop AND promos.promoItem = :item AND promos.promoQuantity <= :quantity ORDER BY promos.promoQuantity DESC")
 public class Promo implements Serializable {
 
 	/**
@@ -57,6 +59,14 @@ public class Promo implements Serializable {
 		this.id = id;
 	}
 
+	public Shop getPromoShop() {
+		return promoShop;
+	}
+
+	public void setPromoShop(Shop promoShop) {
+		this.promoShop = promoShop;
+	}
+
 	public Item getPromoItem() {
 		return promoItem;
 	}
@@ -86,7 +96,11 @@ public class Promo implements Serializable {
 
 	{
 		StringBuilder sb = new StringBuilder("Promo [");
-		sb.append("promoId=").append(getId()).append(", promoItemType=");
+		sb.append("promoId=").append(getId()).append(", promoShopName=");
+		if (getPromoShop() != null) {
+			sb.append(getPromoShop().getShopName());
+		}
+		sb.append(", promoItemType=");
 		if (getPromoItem() != null) {
 			sb.append(getPromoItem().getItemType());
 		}
