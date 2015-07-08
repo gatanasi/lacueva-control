@@ -51,8 +51,7 @@ public abstract class GenericDaoImpl<T> implements GenericDao<T> {
 		logger.debug("Finding " + type.getSimpleName() + " with ID= " + id);
 		T t = (T) this.entityManager.find(type, id);
 		if (t == null) {
-			logger.debug(type.getSimpleName() + " with ID= " + id
-					+ " NOT FOUND");
+			logger.debug(type.getSimpleName() + " with ID= " + id + " NOT FOUND");
 		} else {
 			logger.debug("Found with data= " + t);
 		}
@@ -72,8 +71,8 @@ public abstract class GenericDaoImpl<T> implements GenericDao<T> {
 	@Override
 	public List<T> getAll() {
 		logger.debug("Getting all " + type.getSimpleName());
-		List<T> tF = (List<T>) this.entityManager.createQuery(
-				"SELECT a FROM " + type.getSimpleName() + " a").getResultList();
+		List<T> tF = (List<T>) this.entityManager.createQuery("SELECT a FROM " + type.getSimpleName() + " a")
+				.getResultList();
 		if (tF == null || tF.size() == 0) {
 			logger.debug("No " + type.getSimpleName() + " FOUND");
 		} else {

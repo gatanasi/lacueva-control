@@ -46,8 +46,7 @@ public class ProviderDaoTest {
 		Provider foundProvider = providerDao.find(providerCreate.getId());
 
 		assertEquals(providerCreate, foundProvider);
-		assertEquals(providerCreate.getProviderName(),
-				foundProvider.getProviderName());
+		assertEquals(providerCreate.getProviderName(), foundProvider.getProviderName());
 	}
 
 	@Test
@@ -55,8 +54,7 @@ public class ProviderDaoTest {
 		Provider foundProvider = providerDao.find(provider.getId());
 
 		assertEquals(provider, foundProvider);
-		assertEquals(provider.getProviderName(),
-				foundProvider.getProviderName());
+		assertEquals(provider.getProviderName(), foundProvider.getProviderName());
 	}
 
 	@Test
@@ -79,7 +77,6 @@ public class ProviderDaoTest {
 		Provider foundProvider = providerDao.find(provider.getId());
 
 		assertEquals(updatedProvider, foundProvider);
-		assertEquals(updatedProvider.getProviderName(),
-				foundProvider.getProviderName());
+		assertEquals(updatedProvider.getProviderName(), foundProvider.getProviderName());
 	}
 }

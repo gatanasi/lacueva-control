@@ -6,6 +6,6 @@ import com.lacueva.control.bean.Shop;
 import com.lacueva.control.dao.ShopDao;
 
 @Repository("shopDao")
-public class ShopDaoImpl extends GenericDaoImpl<Shop> implements ShopDao {
+public class ShopDaoImpl extends GenericDaoImpl<Shop>implements ShopDao {
 
 }

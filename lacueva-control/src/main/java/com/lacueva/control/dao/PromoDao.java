@@ -6,6 +6,5 @@ import com.lacueva.control.bean.Shop;
 
 public interface PromoDao extends GenericDao<Promo> {
 
-	public Promo findPromoByShopAndItemAndQty(final Shop shop, final Item item,
-			final Integer quantity);
+	public Promo findPromoByShopAndItemAndQty(final Shop shop, final Item item, final Integer quantity);
 }

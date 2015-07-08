@@ -99,10 +99,8 @@ public class InputDaoTest {
 		assertEquals(inputCreate, foundInput);
 		assertEquals(inputCreate.getInputDate(), foundInput.getInputDate());
 		assertEquals(inputCreate.getInputItem(), foundInput.getInputItem());
-		assertEquals(inputCreate.getInputQuantity(),
-				foundInput.getInputQuantity());
-		assertEquals(inputCreate.getInputProvider(),
-				foundInput.getInputProvider());
+		assertEquals(inputCreate.getInputQuantity(), foundInput.getInputQuantity());
+		assertEquals(inputCreate.getInputProvider(), foundInput.getInputProvider());
 		assertEquals(inputCreate.getInputShop(), foundInput.getInputShop());
 	}
 
@@ -144,10 +142,8 @@ public class InputDaoTest {
 		assertEquals(updatedInput, foundInput);
 		assertEquals(updatedInput.getInputDate(), foundInput.getInputDate());
 		assertEquals(updatedInput.getInputItem(), foundInput.getInputItem());
-		assertEquals(updatedInput.getInputQuantity(),
-				foundInput.getInputQuantity());
-		assertEquals(updatedInput.getInputProvider(),
-				foundInput.getInputProvider());
+		assertEquals(updatedInput.getInputQuantity(), foundInput.getInputQuantity());
+		assertEquals(updatedInput.getInputProvider(), foundInput.getInputProvider());
 		assertEquals(updatedInput.getInputShop(), foundInput.getInputShop());
 	}
 }
