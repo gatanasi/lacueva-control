@@ -32,7 +32,7 @@
 
 		$('div.loading').remove();
 		$('#bodyDiv').show();
-		
+
 		$(".modificar").bind("click", Modificar);
 		$(".eliminar").bind("click", Eliminar);
 

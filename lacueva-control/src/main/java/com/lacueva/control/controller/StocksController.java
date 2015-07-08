@@ -30,9 +30,9 @@ import com.lacueva.control.dao.SaleDao;
  */
 @Controller
 @EnableWebMvc
-@RequestMapping(value = "/withdrawals")
+@RequestMapping(value = "/stocks")
 @SessionAttributes("currShop")
-public class WithdrawalsController {
+public class StocksController {
 
 	private final Logger logger = LoggerFactory.getLogger(getClass());
 
@@ -56,7 +56,7 @@ public class WithdrawalsController {
 
 	@RequestMapping(method = RequestMethod.GET)
 	public String sales(Model model, @ModelAttribute("currShop") Shop currShop) {
-		logger.info("Welcome withdrawals!");
+		logger.info("Welcome stocks!");
 
 		List<Sale> salesList = new ArrayList<Sale>();
 		salesList = saleDao.findSalesByShopAndDate(currShop, new Date());
@@ -65,7 +65,7 @@ public class WithdrawalsController {
 
 		logger.info(salesList.toString());
 
-		return "withdrawals";
+		return "stocks";
 	}
 
 	@RequestMapping(value = "/prueba", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)

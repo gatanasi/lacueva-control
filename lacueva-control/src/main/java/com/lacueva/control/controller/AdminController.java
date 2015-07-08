@@ -185,6 +185,11 @@ public class AdminController {
 		item11.setItemBurnable(false);
 		itemDao.create(item11);
 
+		Item item12 = new Item();
+		item12.setItemType("Descuento");
+		item12.setItemBurnable(false);
+		itemDao.create(item12);
+
 		List<Item> itemsForShop1 = new ArrayList<Item>();
 		List<Item> itemsForShop2 = new ArrayList<Item>();
 
