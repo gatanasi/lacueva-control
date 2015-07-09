@@ -37,5 +37,5 @@
 	</div>
 </div>
 
-<script type="text/javascript" src="<c:url value="/resources/js/mountable/mountable.min.js" />" defer></script>
+<script type="text/javascript" src="<c:url value="/resources/js/mountable/mountable.js" />" defer></script>
 <script type="text/javascript" src="<c:url value="/resources/js/withdrawals.js" />" defer></script>

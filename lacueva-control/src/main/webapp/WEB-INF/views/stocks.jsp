@@ -43,6 +43,6 @@
 </div>
 
 <link href="<c:url value="/resources/css/datatables/dataTables.bootstrap.css" />" rel="stylesheet" type="text/css" />
-<script type="text/javascript" src="<c:url value="/resources/js/datatables/jquery.dataTables.min.js" />" defer></script>
-<script type="text/javascript" src="<c:url value="/resources/js/datatables/dataTables.bootstrap.min.js" />" defer></script>
+<script type="text/javascript" src="<c:url value="/resources/js/datatables/jquery.dataTables.js" />" defer></script>
+<script type="text/javascript" src="<c:url value="/resources/js/datatables/dataTables.bootstrap.js" />" defer></script>
 <script type="text/javascript" src="<c:url value="/resources/js/sales.js" />" defer></script>

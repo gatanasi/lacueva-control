@@ -8,14 +8,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>LaCueva Control</title>
 <link rel="shortcut icon" href="/resources/images/favicon.ico">
-<link href="<c:url value="/resources/css/bootstrap/bootstrap.css" />" rel="stylesheet" type="text/css" />
-<link href="<c:url value="/resources/css/bootstrap/bootstrap-theme.min.css" />" rel="stylesheet" type="text/css" />
-<link href="<c:url value="/resources/css/lacueva-control.css" />" rel="stylesheet" type="text/css" />
-<script type="text/javascript" src="<c:url value="/resources/js/jquery/jquery.min.js" />" defer></script>
-<script type="text/javascript" src="<c:url value="/resources/js/bootstrap/bootstrap.min.js" />" defer></script>
-<script type="text/javascript" src="<c:url value="/resources/js/spin.min.js" />" defer></script>
-<script type="text/javascript" src="<c:url value="/resources/js/jquery.spin.js" />" defer></script>
-<script type="text/javascript" src="<c:url value="/resources/js/main.js" />" defer></script>
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+<link rel="stylesheet" href="<c:url value="/resources/css/lacueva-control.css" />">
+<script src="//code.jquery.com/jquery-2.1.4.min.js" defer></script>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" defer></script>
+<script src="<c:url value="/resources/js/spin.min.js" />" defer></script>
+<script src="<c:url value="/resources/js/jquery.spin.js" />" defer></script>
+<script src="<c:url value="/resources/js/main.js" />" defer></script>
 </head>
 <body style="padding-top: 60px">
 	<nav class="navbar navbar-inverse navbar-fixed-top">
