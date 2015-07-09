@@ -76,11 +76,9 @@ public class InputsController {
 	@RequestMapping(value = "/prueba", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody Sale getSaleinJSON(@RequestParam(value = "id") String id, Model model) {
 		if (id != null) {
-			Sale sale = saleDao.find(Long.parseLong(id));
-
-			return sale;
-		} else
-			return null;
+			return saleDao.find(Long.parseLong(id));
+		}
+		return null;
 	}
 
 }

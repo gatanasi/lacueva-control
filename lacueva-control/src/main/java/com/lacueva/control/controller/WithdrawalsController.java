@@ -1,6 +1,5 @@
 package com.lacueva.control.controller;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -58,8 +57,7 @@ public class WithdrawalsController {
 	public String sales(Model model, @ModelAttribute("currShop") Shop currShop) {
 		logger.info("Welcome withdrawals!");
 
-		List<Sale> salesList = new ArrayList<Sale>();
-		salesList = saleDao.findSalesByShopAndDate(currShop, new Date());
+		List<Sale> salesList = saleDao.findSalesByShopAndDate(currShop, new Date());
 
 		model.addAttribute("sales", salesList);
 
