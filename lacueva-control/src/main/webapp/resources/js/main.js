@@ -1,24 +1,34 @@
+var home = 'resources/home.html';
+
 $(document).ready(function() {
 
-	loadContent('');
-
 	$(window).on('hashchange', function() {
-		loadContent(location.hash.slice(1));
+		loadHashContent(location.hash.slice(1));
 	});
 
+	var url = window.location.href;
+	var hash = url.substring(url.indexOf("#") + 1);
+
+	if (hash === url) {
+		hash = home;
+	}
+
+	loading(hash);
 });
 
-function loadContent(hash) {
-	var url = window.location.href;
-
-	if (hash === '' || hash === url) {
-		hash = 'resources/home.html';
+function loadHashContent(hash) {
+	if (hash === '') {
+		hash = home;
 	}
 
 	$('html, body').animate({
 		scrollTop : 0
 	}, '600', 'swing');
 
+	loading(hash);
+}
+
+function loading(hash) {
 	$('#bodyDiv').hide();
 	$('#loadingDiv').spin();
 
