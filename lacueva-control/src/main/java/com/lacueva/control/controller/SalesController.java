@@ -1,6 +1,5 @@
 package com.lacueva.control.controller;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -8,12 +7,15 @@ import javax.inject.Inject;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.DateTimeFormat.ISO;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.HttpSessionRequiredException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -58,8 +60,21 @@ public class SalesController {
 	public String sales(Model model, @ModelAttribute("currShop") Shop currShop) {
 		logger.info("Welcome sales!");
 
-		List<Sale> salesList = new ArrayList<Sale>();
-		salesList = saleDao.findSalesByShopAndDate(currShop, new Date());
+		List<Sale> salesList = saleDao.findSalesByShopAndDate(currShop, new Date());
+
+		model.addAttribute("sales", salesList);
+
+		logger.info(salesList.toString());
+
+		return "sales";
+	}
+
+	@RequestMapping(value = "/{date}", method = RequestMethod.GET)
+	public String salesByDate(Model model, @ModelAttribute("currShop") Shop currShop,
+			@PathVariable @DateTimeFormat(iso = ISO.DATE) Date date) {
+		logger.info("Welcome sales path variable!");
+
+		List<Sale> salesList = saleDao.findSalesByShopAndDate(currShop, date);
 
 		model.addAttribute("sales", salesList);
 

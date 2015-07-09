@@ -13,6 +13,8 @@
 <link href="<c:url value="/resources/css/lacueva-control.css" />" rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="<c:url value="/resources/js/jquery/jquery.min.js" />" defer></script>
 <script type="text/javascript" src="<c:url value="/resources/js/bootstrap/bootstrap.min.js" />" defer></script>
+<script type="text/javascript" src="<c:url value="/resources/js/spin.min.js" />" defer></script>
+<script type="text/javascript" src="<c:url value="/resources/js/jquery.spin.js" />" defer></script>
 <script type="text/javascript" src="<c:url value="/resources/js/main.js" />" defer></script>
 </head>
 <body style="padding-top: 60px">

@@ -26,9 +26,3 @@
 		</div>
 	</div>
 </div>
-<script type="text/javascript">
-	$(document).ready(function() {
-		$('div.loading').remove();
-		$('#bodyDiv').show();
-	});
-</script>

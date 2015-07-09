@@ -5,9 +5,6 @@ $(document).ready(function() {
 	$("#addBtn").bind("click", addRow);
 	$(".delBtn").bind("click", delRow);
 
-	$('div.loading').remove();
-	$('#bodyDiv').show();
-
 	updateTotals();
 
 	var input = $('.date-input').pickadate({
@@ -16,10 +13,10 @@ $(document).ready(function() {
 		selectYears : true,
 		selectMonths : true,
 		format : 'dd/mm/yyyy',
-		formatSubmit : 'yyyy/mm/dd',
-		onSet : function(context) {
-			if (context.highlight === undefined) {
-				console.log('Date set:', context)
+		formatSubmit : 'yyyy-mm-dd',
+		onSet : function(event) {
+			if (event.select) {
+				window.location.href = "#sales/" + this.get('select', 'yyyy-mm-dd');
 			}
 		}
 	})

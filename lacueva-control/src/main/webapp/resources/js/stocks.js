@@ -86,9 +86,6 @@ $(document).ready(
 					"url" : "resources/i18n/Spanish.lang"
 				},
 				"initComplete" : function() {
-
-					$('div.loading').remove();
-					$('#bodyDiv').show();
 					/*
 					 * var api = this.api();
 					 * 
