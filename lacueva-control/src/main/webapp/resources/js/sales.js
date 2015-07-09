@@ -1,142 +1,74 @@
-var testData = [ {
-	"id" : 1,
-	"saleDate" : 1436294809891,
-	"saleShop" : {
-		"id" : 1,
-		"shopDate" : "2015-07-07",
-		"shopName" : "Shop1",
-		"shopCash" : 2000,
-		"shopItems" : [ {
-			"id" : 1,
-			"itemType" : "DVD",
-			"itemWeight" : 16.4,
-			"itemBurnable" : true
-		}, {
-			"id" : 3,
-			"itemType" : "BD",
-			"itemWeight" : 16.4,
-			"itemBurnable" : true
-		}, {
-			"id" : 11,
-			"itemType" : "Insumos",
-			"itemWeight" : null,
-			"itemBurnable" : false
-		} ]
-	},
-	"saleItem" : {
-		"id" : 1,
-		"itemType" : "DVD",
-		"itemWeight" : 16.4,
-		"itemBurnable" : true
-	},
-	"saleQuantity" : 15,
-	"saleAmount" : 180.0
-}, {
-	"id" : 2,
-	"saleDate" : 1436294810418,
-	"saleShop" : {
-		"id" : 1,
-		"shopDate" : "2015-07-07",
-		"shopName" : "Shop1",
-		"shopCash" : 2000,
-		"shopItems" : [ {
-			"id" : 1,
-			"itemType" : "DVD",
-			"itemWeight" : 16.4,
-			"itemBurnable" : true
-		}, {
-			"id" : 3,
-			"itemType" : "BD",
-			"itemWeight" : 16.4,
-			"itemBurnable" : true
-		}, {
-			"id" : 11,
-			"itemType" : "Insumos",
-			"itemWeight" : null,
-			"itemBurnable" : false
-		} ]
-	},
-	"saleItem" : {
-		"id" : 3,
-		"itemType" : "BD",
-		"itemWeight" : 16.4,
-		"itemBurnable" : true
-	},
-	"saleQuantity" : 3,
-	"saleAmount" : 120.0
-} ];
-
 var count = $('#salesTable tbody tr').length;
 
-$(document).ready(
-		function() {
+$(document).ready(function() {
 
-			var table = $('#salesTable').DataTable({
-				"bLengthChange" : false,
-				"bPaginate" : false,
-				"bProcessing" : true,
-				"bServerSide" : false,
-				"bSort" : true,
-				"bInfo" : true,
-				"columns" : [ null, null, null, null, {
-					"data" : null,
-					"defaultContent" : testData
-				} ],
-				"language" : {
-					"url" : "resources/i18n/Spanish.lang"
-				},
-				"initComplete" : function() {
+	$("#addBtn").bind("click", addRow);
+	$(".delBtn").bind("click", delRow);
 
-					$('div.loading').remove();
-					$('#bodyDiv').show();
-					/*
-					 * var api = this.api();
-					 * 
-					 * 
-					 * $(api.column(2).footer()).html(
-					 * api.column(2).data().reduce( function(a, b) { return a +
-					 * b; }));
-					 * 
-					 * $(api.column(3).footer()).html(
-					 * api.column(3).data().reduce( function(a, b) { return a +
-					 * b; }));
-					 */
-				},
-				"footerCallback" : function(row, data, start, end, display) {
-					var api = this.api(), data;
+	$('div.loading').remove();
+	$('#bodyDiv').show();
 
-					// Remove the formatting to get
-					// integer data for summation
-					var intVal = function(i) {
-						return typeof i === 'string' ? i.replace(/[\$,]/g, '') * 1 : typeof i === 'number' ? i : 0;
-					};
+	updateTotals();
 
-					// Total over this page
-					pageTotal = api.column(3, {
-						page : 'current'
-					}).data().reduce(function(a, b) {
-						return intVal(a) + intVal(b);
-					}, 0);
+	var input = $('.date-input').pickadate({
+		max : true,
+		container : '#date-picker',
+		selectYears : true,
+		selectMonths : true,
+		format : 'dd/mm/yyyy',
+		formatSubmit : 'yyyy/mm/dd',
+		onSet : function(context) {
+			if (context.highlight === undefined) {
+				console.log('Date set:', context)
+			}
+		}
+	})
+});
 
-					// Update footer
-					$(api.column(3).footer()).html('$' + pageTotal);
-				}
-			});
+function addRow() {
+	count++;
+	table.row.add(
+			[ '<select name="item_type' + count + '">', '<input type="text" name="sale_quantity' + count + '">', '<input type="text" name="sale_amount' + count + '">',
+					'<button name="delbtn" type="button" class="btn btn-warning">Eliminar</button>' ]).draw();
+	updateTotals();
+}
 
-			$('#addbtn').on(
-					'click',
-					function() {
-						count++;
-						table.row.add(
-								[ '<select name="item_type' + count + '">', '<input type="text" name="sale_quantity' + count + '">', '<input type="text" name="sale_amount' + count + '">',
-										'<button name="delbtn" type="button" class="btn btn-warning">Eliminar</button>' ]).draw();
+function delRow() {
+	count--;
 
-					});
+	var r = confirm("Esta seguro que desea eliminar la fila?");
+	if (r == true) {
+		var tr = $(this).closest('tr');
+		$(tr).remove();
+	}
+	updateTotals();
+}
 
-			$('#salesTable').on('click', 'button', function() {
-				count--;
-				var tr = $(this).closest('tr');
-				var row = table.row(tr);
-				row.remove().draw(false);
-			});
-		});
+function sumOfColumns(table, columnIndex) {
+	var tot = 0;
+	table.find("tr").children("td:nth-child(" + columnIndex + ")").each(function() {
+		$this = $(this);
+		if (!$this.hasClass("sum") && $this.html() != "") {
+			tot += parseInt($this.html());
+		}
+	});
+	return tot;
+}
+
+function do_sums() {
+	$("tr.sum").each(function(i, tr) {
+		$tr = $(tr);
+		$tr.children().each(function(i, td) {
+			$td = $(td);
+			var table = $td.parent().parent().parent();
+			if ($td.hasClass("sum")) {
+				$td.html(sumOfColumns(table, i + 1));
+			}
+		})
+	});
+}
+
+function updateTotals() {
+	$('#sumQty').text(sumOfColumns($('#salesTable'), 2));
+	$('#sumAmount').text(sumOfColumns($('#salesTable'), 3));
+}

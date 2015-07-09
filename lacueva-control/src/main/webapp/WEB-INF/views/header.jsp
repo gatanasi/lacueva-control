@@ -7,6 +7,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>LaCueva Control</title>
+<link rel="shortcut icon" href="/resources/images/favicon.ico">
 <link href="<c:url value="/resources/css/bootstrap/bootstrap.css" />" rel="stylesheet" type="text/css" />
 <link href="<c:url value="/resources/css/bootstrap/bootstrap-theme.min.css" />" rel="stylesheet" type="text/css" />
 <link href="<c:url value="/resources/css/lacueva-control.css" />" rel="stylesheet" type="text/css" />
