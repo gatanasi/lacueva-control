@@ -7,7 +7,7 @@ $(document).ready(function() {
 
 	updateTotals();
 
-	var input = $('.date-input').pickadate({
+	$('.date-input').pickadate({
 		max : true,
 		container : '#date-picker',
 		selectYears : true,
@@ -37,8 +37,9 @@ function delRow() {
 	if (r == true) {
 		var tr = $(this).closest('tr');
 		$(tr).remove();
+
+		updateTotals();
 	}
-	updateTotals();
 }
 
 function sumOfColumns(table, columnIndex) {

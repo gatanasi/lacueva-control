@@ -1,5 +1,6 @@
 package com.lacueva.control.controller;
 
+import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
 
@@ -54,7 +55,7 @@ public class StocksController {
 	}
 
 	@RequestMapping(method = RequestMethod.GET)
-	public String sales(Model model, @ModelAttribute("currShop") Shop currShop) {
+	public String sales(Model model, @ModelAttribute("currShop") Shop currShop) throws ParseException {
 		logger.info("Welcome stocks!");
 
 		List<Sale> salesList = saleDao.findSalesByShopAndDate(currShop, new Date());

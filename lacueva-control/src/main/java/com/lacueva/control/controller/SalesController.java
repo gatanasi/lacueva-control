@@ -1,5 +1,6 @@
 package com.lacueva.control.controller;
 
+import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
 
@@ -22,9 +23,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.lacueva.control.bean.Sale;
 import com.lacueva.control.bean.Shop;
+import com.lacueva.control.commons.DateUtilThreadSafe;
 import com.lacueva.control.dao.SaleDao;
 
 /**
@@ -57,41 +60,45 @@ public class SalesController {
 	}
 
 	@RequestMapping(method = RequestMethod.GET)
-	public String sales(Model model, @ModelAttribute("currShop") Shop currShop) {
-		logger.info("Welcome sales!");
-
-		List<Sale> salesList = saleDao.findSalesByShopAndDate(currShop, new Date());
-
-		model.addAttribute("sales", salesList);
-
-		logger.info(salesList.toString());
-
-		return "sales";
+	public String sales(Model model, @ModelAttribute("currShop") Shop currShop) throws ParseException {
+		return salesByDate(model, currShop, new Date());
 	}
 
 	@RequestMapping(value = "/{date}", method = RequestMethod.GET)
 	public String salesByDate(Model model, @ModelAttribute("currShop") Shop currShop,
-			@PathVariable @DateTimeFormat(iso = ISO.DATE) Date date) {
+			@PathVariable @DateTimeFormat(iso = ISO.DATE) Date date) throws ParseException {
 		logger.info("Welcome sales path variable!");
 
 		List<Sale> salesList = saleDao.findSalesByShopAndDate(currShop, date);
 
 		model.addAttribute("sales", salesList);
+		model.addAttribute("searchDate", date);
 
 		logger.info(salesList.toString());
 
 		return "sales";
 	}
 
+	@RequestMapping(value = "delete/{date}/{id}", method = RequestMethod.GET)
+	public String deleteSaleById(@PathVariable @DateTimeFormat(iso = ISO.DATE) Date date, @PathVariable Long id,
+			RedirectAttributes redirectAttrs) {
+		logger.info("Welcome sales delete path variable!");
+
+		saleDao.delete(id);
+
+		String message = "Venta borrada correctamente";
+
+		redirectAttrs.addFlashAttribute("message", message);
+
+		return "redirect:/#sales/" + DateUtilThreadSafe.format(date);
+	}
+
 	@RequestMapping(value = "/prueba", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody Sale getSaleinJSON(@RequestParam(value = "id") String id, Model model) {
 		if (id != null) {
-
 			Sale sale = saleDao.find(Long.parseLong(id));
-
 			return sale;
 		} else
 			return null;
 	}
-
 }

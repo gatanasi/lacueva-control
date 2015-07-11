@@ -204,7 +204,7 @@ public class AdminController {
 		Shop shop1 = new Shop();
 
 		shop1.setShopDate(new Date());
-		shop1.setShopName("Shop1");
+		shop1.setShopName("Galeria");
 		shop1.setShopCash(2000);
 		shop1.setShopItems(itemsForShop1);
 		shopDao.create(shop1);
@@ -212,7 +212,7 @@ public class AdminController {
 		Shop shop2 = new Shop();
 
 		shop2.setShopDate(new Date());
-		shop2.setShopName("Shop2");
+		shop2.setShopName("Morgan");
 		shop2.setShopCash(6000);
 		shop2.setShopItems(itemsForShop2);
 		shopDao.create(shop2);

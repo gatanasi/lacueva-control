@@ -9,6 +9,8 @@ import java.util.List;
 import javax.persistence.TemporalType;
 import javax.persistence.TypedQuery;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 import com.lacueva.control.bean.Sale;
@@ -19,42 +21,42 @@ import com.lacueva.control.dao.SaleDao;
 @Repository("saleDao")
 public class SaleDaoImpl extends GenericDaoImpl<Sale>implements SaleDao {
 
+	private final Logger logger = LoggerFactory.getLogger(getClass());
+
 	@Override
-	public List<Sale> findSalesByShopAndDate(final Shop shop, final Date date) {
-		if (shop == null || shop.getId() == null || date == null) {
-			return new ArrayList<Sale>();
-		} else {
-			Date today;
-			try {
-				today = DateUtilThreadSafe.parse(DateUtilThreadSafe.format(date));
-			} catch (ParseException e) {
-				e.printStackTrace();
-				today = new Date();
-			}
+	public List<Sale> findSalesByShopAndDate(final Shop shop, final Date date) throws ParseException {
+		Date formattedDate = DateUtilThreadSafe.parse(DateUtilThreadSafe.format(date));
 
-			Calendar calendar = Calendar.getInstance();
-			calendar.setTime(date);
-			calendar.add(Calendar.DATE, 1);
-			Date tomorrow = calendar.getTime();
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(date);
+		calendar.add(Calendar.DATE, 1);
+		Date nextDay = calendar.getTime();
 
-			TypedQuery<Sale> query = entityManager.createNamedQuery("Sales.findByShopAndBetweenDates", Sale.class);
-			query.setParameter("shop", shop);
-			query.setParameter("startDate", today, TemporalType.DATE);
-			query.setParameter("endDate", tomorrow, TemporalType.DATE);
-			return query.getResultList();
-		}
+		return findSalesByShopAndBetweenDates(shop, formattedDate, nextDay);
 	}
 
 	@Override
 	public List<Sale> findSalesByShopAndBetweenDates(final Shop shop, final Date startDate, final Date endDate) {
+		logger.debug("Finding sales by shop and dates");
 		if (shop == null || shop.getId() == null || startDate == null || endDate == null) {
+			logger.debug("Received a null parameter");
 			return new ArrayList<Sale>();
 		} else {
+			logger.debug(
+					"Finding sales with Shop= " + shop.getId() + ", StartDate= " + startDate + ", EndDate= " + endDate);
+
 			TypedQuery<Sale> query = entityManager.createNamedQuery("Sales.findByShopAndBetweenDates", Sale.class);
 			query.setParameter("shop", shop);
 			query.setParameter("startDate", startDate, TemporalType.DATE);
 			query.setParameter("endDate", endDate, TemporalType.DATE);
-			return query.getResultList();
+
+			List<Sale> salesList = query.getResultList();
+			if (salesList == null || salesList.size() == 0) {
+				logger.debug("No Sales FOUND");
+			} else {
+				logger.debug("Found with data= " + salesList);
+			}
+			return salesList;
 		}
 	}
 }
