@@ -2,8 +2,8 @@ var count = $('#salesTable tbody tr').length;
 
 $(document).ready(function() {
 
-	$("#addBtn").bind("click", addRow);
-	$(".delBtn").bind("click", delRow);
+	$("#addBtn").on("click", addRow);
+	$(".delBtn").on("click", delRow);
 
 	updateTotals();
 
@@ -24,15 +24,24 @@ $(document).ready(function() {
 
 function addRow() {
 	count++;
-	table.row.add(
-			[ '<select name="item_type' + count + '">', '<input type="text" name="sale_quantity' + count + '">', '<input type="text" name="sale_amount' + count + '">',
-					'<button name="delbtn" type="button" class="btn btn-warning">Eliminar</button>' ]).draw();
-	updateTotals();
+
+	var newRow = '<tr>' + '<td class="text col-sm-1"><select class="itemType"></td>' + '<td class="text col-sm-5">' + '<input type="text" class="qty"/></td>'
+			+ '<td class="text col-sm-5"><input type="text" class="amount"/></td>' + '<td><a><span title="Eliminar" class="delBtn glyphicon glyphicon-remove col-sm-1"></span></a></td>' + '</tr>';
+
+	$("#salesTable > tbody").append(newRow);
+
+	$(".qty").off("focusout");
+	$(".amount").off("focusout");
+
+	$(".qty").on("focusout", updateTotals);
+	$(".amount").on("focusout", updateTotals);
+
+	$(".delBtn").off("click");
+	$(".delBtn").on("click", delRow);
 }
 
 function delRow() {
 	count--;
-
 	var r = confirm("Esta seguro que desea eliminar la fila?");
 	if (r == true) {
 		var tr = $(this).closest('tr');
@@ -47,23 +56,17 @@ function sumOfColumns(table, columnIndex) {
 	table.find("tr").children("td:nth-child(" + columnIndex + ")").each(function() {
 		$this = $(this);
 		if (!$this.hasClass("sum") && $this.html() != "") {
-			tot += parseInt($this.html());
+			var value = parseInt($this.html());
+			if (isNaN(value)) {
+				value = parseInt($this.find('input').val());
+				if (isNaN(value)) {
+					value = 0;
+				}
+			}
+			tot += value;
 		}
 	});
 	return tot;
-}
-
-function do_sums() {
-	$("tr.sum").each(function(i, tr) {
-		$tr = $(tr);
-		$tr.children().each(function(i, td) {
-			$td = $(td);
-			var table = $td.parent().parent().parent();
-			if ($td.hasClass("sum")) {
-				$td.html(sumOfColumns(table, i + 1));
-			}
-		})
-	});
 }
 
 function updateTotals() {

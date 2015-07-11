@@ -94,9 +94,9 @@ public class SalesController {
 	}
 
 	@RequestMapping(value = "/prueba", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody Sale getSaleinJSON(@RequestParam(value = "id") String id, Model model) {
+	public @ResponseBody Sale getSaleinJSON(@RequestParam(value = "id") Long id, Model model) {
 		if (id != null) {
-			Sale sale = saleDao.find(Long.parseLong(id));
+			Sale sale = saleDao.find(id);
 			return sale;
 		} else
 			return null;
