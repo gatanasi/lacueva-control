@@ -196,10 +196,12 @@ public class AdminController {
 		itemsForShop1.add(item1);
 		itemsForShop1.add(item3);
 		itemsForShop1.add(item11);
+		itemsForShop1.add(item12);
 
 		itemsForShop2.add(item1);
 		itemsForShop2.add(item3);
 		itemsForShop2.add(item11);
+		itemsForShop2.add(item12);
 
 		Shop shop1 = new Shop();
 

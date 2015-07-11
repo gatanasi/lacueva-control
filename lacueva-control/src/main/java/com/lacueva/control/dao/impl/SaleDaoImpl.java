@@ -37,26 +37,23 @@ public class SaleDaoImpl extends GenericDaoImpl<Sale>implements SaleDao {
 
 	@Override
 	public List<Sale> findSalesByShopAndBetweenDates(final Shop shop, final Date startDate, final Date endDate) {
-		logger.debug("Finding sales by shop and dates");
-		if (shop == null || shop.getId() == null || startDate == null || endDate == null) {
-			logger.debug("Received a null parameter");
-			return new ArrayList<Sale>();
-		} else {
+		logger.debug("Finding Sales by Shop and Dates");
+
+		List<Sale> salesList = new ArrayList<Sale>();
+
+		if (shop != null && shop.getId() != null && startDate != null && endDate != null) {
 			logger.debug(
-					"Finding sales with Shop= " + shop.getId() + ", StartDate= " + startDate + ", EndDate= " + endDate);
+					"Finding Sales with Shop= " + shop.getId() + ", StartDate= " + startDate + ", EndDate= " + endDate);
 
 			TypedQuery<Sale> query = entityManager.createNamedQuery("Sales.findByShopAndBetweenDates", Sale.class);
 			query.setParameter("shop", shop);
 			query.setParameter("startDate", startDate, TemporalType.DATE);
 			query.setParameter("endDate", endDate, TemporalType.DATE);
 
-			List<Sale> salesList = query.getResultList();
-			if (salesList == null || salesList.size() == 0) {
-				logger.debug("No Sales FOUND");
-			} else {
-				logger.debug("Found with data= " + salesList);
-			}
-			return salesList;
+			salesList.addAll(query.getResultList());
+
+			logger.debug("Found with data= " + salesList);
 		}
+		return salesList;
 	}
 }

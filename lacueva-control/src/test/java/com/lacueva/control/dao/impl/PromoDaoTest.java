@@ -157,6 +157,6 @@ public class PromoDaoTest {
 		assertEquals(promo2.getPromoQuantity(), foundPromo2.getPromoQuantity());
 		assertEquals(promo2.getPromoValue(), foundPromo2.getPromoValue());
 
-		assertNull(notFoundPromo);
+		assertNull(notFoundPromo.getId());
 	}
 }
