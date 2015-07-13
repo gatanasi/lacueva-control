@@ -6,6 +6,7 @@ import com.lacueva.control.bean.Withdrawal;
 import com.lacueva.control.dao.WithdrawalDao;
 
 @Repository("withdrawalDao")
-public class WithdrawalDaoImpl extends GenericDaoImpl<Withdrawal>implements WithdrawalDao {
+public class WithdrawalDaoImpl extends GenericDaoImpl<Withdrawal> implements
+	WithdrawalDao {
 
 }

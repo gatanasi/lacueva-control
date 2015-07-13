@@ -39,66 +39,87 @@ import com.lacueva.control.dao.SaleDao;
 @SessionAttributes("currShop")
 public class SalesController {
 
-	private final Logger logger = LoggerFactory.getLogger(getClass());
+    private final Logger logger = LoggerFactory.getLogger(getClass());
 
-	@Inject
-	private SaleDao saleDao;
+    @Inject
+    private SaleDao saleDao;
 
-	/**
-	 * Populates the current Shop if it's null
-	 * 
-	 * @return new Shop
-	 */
-	@ModelAttribute("currShop")
-	public Shop populateShop() {
-		return new Shop();
-	}
+    /**
+     * Populates the current Shop if it's null
+     * 
+     * @return new Shop
+     */
+    @ModelAttribute("currShop")
+    public Shop populateShop() {
+	return new Shop();
+    }
 
-	@ExceptionHandler(HttpSessionRequiredException.class)
-	public String handleHttpSessionException() {
-		return "redirect:/login";
-	}
+    @ExceptionHandler(HttpSessionRequiredException.class)
+    public String handleHttpSessionException() {
+	return "redirect:/login";
+    }
 
-	@RequestMapping(method = RequestMethod.GET)
-	public String sales(Model model, @ModelAttribute("currShop") Shop currShop) throws ParseException {
-		return salesByDate(model, currShop, new Date());
-	}
+    @RequestMapping(method = RequestMethod.GET)
+    public String sales(Model model, @ModelAttribute("currShop") Shop currShop)
+	    throws ParseException {
+	return salesByDate(model, currShop, new Date());
+    }
 
-	@RequestMapping(value = "/{date}", method = RequestMethod.GET)
-	public String salesByDate(Model model, @ModelAttribute("currShop") Shop currShop,
-			@PathVariable @DateTimeFormat(iso = ISO.DATE) Date date) throws ParseException {
-		logger.info("Welcome sales path variable!");
+    @RequestMapping(value = "/{date}", method = RequestMethod.GET)
+    public String salesByDate(Model model,
+	    @ModelAttribute("currShop") Shop currShop,
+	    @PathVariable @DateTimeFormat(iso = ISO.DATE) Date date)
+	    throws ParseException {
+	logger.info("Welcome sales path variable!");
 
-		List<Sale> salesList = saleDao.findSalesByShopAndDate(currShop, date);
+	List<Sale> salesList = saleDao.findSalesByShopAndDate(currShop, date);
 
-		model.addAttribute("sales", salesList);
-		model.addAttribute("searchDate", date);
+	model.addAttribute("sales", salesList);
+	model.addAttribute("searchDate", date);
 
-		logger.info(salesList.toString());
+	logger.info(salesList.toString());
 
-		return "sales";
-	}
+	return "sales";
+    }
 
-	@RequestMapping(value = "delete/{date}/{id}", method = RequestMethod.GET)
-	public String deleteSaleById(@PathVariable @DateTimeFormat(iso = ISO.DATE) Date date, @PathVariable Long id,
-			RedirectAttributes redirectAttrs) {
-		logger.info("Welcome sales delete path variable!");
+    @RequestMapping(value = "delete/{date}/{id}", method = RequestMethod.GET)
+    public String deleteSaleById(
+	    @PathVariable @DateTimeFormat(iso = ISO.DATE) Date date,
+	    @PathVariable Long id, RedirectAttributes redirectAttrs) {
+	logger.info("Welcome sales delete path variable!");
 
-		saleDao.delete(id);
+	saleDao.delete(id);
 
-		String message = "Venta borrada correctamente";
+	String message = "Venta borrada correctamente";
 
-		redirectAttrs.addFlashAttribute("message", message);
+	redirectAttrs.addFlashAttribute("message", message);
 
-		return "redirect:/#sales/" + DateUtilThreadSafe.format(date);
-	}
+	return "redirect:/#sales/" + DateUtilThreadSafe.format(date);
+    }
 
-	@RequestMapping(value = "/prueba", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody Sale getSaleinJSON(@RequestParam(value = "id") Long id, Model model) {
-		if (id != null) {
-			Sale sale = saleDao.find(id);
-			return sale;
-		} else
-			return null;
-	}
+    @RequestMapping(value = "edit/{date}", method = RequestMethod.POST)
+    public String editSale(
+	    @PathVariable @DateTimeFormat(iso = ISO.DATE) Date date, Long id,
+	    RedirectAttributes redirectAttrs) {
+	logger.info("Entering Sales Edit using Date: "
+		+ DateUtilThreadSafe.format(date) + " and ID: " + id);
+
+	saleDao.delete(id);
+
+	String message = "Venta editada correctamente";
+
+	redirectAttrs.addFlashAttribute("message", message);
+
+	return "redirect:/#sales/" + DateUtilThreadSafe.format(date);
+    }
+
+    @RequestMapping(value = "/prueba", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody Sale getSaleinJSON(
+	    @RequestParam(value = "id") Long id, Model model) {
+	if (id != null) {
+	    Sale sale = saleDao.find(id);
+	    return sale;
+	} else
+	    return null;
+    }
 }

@@ -13,13 +13,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class HomeController {
 
-	private final Logger logger = LoggerFactory.getLogger(getClass());
+    private final Logger logger = LoggerFactory.getLogger(getClass());
 
-	@RequestMapping(value = "/home", method = RequestMethod.GET)
-	public String home(Model model) {
-		logger.info("Welcome home! The client locale is.");
+    @RequestMapping(value = "/home", method = RequestMethod.GET)
+    public String home(Model model) {
+	logger.info("Welcome home! The client locale is.");
 
-		return "home";
-	}
+	return "home";
+    }
 
 }

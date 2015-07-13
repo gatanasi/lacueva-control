@@ -28,111 +28,111 @@ import com.lacueva.control.dao.ShopDao;
 @ContextConfiguration("/test-context.xml")
 public class PriceDaoTest {
 
-	@PersistenceContext
-	private EntityManager entityManager;
+    @PersistenceContext
+    private EntityManager entityManager;
 
-	@Inject
-	private PriceDao priceDao;
+    @Inject
+    private PriceDao priceDao;
 
-	@Inject
-	private ItemDao itemDao;
+    @Inject
+    private ItemDao itemDao;
 
-	@Inject
-	private ShopDao shopDao;
+    @Inject
+    private ShopDao shopDao;
 
-	public Item item;
+    public Item item;
 
-	public Shop shop;
+    public Shop shop;
 
-	public Price price;
+    public Price price;
 
-	@Before
-	public void before() throws ParseException {
-		item = new Item();
-		item.setItemType("DVD");
-		item.setItemWeight(16.4f);
-		item.setItemBurnable(false);
+    @Before
+    public void before() throws ParseException {
+	item = new Item();
+	item.setItemType("DVD");
+	item.setItemWeight(16.4f);
+	item.setItemBurnable(false);
 
-		itemDao.create(item);
+	itemDao.create(item);
 
-		ArrayList<Item> itemList = new ArrayList<Item>();
-		itemList.add(item);
+	ArrayList<Item> itemList = new ArrayList<Item>();
+	itemList.add(item);
 
-		shop = new Shop();
-		shop.setShopDate(DateUtilThreadSafe.parse("2010-03-20"));
-		shop.setShopName("Shop1");
-		shop.setShopCash(2000);
-		shop.setShopItems(itemList);
+	shop = new Shop();
+	shop.setShopDate(DateUtilThreadSafe.parse("2010-03-20"));
+	shop.setShopName("Shop1");
+	shop.setShopCash(2000);
+	shop.setShopItems(itemList);
 
-		shopDao.create(shop);
+	shopDao.create(shop);
 
-		price = new Price();
-		price.setPriceItem(item);
-		price.setPriceShop(shop);
-		price.setPriceValue(13f);
+	price = new Price();
+	price.setPriceItem(item);
+	price.setPriceShop(shop);
+	price.setPriceValue(13f);
 
-		priceDao.create(price);
-	}
+	priceDao.create(price);
+    }
 
-	@Test
-	public void testCreate() {
-		Price priceCreate = new Price();
-		priceCreate.setPriceItem(item);
-		priceCreate.setPriceValue(6f);
+    @Test
+    public void testCreate() {
+	Price priceCreate = new Price();
+	priceCreate.setPriceItem(item);
+	priceCreate.setPriceValue(6f);
 
-		priceDao.create(priceCreate);
+	priceDao.create(priceCreate);
 
-		Price foundPrice = priceDao.find(priceCreate.getId());
+	Price foundPrice = priceDao.find(priceCreate.getId());
 
-		assertEquals(priceCreate, foundPrice);
-		assertEquals(priceCreate.getPriceShop(), foundPrice.getPriceShop());
-		assertEquals(priceCreate.getPriceItem(), foundPrice.getPriceItem());
-		assertEquals(priceCreate.getPriceValue(), foundPrice.getPriceValue());
-	}
+	assertEquals(priceCreate, foundPrice);
+	assertEquals(priceCreate.getPriceShop(), foundPrice.getPriceShop());
+	assertEquals(priceCreate.getPriceItem(), foundPrice.getPriceItem());
+	assertEquals(priceCreate.getPriceValue(), foundPrice.getPriceValue());
+    }
 
-	@Test
-	public void testFind() {
-		Price foundPrice = priceDao.find(price.getId());
+    @Test
+    public void testFind() {
+	Price foundPrice = priceDao.find(price.getId());
 
-		assertEquals(price, foundPrice);
-		assertEquals(price.getPriceShop(), foundPrice.getPriceShop());
-		assertEquals(price.getPriceItem(), foundPrice.getPriceItem());
-		assertEquals(price.getPriceValue(), foundPrice.getPriceValue());
-	}
+	assertEquals(price, foundPrice);
+	assertEquals(price.getPriceShop(), foundPrice.getPriceShop());
+	assertEquals(price.getPriceItem(), foundPrice.getPriceItem());
+	assertEquals(price.getPriceValue(), foundPrice.getPriceValue());
+    }
 
-	@Test
-	public void testDelete() {
-		priceDao.delete(price.getId());
+    @Test
+    public void testDelete() {
+	priceDao.delete(price.getId());
 
-		Price foundPrice = priceDao.find(price.getId());
+	Price foundPrice = priceDao.find(price.getId());
 
-		assertNull(foundPrice);
-	}
+	assertNull(foundPrice);
+    }
 
-	@Test
-	public void testUpdate() {
-		Price updatedPrice = new Price();
-		updatedPrice.setId(price.getId());
-		updatedPrice.setPriceItem(price.getPriceItem());
-		updatedPrice.setPriceValue(3f);
+    @Test
+    public void testUpdate() {
+	Price updatedPrice = new Price();
+	updatedPrice.setId(price.getId());
+	updatedPrice.setPriceItem(price.getPriceItem());
+	updatedPrice.setPriceValue(3f);
 
-		priceDao.update(updatedPrice);
+	priceDao.update(updatedPrice);
 
-		Price foundPrice = priceDao.find(price.getId());
+	Price foundPrice = priceDao.find(price.getId());
 
-		assertEquals(updatedPrice, foundPrice);
-		assertEquals(updatedPrice.getPriceShop(), foundPrice.getPriceShop());
-		assertEquals(updatedPrice.getPriceItem(), foundPrice.getPriceItem());
-		assertEquals(updatedPrice.getPriceValue(), foundPrice.getPriceValue());
-	}
+	assertEquals(updatedPrice, foundPrice);
+	assertEquals(updatedPrice.getPriceShop(), foundPrice.getPriceShop());
+	assertEquals(updatedPrice.getPriceItem(), foundPrice.getPriceItem());
+	assertEquals(updatedPrice.getPriceValue(), foundPrice.getPriceValue());
+    }
 
-	@Test
-	public void testFindPriceByShopAndItem() {
-		Price foundPrice = priceDao.findPriceByShopAndItem(shop, item);
+    @Test
+    public void testFindPriceByShopAndItem() {
+	Price foundPrice = priceDao.findPriceByShopAndItem(shop, item);
 
-		assertEquals(price, foundPrice);
-		assertEquals(price.getPriceShop(), foundPrice.getPriceShop());
-		assertEquals(price.getPriceItem(), foundPrice.getPriceItem());
-		assertEquals(price.getPriceValue(), foundPrice.getPriceValue());
-	}
+	assertEquals(price, foundPrice);
+	assertEquals(price.getPriceShop(), foundPrice.getPriceShop());
+	assertEquals(price.getPriceItem(), foundPrice.getPriceItem());
+	assertEquals(price.getPriceValue(), foundPrice.getPriceValue());
+    }
 }

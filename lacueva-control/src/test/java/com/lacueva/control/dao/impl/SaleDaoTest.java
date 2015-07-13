@@ -28,138 +28,142 @@ import com.lacueva.control.dao.ShopDao;
 @ContextConfiguration("/test-context.xml")
 public class SaleDaoTest {
 
-	@PersistenceContext
-	private EntityManager entityManager;
+    @PersistenceContext
+    private EntityManager entityManager;
 
-	@Inject
-	private SaleDao saleDao;
+    @Inject
+    private SaleDao saleDao;
 
-	@Inject
-	private ItemDao itemDao;
+    @Inject
+    private ItemDao itemDao;
 
-	@Inject
-	private ShopDao shopDao;
+    @Inject
+    private ShopDao shopDao;
 
-	public Item item;
+    public Item item;
 
-	public Sale sale;
+    public Sale sale;
 
-	public Shop shop;
+    public Shop shop;
 
-	@Before
-	public void before() throws ParseException {
-		item = new Item();
-		item.setItemType("DVD");
-		item.setItemWeight(16.4f);
-		item.setItemBurnable(false);
+    @Before
+    public void before() throws ParseException {
+	item = new Item();
+	item.setItemType("DVD");
+	item.setItemWeight(16.4f);
+	item.setItemBurnable(false);
 
-		itemDao.create(item);
+	itemDao.create(item);
 
-		shop = new Shop();
-		shop.setShopDate(DateUtilThreadSafe.parse("2010-03-20"));
-		shop.setShopName("Shop1");
-		shop.setShopCash(2000);
+	shop = new Shop();
+	shop.setShopDate(DateUtilThreadSafe.parse("2010-03-20"));
+	shop.setShopName("Shop1");
+	shop.setShopCash(2000);
 
-		shopDao.create(shop);
+	shopDao.create(shop);
 
-		sale = new Sale();
-		sale.setSaleDate(DateUtilThreadSafe.parse("2015-02-10"));
-		sale.setSaleShop(shop);
-		sale.setSaleItem(item);
-		sale.setSaleQuantity(50);
-		sale.setSaleAmount(10f);
-		;
+	sale = new Sale();
+	sale.setSaleDate(DateUtilThreadSafe.parse("2015-02-10"));
+	sale.setSaleShop(shop);
+	sale.setSaleItem(item);
+	sale.setSaleQuantity(50);
+	sale.setSaleAmount(10f);
+	;
 
-		saleDao.create(sale);
-	}
+	saleDao.create(sale);
+    }
 
-	@Test
-	public void testCreate() throws ParseException {
-		Sale saleCreate = new Sale();
-		saleCreate.setSaleDate(DateUtilThreadSafe.parse("2015-06-01"));
-		saleCreate.setSaleShop(shop);
-		saleCreate.setSaleItem(item);
-		saleCreate.setSaleQuantity(12);
-		saleCreate.setSaleAmount(15f);
-		;
+    @Test
+    public void testCreate() throws ParseException {
+	Sale saleCreate = new Sale();
+	saleCreate.setSaleDate(DateUtilThreadSafe.parse("2015-06-01"));
+	saleCreate.setSaleShop(shop);
+	saleCreate.setSaleItem(item);
+	saleCreate.setSaleQuantity(12);
+	saleCreate.setSaleAmount(15f);
+	;
 
-		saleDao.create(saleCreate);
+	saleDao.create(saleCreate);
 
-		Sale foundSale = saleDao.find(saleCreate.getId());
+	Sale foundSale = saleDao.find(saleCreate.getId());
 
-		assertEquals(saleCreate, foundSale);
-		assertEquals(saleCreate.getSaleDate(), foundSale.getSaleDate());
-		assertEquals(saleCreate.getSaleShop(), foundSale.getSaleShop());
-		assertEquals(saleCreate.getSaleItem(), foundSale.getSaleItem());
-		assertEquals(saleCreate.getSaleQuantity(), foundSale.getSaleQuantity());
-		assertEquals(saleCreate.getSaleAmount(), foundSale.getSaleAmount());
-	}
+	assertEquals(saleCreate, foundSale);
+	assertEquals(saleCreate.getSaleDate(), foundSale.getSaleDate());
+	assertEquals(saleCreate.getSaleShop(), foundSale.getSaleShop());
+	assertEquals(saleCreate.getSaleItem(), foundSale.getSaleItem());
+	assertEquals(saleCreate.getSaleQuantity(), foundSale.getSaleQuantity());
+	assertEquals(saleCreate.getSaleAmount(), foundSale.getSaleAmount());
+    }
 
-	@Test
-	public void testFind() {
-		Sale foundSale = saleDao.find(sale.getId());
+    @Test
+    public void testFind() {
+	Sale foundSale = saleDao.find(sale.getId());
 
-		assertEquals(sale, foundSale);
-		assertEquals(sale.getSaleDate(), foundSale.getSaleDate());
-		assertEquals(sale.getSaleShop(), foundSale.getSaleShop());
-		assertEquals(sale.getSaleItem(), foundSale.getSaleItem());
-		assertEquals(sale.getSaleQuantity(), foundSale.getSaleQuantity());
-		assertEquals(sale.getSaleAmount(), foundSale.getSaleAmount());
-	}
+	assertEquals(sale, foundSale);
+	assertEquals(sale.getSaleDate(), foundSale.getSaleDate());
+	assertEquals(sale.getSaleShop(), foundSale.getSaleShop());
+	assertEquals(sale.getSaleItem(), foundSale.getSaleItem());
+	assertEquals(sale.getSaleQuantity(), foundSale.getSaleQuantity());
+	assertEquals(sale.getSaleAmount(), foundSale.getSaleAmount());
+    }
 
-	@Test
-	public void testDelete() {
-		saleDao.delete(sale.getId());
+    @Test
+    public void testDelete() {
+	saleDao.delete(sale.getId());
 
-		Sale foundSale = saleDao.find(sale.getId());
+	Sale foundSale = saleDao.find(sale.getId());
 
-		assertNull(foundSale);
-	}
+	assertNull(foundSale);
+    }
 
-	@Test
-	public void testUpdate() {
-		Sale updatedSale = new Sale();
-		updatedSale.setId(sale.getId());
-		updatedSale.setSaleDate(sale.getSaleDate());
-		updatedSale.setSaleShop(sale.getSaleShop());
-		updatedSale.setSaleItem(sale.getSaleItem());
-		updatedSale.setSaleQuantity(3);
-		updatedSale.setSaleAmount(30f);
+    @Test
+    public void testUpdate() {
+	Sale updatedSale = new Sale();
+	updatedSale.setId(sale.getId());
+	updatedSale.setSaleDate(sale.getSaleDate());
+	updatedSale.setSaleShop(sale.getSaleShop());
+	updatedSale.setSaleItem(sale.getSaleItem());
+	updatedSale.setSaleQuantity(3);
+	updatedSale.setSaleAmount(30f);
 
-		saleDao.update(updatedSale);
+	saleDao.update(updatedSale);
 
-		Sale foundSale = saleDao.find(sale.getId());
+	Sale foundSale = saleDao.find(sale.getId());
 
-		assertEquals(updatedSale, foundSale);
-		assertEquals(updatedSale.getSaleDate(), foundSale.getSaleDate());
-		assertEquals(updatedSale.getSaleShop(), foundSale.getSaleShop());
-		assertEquals(updatedSale.getSaleItem(), foundSale.getSaleItem());
-		assertEquals(updatedSale.getSaleQuantity(), foundSale.getSaleQuantity());
-		assertEquals(updatedSale.getSaleAmount(), foundSale.getSaleAmount());
-	}
+	assertEquals(updatedSale, foundSale);
+	assertEquals(updatedSale.getSaleDate(), foundSale.getSaleDate());
+	assertEquals(updatedSale.getSaleShop(), foundSale.getSaleShop());
+	assertEquals(updatedSale.getSaleItem(), foundSale.getSaleItem());
+	assertEquals(updatedSale.getSaleQuantity(), foundSale.getSaleQuantity());
+	assertEquals(updatedSale.getSaleAmount(), foundSale.getSaleAmount());
+    }
 
-	@Test
-	public void testFindSalesByShopAndDate() throws ParseException {
-		List<Sale> foundSales = saleDao.findSalesByShopAndDate(shop, DateUtilThreadSafe.parse("2015-02-10"));
+    @Test
+    public void testFindSalesByShopAndDate() throws ParseException {
+	List<Sale> foundSales = saleDao.findSalesByShopAndDate(shop,
+		DateUtilThreadSafe.parse("2015-02-10"));
 
-		assertEquals(sale, foundSales.get(0));
-		assertEquals(sale.getSaleDate(), foundSales.get(0).getSaleDate());
-		assertEquals(sale.getSaleShop(), foundSales.get(0).getSaleShop());
-		assertEquals(sale.getSaleItem(), foundSales.get(0).getSaleItem());
-		assertEquals(sale.getSaleQuantity(), foundSales.get(0).getSaleQuantity());
-		assertEquals(sale.getSaleAmount(), foundSales.get(0).getSaleAmount());
-	}
+	assertEquals(sale, foundSales.get(0));
+	assertEquals(sale.getSaleDate(), foundSales.get(0).getSaleDate());
+	assertEquals(sale.getSaleShop(), foundSales.get(0).getSaleShop());
+	assertEquals(sale.getSaleItem(), foundSales.get(0).getSaleItem());
+	assertEquals(sale.getSaleQuantity(), foundSales.get(0)
+		.getSaleQuantity());
+	assertEquals(sale.getSaleAmount(), foundSales.get(0).getSaleAmount());
+    }
 
-	@Test
-	public void testFindSalesByShopAndBetweenDates() throws ParseException {
-		List<Sale> foundSales = saleDao.findSalesByShopAndBetweenDates(shop, DateUtilThreadSafe.parse("2015-02-01"),
-				DateUtilThreadSafe.parse("2015-03-01"));
+    @Test
+    public void testFindSalesByShopAndBetweenDates() throws ParseException {
+	List<Sale> foundSales = saleDao.findSalesByShopAndBetweenDates(shop,
+		DateUtilThreadSafe.parse("2015-02-01"),
+		DateUtilThreadSafe.parse("2015-03-01"));
 
-		assertEquals(sale, foundSales.get(0));
-		assertEquals(sale.getSaleDate(), foundSales.get(0).getSaleDate());
-		assertEquals(sale.getSaleShop(), foundSales.get(0).getSaleShop());
-		assertEquals(sale.getSaleItem(), foundSales.get(0).getSaleItem());
-		assertEquals(sale.getSaleQuantity(), foundSales.get(0).getSaleQuantity());
-		assertEquals(sale.getSaleAmount(), foundSales.get(0).getSaleAmount());
-	}
+	assertEquals(sale, foundSales.get(0));
+	assertEquals(sale.getSaleDate(), foundSales.get(0).getSaleDate());
+	assertEquals(sale.getSaleShop(), foundSales.get(0).getSaleShop());
+	assertEquals(sale.getSaleItem(), foundSales.get(0).getSaleItem());
+	assertEquals(sale.getSaleQuantity(), foundSales.get(0)
+		.getSaleQuantity());
+	assertEquals(sale.getSaleAmount(), foundSales.get(0).getSaleAmount());
+    }
 }

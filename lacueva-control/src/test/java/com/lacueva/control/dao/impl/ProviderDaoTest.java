@@ -20,63 +20,66 @@ import com.lacueva.control.dao.ProviderDao;
 @ContextConfiguration("/test-context.xml")
 public class ProviderDaoTest {
 
-	@PersistenceContext
-	private EntityManager entityManager;
+    @PersistenceContext
+    private EntityManager entityManager;
 
-	@Inject
-	private ProviderDao providerDao;
+    @Inject
+    private ProviderDao providerDao;
 
-	public Provider provider;
+    public Provider provider;
 
-	@Before
-	public void before() {
-		provider = new Provider();
-		provider.setProviderName("ProviderBefore");
+    @Before
+    public void before() {
+	provider = new Provider();
+	provider.setProviderName("ProviderBefore");
 
-		providerDao.create(provider);
-	}
+	providerDao.create(provider);
+    }
 
-	@Test
-	public void testCreate() {
-		Provider providerCreate = new Provider();
-		providerCreate.setProviderName("ProviderCreate");
+    @Test
+    public void testCreate() {
+	Provider providerCreate = new Provider();
+	providerCreate.setProviderName("ProviderCreate");
 
-		providerDao.create(providerCreate);
+	providerDao.create(providerCreate);
 
-		Provider foundProvider = providerDao.find(providerCreate.getId());
+	Provider foundProvider = providerDao.find(providerCreate.getId());
 
-		assertEquals(providerCreate, foundProvider);
-		assertEquals(providerCreate.getProviderName(), foundProvider.getProviderName());
-	}
+	assertEquals(providerCreate, foundProvider);
+	assertEquals(providerCreate.getProviderName(),
+		foundProvider.getProviderName());
+    }
 
-	@Test
-	public void testFind() {
-		Provider foundProvider = providerDao.find(provider.getId());
+    @Test
+    public void testFind() {
+	Provider foundProvider = providerDao.find(provider.getId());
 
-		assertEquals(provider, foundProvider);
-		assertEquals(provider.getProviderName(), foundProvider.getProviderName());
-	}
+	assertEquals(provider, foundProvider);
+	assertEquals(provider.getProviderName(),
+		foundProvider.getProviderName());
+    }
 
-	@Test
-	public void testDelete() {
-		providerDao.delete(provider.getId());
+    @Test
+    public void testDelete() {
+	providerDao.delete(provider.getId());
 
-		Provider foundProvider = providerDao.find(provider.getId());
+	Provider foundProvider = providerDao.find(provider.getId());
 
-		assertNull(foundProvider);
-	}
+	assertNull(foundProvider);
+    }
 
-	@Test
-	public void testUpdate() {
-		Provider updatedProvider = new Provider();
-		updatedProvider.setId(provider.getId());
-		updatedProvider.setProviderName("ProviderUpdate");
+    @Test
+    public void testUpdate() {
+	Provider updatedProvider = new Provider();
+	updatedProvider.setId(provider.getId());
+	updatedProvider.setProviderName("ProviderUpdate");
 
-		providerDao.update(updatedProvider);
+	providerDao.update(updatedProvider);
 
-		Provider foundProvider = providerDao.find(provider.getId());
+	Provider foundProvider = providerDao.find(provider.getId());
 
-		assertEquals(updatedProvider, foundProvider);
-		assertEquals(updatedProvider.getProviderName(), foundProvider.getProviderName());
-	}
+	assertEquals(updatedProvider, foundProvider);
+	assertEquals(updatedProvider.getProviderName(),
+		foundProvider.getProviderName());
+    }
 }

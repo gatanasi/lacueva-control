@@ -34,46 +34,49 @@ import com.lacueva.control.dao.SaleDao;
 @SessionAttributes("currShop")
 public class StocksController {
 
-	private final Logger logger = LoggerFactory.getLogger(getClass());
+    private final Logger logger = LoggerFactory.getLogger(getClass());
 
-	@Inject
-	private SaleDao saleDao;
+    @Inject
+    private SaleDao saleDao;
 
-	/**
-	 * Populates the current Shop if it's null
-	 * 
-	 * @return new Shop
-	 */
-	@ModelAttribute("currShop")
-	public Shop populateShop() {
-		return new Shop();
-	}
+    /**
+     * Populates the current Shop if it's null
+     * 
+     * @return new Shop
+     */
+    @ModelAttribute("currShop")
+    public Shop populateShop() {
+	return new Shop();
+    }
 
-	@ExceptionHandler(HttpSessionRequiredException.class)
-	public String handleHttpSessionException() {
-		return "redirect:/login";
-	}
+    @ExceptionHandler(HttpSessionRequiredException.class)
+    public String handleHttpSessionException() {
+	return "redirect:/login";
+    }
 
-	@RequestMapping(method = RequestMethod.GET)
-	public String sales(Model model, @ModelAttribute("currShop") Shop currShop) throws ParseException {
-		logger.info("Welcome stocks!");
+    @RequestMapping(method = RequestMethod.GET)
+    public String sales(Model model, @ModelAttribute("currShop") Shop currShop)
+	    throws ParseException {
+	logger.info("Welcome stocks!");
 
-		List<Sale> salesList = saleDao.findSalesByShopAndDate(currShop, new Date());
+	List<Sale> salesList = saleDao.findSalesByShopAndDate(currShop,
+		new Date());
 
-		model.addAttribute("sales", salesList);
+	model.addAttribute("sales", salesList);
 
-		logger.info(salesList.toString());
+	logger.info(salesList.toString());
 
-		return "stocks";
-	}
+	return "stocks";
+    }
 
-	@RequestMapping(value = "/prueba", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody Sale getSaleinJSON(@RequestParam(value = "id") String id, Model model) {
-		if (id != null) {
-			Sale sale = saleDao.find(Long.parseLong(id));
-			return sale;
-		} else
-			return null;
-	}
+    @RequestMapping(value = "/prueba", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody Sale getSaleinJSON(
+	    @RequestParam(value = "id") String id, Model model) {
+	if (id != null) {
+	    Sale sale = saleDao.find(Long.parseLong(id));
+	    return sale;
+	} else
+	    return null;
+    }
 
 }

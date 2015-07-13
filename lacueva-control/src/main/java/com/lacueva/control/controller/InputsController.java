@@ -34,51 +34,53 @@ import com.lacueva.control.dao.SaleDao;
 @SessionAttributes("currShop")
 public class InputsController {
 
-	private final Logger logger = LoggerFactory.getLogger(getClass());
+    private final Logger logger = LoggerFactory.getLogger(getClass());
 
-	@Inject
-	private SaleDao saleDao;
+    @Inject
+    private SaleDao saleDao;
 
-	/**
-	 * Populates the current Shop if it's null
-	 * 
-	 * @return new Shop
-	 */
-	@ModelAttribute("currShop")
-	public Shop populateShop() {
-		return new Shop();
+    /**
+     * Populates the current Shop if it's null
+     * 
+     * @return new Shop
+     */
+    @ModelAttribute("currShop")
+    public Shop populateShop() {
+	return new Shop();
+    }
+
+    @ExceptionHandler(HttpSessionRequiredException.class)
+    public String handleHttpSessionException() {
+	return "redirect:/login";
+    }
+
+    @RequestMapping(method = RequestMethod.GET)
+    public String sales(Model model, @ModelAttribute("currShop") Shop currShop) {
+	logger.info("Welcome inputs!");
+
+	List<Sale> salesList = new ArrayList<Sale>();
+	try {
+	    salesList = saleDao.findSalesByShopAndBetweenDates(currShop,
+		    DateUtilThreadSafe.parse("2015-02-09"),
+		    DateUtilThreadSafe.parse("2015-02-12"));
+	} catch (Exception e) {
+	    e.printStackTrace();
 	}
 
-	@ExceptionHandler(HttpSessionRequiredException.class)
-	public String handleHttpSessionException() {
-		return "redirect:/login";
+	model.addAttribute("sales", salesList);
+
+	logger.info(salesList.toString());
+
+	return "inputs";
+    }
+
+    @RequestMapping(value = "/prueba", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody Sale getSaleinJSON(
+	    @RequestParam(value = "id") String id, Model model) {
+	if (id != null) {
+	    return saleDao.find(Long.parseLong(id));
 	}
-
-	@RequestMapping(method = RequestMethod.GET)
-	public String sales(Model model, @ModelAttribute("currShop") Shop currShop) {
-		logger.info("Welcome inputs!");
-
-		List<Sale> salesList = new ArrayList<Sale>();
-		try {
-			salesList = saleDao.findSalesByShopAndBetweenDates(currShop, DateUtilThreadSafe.parse("2015-02-09"),
-					DateUtilThreadSafe.parse("2015-02-12"));
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		model.addAttribute("sales", salesList);
-
-		logger.info(salesList.toString());
-
-		return "inputs";
-	}
-
-	@RequestMapping(value = "/prueba", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody Sale getSaleinJSON(@RequestParam(value = "id") String id, Model model) {
-		if (id != null) {
-			return saleDao.find(Long.parseLong(id));
-		}
-		return null;
-	}
+	return null;
+    }
 
 }

@@ -24,111 +24,112 @@ import javax.persistence.TemporalType;
 @Table(name = "CUEVA_BLANK_DISCS")
 public class BlankDisc implements Serializable {
 
-	/**
+    /**
 	 * 
 	 */
-	private static final long serialVersionUID = 1527961326372596100L;
+    private static final long serialVersionUID = 1527961326372596100L;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO, generator = "CUEVA_SEQ_BLANK_DISCS_ID")
-	@SequenceGenerator(name = "CUEVA_SEQ_BLANK_DISCS_ID", sequenceName = "CUEVA_SEQ_BLANK_DISCS_ID", initialValue = 1, allocationSize = 1)
-	@Column(name = "BLANK_ID")
-	private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "CUEVA_SEQ_BLANK_DISCS_ID")
+    @SequenceGenerator(name = "CUEVA_SEQ_BLANK_DISCS_ID", sequenceName = "CUEVA_SEQ_BLANK_DISCS_ID", initialValue = 1, allocationSize = 1)
+    @Column(name = "BLANK_ID")
+    private Long id;
 
-	@Temporal(TemporalType.DATE)
-	@Column(name = "BLANK_DATE", nullable = false)
-	private Date blankDiscDate;
+    @Temporal(TemporalType.DATE)
+    @Column(name = "BLANK_DATE", nullable = false)
+    private Date blankDiscDate;
 
-	@OneToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "BLANK_ITEM_ID")
-	private Item blankDiscItem;
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "BLANK_ITEM_ID")
+    private Item blankDiscItem;
 
-	@Column(name = "BLANK_QUANTITY", nullable = false)
-	private Integer blankDiscQuantity;
+    @Column(name = "BLANK_QUANTITY", nullable = false)
+    private Integer blankDiscQuantity;
 
-	@OneToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "BLANK_PROVIDER_ID")
-	private Provider blankDiscProvider;
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "BLANK_PROVIDER_ID")
+    private Provider blankDiscProvider;
 
-	public BlankDisc() {
-		super();
+    public BlankDisc() {
+	super();
+    }
+
+    public Long getId() {
+	return id;
+    }
+
+    public void setId(Long id) {
+	this.id = id;
+    }
+
+    public Date getBlankDiscDate() {
+	return blankDiscDate;
+    }
+
+    public void setBlankDiscDate(Date blankDiscDate) {
+	this.blankDiscDate = blankDiscDate;
+    }
+
+    public Item getBlankDiscItem() {
+	return blankDiscItem;
+    }
+
+    public void setBlankDiscItem(Item blankDiscItem) {
+	this.blankDiscItem = blankDiscItem;
+    }
+
+    public Integer getBlankDiscQuantity() {
+	return blankDiscQuantity;
+    }
+
+    public void setBlankDiscQuantity(Integer blankDiscQuantity) {
+	this.blankDiscQuantity = blankDiscQuantity;
+    }
+
+    public Provider getBlankDiscProvider() {
+	return blankDiscProvider;
+    }
+
+    public void setBlankDiscProvider(Provider blankDiscProvider) {
+	this.blankDiscProvider = blankDiscProvider;
+    }
+
+    @Override
+    public String toString()
+
+    {
+	StringBuilder sb = new StringBuilder("BlankDisc");
+	sb.append("blankDiscId=").append(getId()).append(", blankDiscDate=")
+		.append(getBlankDiscDate()).append(", blankDiscItemType=");
+	if (getBlankDiscItem() != null) {
+	    sb.append(getBlankDiscItem().getItemType());
 	}
-
-	public Long getId() {
-		return id;
+	sb.append(", blankDiscQuantity=").append(getBlankDiscQuantity())
+		.append(", blankDiscProviderName=");
+	if (getBlankDiscProvider() != null) {
+	    sb.append(getBlankDiscProvider().getProviderName());
 	}
+	sb.append("]");
 
-	public void setId(Long id) {
-		this.id = id;
+	return sb.toString();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+	if ((obj != null) && (obj instanceof BlankDisc) && getId() != null) {
+	    final BlankDisc that = (BlankDisc) obj;
+	    return getId().equals(that.getId());
+	} else {
+	    return false;
 	}
+    }
 
-	public Date getBlankDiscDate() {
-		return blankDiscDate;
+    @Override
+    public int hashCode() {
+	if (getId() != null) {
+	    return getId().intValue();
+	} else {
+	    return 0;
 	}
-
-	public void setBlankDiscDate(Date blankDiscDate) {
-		this.blankDiscDate = blankDiscDate;
-	}
-
-	public Item getBlankDiscItem() {
-		return blankDiscItem;
-	}
-
-	public void setBlankDiscItem(Item blankDiscItem) {
-		this.blankDiscItem = blankDiscItem;
-	}
-
-	public Integer getBlankDiscQuantity() {
-		return blankDiscQuantity;
-	}
-
-	public void setBlankDiscQuantity(Integer blankDiscQuantity) {
-		this.blankDiscQuantity = blankDiscQuantity;
-	}
-
-	public Provider getBlankDiscProvider() {
-		return blankDiscProvider;
-	}
-
-	public void setBlankDiscProvider(Provider blankDiscProvider) {
-		this.blankDiscProvider = blankDiscProvider;
-	}
-
-	@Override
-	public String toString()
-
-	{
-		StringBuilder sb = new StringBuilder("BlankDisc");
-		sb.append("blankDiscId=").append(getId()).append(", blankDiscDate=").append(getBlankDiscDate())
-				.append(", blankDiscItemType=");
-		if (getBlankDiscItem() != null) {
-			sb.append(getBlankDiscItem().getItemType());
-		}
-		sb.append(", blankDiscQuantity=").append(getBlankDiscQuantity()).append(", blankDiscProviderName=");
-		if (getBlankDiscProvider() != null) {
-			sb.append(getBlankDiscProvider().getProviderName());
-		}
-		sb.append("]");
-
-		return sb.toString();
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if ((obj != null) && (obj instanceof BlankDisc) && getId() != null) {
-			final BlankDisc that = (BlankDisc) obj;
-			return getId().equals(that.getId());
-		} else {
-			return false;
-		}
-	}
-
-	@Override
-	public int hashCode() {
-		if (getId() != null) {
-			return getId().intValue();
-		} else {
-			return 0;
-		}
-	}
+    }
 }

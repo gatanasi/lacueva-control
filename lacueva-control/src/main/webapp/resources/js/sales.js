@@ -4,6 +4,7 @@ $(document).ready(function() {
 
 	$("#addBtn").on("click", addRow);
 	$(".delBtn").on("click", delRow);
+	$(".editBtn").on("click", editRow);
 
 	updateTotals();
 
@@ -49,15 +50,41 @@ function delRow() {
 			'href' : $(".delBtn").closest('a').data('href')
 		},
 		buttons : [ {
-			label : 'Cancelar',
-			action : function(dialog) {
-				dialog.close();
-			}
-		}, {
 			label : 'Confirmar',
 			cssClass : 'btn-danger',
 			action : function(dialog) {
 				window.location = dialog.getData('href');
+				dialog.close();
+			}
+		}, {
+			label : 'Cancelar',
+			action : function(dialog) {
+				dialog.close();
+			}
+		} ]
+	});
+}
+
+function editRow() {
+	BootstrapDialog.show({
+		title : 'Editar',
+		message : 'I send ajax request!',
+		buttons : [ {
+			icon : 'glyphicon glyphicon-send',
+			label : 'Aceptar',
+			cssClass : 'btn-primary',
+			autospin : true,
+			action : function(dialog) {
+				dialog.enableButtons(false);
+				dialog.setClosable(false);
+				dialog.getModalBody().html('Enviando modificaciones...');
+				setTimeout(function() {
+					dialog.close();
+				}, 5000);
+			}
+		}, {
+			label : 'Cancelar',
+			action : function(dialog) {
 				dialog.close();
 			}
 		} ]

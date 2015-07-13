@@ -6,6 +6,7 @@ import com.lacueva.control.bean.Provider;
 import com.lacueva.control.dao.ProviderDao;
 
 @Repository("providerDao")
-public class ProviderDaoImpl extends GenericDaoImpl<Provider>implements ProviderDao {
+public class ProviderDaoImpl extends GenericDaoImpl<Provider> implements
+	ProviderDao {
 
 }

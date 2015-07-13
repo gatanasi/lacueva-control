@@ -22,92 +22,94 @@ import org.springframework.format.annotation.NumberFormat;
 @Table(name = "CUEVA_ITEMS")
 public class Item implements Serializable {
 
-	/**
+    /**
 	 * 
 	 */
-	private static final long serialVersionUID = 9155589603647542985L;
+    private static final long serialVersionUID = 9155589603647542985L;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO, generator = "CUEVA_SEQ_ITEMS_ID")
-	@SequenceGenerator(name = "CUEVA_SEQ_ITEMS_ID", sequenceName = "CUEVA_SEQ_ITEMS_ID", initialValue = 1, allocationSize = 1)
-	@Column(name = "ITEM_ID")
-	private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "CUEVA_SEQ_ITEMS_ID")
+    @SequenceGenerator(name = "CUEVA_SEQ_ITEMS_ID", sequenceName = "CUEVA_SEQ_ITEMS_ID", initialValue = 1, allocationSize = 1)
+    @Column(name = "ITEM_ID")
+    private Long id;
 
-	@Column(name = "ITEM_TYPE", nullable = false)
-	@NotNull
-	@Size(min = 1)
-	private String itemType;
+    @Column(name = "ITEM_TYPE", nullable = false)
+    @NotNull
+    @Size(min = 1)
+    private String itemType;
 
-	@Column(name = "ITEM_WEIGHT")
-	@NumberFormat
-	private Float itemWeight;
+    @Column(name = "ITEM_WEIGHT")
+    @NumberFormat
+    private Float itemWeight;
 
-	@Column(name = "ITEM_BURNABLE")
-	private Boolean itemBurnable;
+    @Column(name = "ITEM_BURNABLE")
+    private Boolean itemBurnable;
 
-	public Item() {
-		super();
+    public Item() {
+	super();
+    }
+
+    public Long getId() {
+	return id;
+    }
+
+    public void setId(Long id) {
+	this.id = id;
+    }
+
+    public String getItemType() {
+	return itemType;
+    }
+
+    public void setItemType(String itemType) {
+	this.itemType = itemType;
+    }
+
+    public Float getItemWeight() {
+	return itemWeight;
+    }
+
+    public void setItemWeight(Float itemWeight) {
+	this.itemWeight = itemWeight;
+    }
+
+    public Boolean getItemBurnable() {
+	return itemBurnable;
+    }
+
+    public void setItemBurnable(Boolean itemBurnable) {
+	this.itemBurnable = itemBurnable;
+    }
+
+    @Override
+    public String toString()
+
+    {
+	StringBuilder sb = new StringBuilder("Item [");
+	sb.append("itemId=").append(getId()).append(", itemType=")
+		.append(getItemType()).append(", itemWeight=")
+		.append(getItemWeight()).append(", itemBurnable=")
+		.append(getItemBurnable()).append("]");
+
+	return sb.toString();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+	if ((obj != null) && (obj instanceof Item) && getId() != null) {
+	    final Item that = (Item) obj;
+	    return getId().equals(that.getId());
+	} else {
+	    return false;
 	}
+    }
 
-	public Long getId() {
-		return id;
+    @Override
+    public int hashCode() {
+	if (getId() != null) {
+	    return getId().intValue();
+	} else {
+	    return 0;
 	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public String getItemType() {
-		return itemType;
-	}
-
-	public void setItemType(String itemType) {
-		this.itemType = itemType;
-	}
-
-	public Float getItemWeight() {
-		return itemWeight;
-	}
-
-	public void setItemWeight(Float itemWeight) {
-		this.itemWeight = itemWeight;
-	}
-
-	public Boolean getItemBurnable() {
-		return itemBurnable;
-	}
-
-	public void setItemBurnable(Boolean itemBurnable) {
-		this.itemBurnable = itemBurnable;
-	}
-
-	@Override
-	public String toString()
-
-	{
-		StringBuilder sb = new StringBuilder("Item [");
-		sb.append("itemId=").append(getId()).append(", itemType=").append(getItemType()).append(", itemWeight=")
-				.append(getItemWeight()).append(", itemBurnable=").append(getItemBurnable()).append("]");
-
-		return sb.toString();
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if ((obj != null) && (obj instanceof Item) && getId() != null) {
-			final Item that = (Item) obj;
-			return getId().equals(that.getId());
-		} else {
-			return false;
-		}
-	}
-
-	@Override
-	public int hashCode() {
-		if (getId() != null) {
-			return getId().intValue();
-		} else {
-			return 0;
-		}
-	}
+    }
 }

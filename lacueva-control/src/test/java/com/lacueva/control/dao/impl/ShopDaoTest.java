@@ -28,107 +28,107 @@ import com.lacueva.control.dao.ShopDao;
 @ContextConfiguration("/test-context.xml")
 public class ShopDaoTest {
 
-	@PersistenceContext
-	private EntityManager entityManager;
+    @PersistenceContext
+    private EntityManager entityManager;
 
-	@Inject
-	private ShopDao shopDao;
+    @Inject
+    private ShopDao shopDao;
 
-	@Inject
-	private ItemDao itemDao;
+    @Inject
+    private ItemDao itemDao;
 
-	public List<Item> itemsList;
+    public List<Item> itemsList;
 
-	public Shop shop;
+    public Shop shop;
 
-	@Before
-	public void before() throws ParseException {
-		itemsList = new ArrayList<Item>();
-		Item itemforList = new Item();
-		itemforList.setItemType("ENVELOPE_WITH_FLAP");
-		itemforList.setItemWeight(1.3f);
-		itemforList.setItemBurnable(false);
-		itemDao.create(itemforList);
+    @Before
+    public void before() throws ParseException {
+	itemsList = new ArrayList<Item>();
+	Item itemforList = new Item();
+	itemforList.setItemType("ENVELOPE_WITH_FLAP");
+	itemforList.setItemWeight(1.3f);
+	itemforList.setItemBurnable(false);
+	itemDao.create(itemforList);
 
-		itemsList.add(itemforList);
+	itemsList.add(itemforList);
 
-		shop = new Shop();
-		shop.setShopDate(DateUtilThreadSafe.parse("2010-03-20"));
-		shop.setShopName("Shop1");
-		shop.setShopCash(2000);
-		shop.setShopItems(itemsList);
+	shop = new Shop();
+	shop.setShopDate(DateUtilThreadSafe.parse("2010-03-20"));
+	shop.setShopName("Shop1");
+	shop.setShopCash(2000);
+	shop.setShopItems(itemsList);
 
-		shopDao.create(shop);
-	}
+	shopDao.create(shop);
+    }
 
-	@Test
-	public void testCreate() throws ParseException {
-		List<Item> itemsListCreate = new ArrayList<Item>();
-		Item itemforListCreate = new Item();
-		itemforListCreate.setItemType("DVD");
-		itemforListCreate.setItemWeight(16.4f);
-		itemforListCreate.setItemBurnable(false);
-		itemDao.create(itemforListCreate);
+    @Test
+    public void testCreate() throws ParseException {
+	List<Item> itemsListCreate = new ArrayList<Item>();
+	Item itemforListCreate = new Item();
+	itemforListCreate.setItemType("DVD");
+	itemforListCreate.setItemWeight(16.4f);
+	itemforListCreate.setItemBurnable(false);
+	itemDao.create(itemforListCreate);
 
-		itemsListCreate.add(itemforListCreate);
+	itemsListCreate.add(itemforListCreate);
 
-		Shop shopCreate = new Shop();
-		shopCreate.setShopDate(DateUtilThreadSafe.parse("2015-06-01"));
-		shopCreate.setShopName("ShopCreate");
-		shopCreate.setShopCash(3000);
-		shopCreate.setShopItems(itemsListCreate);
+	Shop shopCreate = new Shop();
+	shopCreate.setShopDate(DateUtilThreadSafe.parse("2015-06-01"));
+	shopCreate.setShopName("ShopCreate");
+	shopCreate.setShopCash(3000);
+	shopCreate.setShopItems(itemsListCreate);
 
-		shopDao.create(shopCreate);
+	shopDao.create(shopCreate);
 
-		Shop foundShop = shopDao.find(shopCreate.getId());
+	Shop foundShop = shopDao.find(shopCreate.getId());
 
-		assertEquals(shopCreate, foundShop);
-		assertEquals(shopCreate.getShopDate(), foundShop.getShopDate());
-		assertEquals(shopCreate.getShopName(), foundShop.getShopName());
-		assertEquals(shopCreate.getShopCash(), foundShop.getShopCash());
-		assertEquals(new HashSet<Item>().addAll(shopCreate.getShopItems()),
-				new HashSet<Item>().addAll(foundShop.getShopItems()));
-	}
+	assertEquals(shopCreate, foundShop);
+	assertEquals(shopCreate.getShopDate(), foundShop.getShopDate());
+	assertEquals(shopCreate.getShopName(), foundShop.getShopName());
+	assertEquals(shopCreate.getShopCash(), foundShop.getShopCash());
+	assertEquals(new HashSet<Item>().addAll(shopCreate.getShopItems()),
+		new HashSet<Item>().addAll(foundShop.getShopItems()));
+    }
 
-	@Test
-	public void testFind() {
-		Shop foundShop = shopDao.find(shop.getId());
+    @Test
+    public void testFind() {
+	Shop foundShop = shopDao.find(shop.getId());
 
-		assertEquals(shop, foundShop);
-		assertEquals(shop.getShopDate(), foundShop.getShopDate());
-		assertEquals(shop.getShopName(), foundShop.getShopName());
-		assertEquals(shop.getShopCash(), foundShop.getShopCash());
-		assertEquals(new HashSet<Item>().addAll(shop.getShopItems()),
-				new HashSet<Item>().addAll(foundShop.getShopItems()));
-	}
+	assertEquals(shop, foundShop);
+	assertEquals(shop.getShopDate(), foundShop.getShopDate());
+	assertEquals(shop.getShopName(), foundShop.getShopName());
+	assertEquals(shop.getShopCash(), foundShop.getShopCash());
+	assertEquals(new HashSet<Item>().addAll(shop.getShopItems()),
+		new HashSet<Item>().addAll(foundShop.getShopItems()));
+    }
 
-	@Test
-	public void testDelete() {
-		shopDao.delete(shop.getId());
+    @Test
+    public void testDelete() {
+	shopDao.delete(shop.getId());
 
-		Shop foundShop = shopDao.find(shop.getId());
+	Shop foundShop = shopDao.find(shop.getId());
 
-		assertNull(foundShop);
-	}
+	assertNull(foundShop);
+    }
 
-	@Test
-	public void testUpdate() {
-		Shop updatedShop = new Shop();
-		updatedShop.setId(shop.getId());
-		updatedShop.setShopDate(shop.getShopDate());
-		updatedShop.setShopName("ShopUpdate");
-		updatedShop.setShopCash(1000);
-		updatedShop.setShopItems(shop.getShopItems());
+    @Test
+    public void testUpdate() {
+	Shop updatedShop = new Shop();
+	updatedShop.setId(shop.getId());
+	updatedShop.setShopDate(shop.getShopDate());
+	updatedShop.setShopName("ShopUpdate");
+	updatedShop.setShopCash(1000);
+	updatedShop.setShopItems(shop.getShopItems());
 
-		shopDao.update(updatedShop);
+	shopDao.update(updatedShop);
 
-		Shop foundShop = shopDao.find(shop.getId());
+	Shop foundShop = shopDao.find(shop.getId());
 
-		assertEquals(updatedShop, foundShop);
-		assertEquals(updatedShop.getShopDate(), foundShop.getShopDate());
-		assertEquals(updatedShop.getShopName(), foundShop.getShopName());
-		assertEquals(updatedShop.getShopCash(), foundShop.getShopCash());
-		assertEquals(new HashSet<Item>().addAll(updatedShop.getShopItems()),
-				new HashSet<Item>().addAll(foundShop.getShopItems()));
-	}
+	assertEquals(updatedShop, foundShop);
+	assertEquals(updatedShop.getShopDate(), foundShop.getShopDate());
+	assertEquals(updatedShop.getShopName(), foundShop.getShopName());
+	assertEquals(updatedShop.getShopCash(), foundShop.getShopCash());
+	assertEquals(new HashSet<Item>().addAll(updatedShop.getShopItems()),
+		new HashSet<Item>().addAll(foundShop.getShopItems()));
+    }
 }

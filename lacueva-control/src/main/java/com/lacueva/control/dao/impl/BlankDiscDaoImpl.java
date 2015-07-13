@@ -6,6 +6,7 @@ import com.lacueva.control.bean.BlankDisc;
 import com.lacueva.control.dao.BlankDiscDao;
 
 @Repository("blankDiscDao")
-public class BlankDiscDaoImpl extends GenericDaoImpl<BlankDisc>implements BlankDiscDao {
+public class BlankDiscDaoImpl extends GenericDaoImpl<BlankDisc> implements
+	BlankDiscDao {
 
 }

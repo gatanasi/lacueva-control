@@ -27,105 +27,107 @@ import com.lacueva.control.dao.StockDao;
 @ContextConfiguration("/test-context.xml")
 public class StockDaoTest {
 
-	@PersistenceContext
-	private EntityManager entityManager;
+    @PersistenceContext
+    private EntityManager entityManager;
 
-	@Inject
-	private StockDao stockDao;
+    @Inject
+    private StockDao stockDao;
 
-	@Inject
-	private ItemDao itemDao;
+    @Inject
+    private ItemDao itemDao;
 
-	@Inject
-	private ShopDao shopDao;
+    @Inject
+    private ShopDao shopDao;
 
-	public Item item;
+    public Item item;
 
-	public Stock stock;
+    public Stock stock;
 
-	public Shop shop;
+    public Shop shop;
 
-	@Before
-	public void before() throws ParseException {
-		item = new Item();
-		item.setItemType("DVD");
-		item.setItemWeight(16.4f);
-		item.setItemBurnable(false);
+    @Before
+    public void before() throws ParseException {
+	item = new Item();
+	item.setItemType("DVD");
+	item.setItemWeight(16.4f);
+	item.setItemBurnable(false);
 
-		itemDao.create(item);
+	itemDao.create(item);
 
-		shop = new Shop();
-		shop.setShopDate(DateUtilThreadSafe.parse("2010-03-20"));
-		shop.setShopName("Shop1");
-		shop.setShopCash(2000);
+	shop = new Shop();
+	shop.setShopDate(DateUtilThreadSafe.parse("2010-03-20"));
+	shop.setShopName("Shop1");
+	shop.setShopCash(2000);
 
-		shopDao.create(shop);
+	shopDao.create(shop);
 
-		stock = new Stock();
-		stock.setStockDate(DateUtilThreadSafe.parse("2015-02-10"));
-		stock.setStockShop(shop);
-		stock.setStockItem(item);
-		stock.setStockQuantity(500);
+	stock = new Stock();
+	stock.setStockDate(DateUtilThreadSafe.parse("2015-02-10"));
+	stock.setStockShop(shop);
+	stock.setStockItem(item);
+	stock.setStockQuantity(500);
 
-		stockDao.create(stock);
-	}
+	stockDao.create(stock);
+    }
 
-	@Test
-	public void testCreate() throws ParseException {
-		Stock stockCreate = new Stock();
-		stockCreate.setStockDate(DateUtilThreadSafe.parse("2015-06-01"));
-		stockCreate.setStockShop(shop);
-		stockCreate.setStockItem(item);
-		stockCreate.setStockQuantity(120);
+    @Test
+    public void testCreate() throws ParseException {
+	Stock stockCreate = new Stock();
+	stockCreate.setStockDate(DateUtilThreadSafe.parse("2015-06-01"));
+	stockCreate.setStockShop(shop);
+	stockCreate.setStockItem(item);
+	stockCreate.setStockQuantity(120);
 
-		stockDao.create(stockCreate);
+	stockDao.create(stockCreate);
 
-		Stock foundStock = stockDao.find(stockCreate.getId());
+	Stock foundStock = stockDao.find(stockCreate.getId());
 
-		assertEquals(stockCreate, foundStock);
-		assertEquals(stockCreate.getStockDate(), foundStock.getStockDate());
-		assertEquals(stockCreate.getStockShop(), foundStock.getStockShop());
-		assertEquals(stockCreate.getStockItem(), foundStock.getStockItem());
-		assertEquals(stockCreate.getStockQuantity(), foundStock.getStockQuantity());
-	}
+	assertEquals(stockCreate, foundStock);
+	assertEquals(stockCreate.getStockDate(), foundStock.getStockDate());
+	assertEquals(stockCreate.getStockShop(), foundStock.getStockShop());
+	assertEquals(stockCreate.getStockItem(), foundStock.getStockItem());
+	assertEquals(stockCreate.getStockQuantity(),
+		foundStock.getStockQuantity());
+    }
 
-	@Test
-	public void testFind() {
-		Stock foundStock = stockDao.find(stock.getId());
+    @Test
+    public void testFind() {
+	Stock foundStock = stockDao.find(stock.getId());
 
-		assertEquals(stock, foundStock);
-		assertEquals(stock.getStockDate(), foundStock.getStockDate());
-		assertEquals(stock.getStockShop(), foundStock.getStockShop());
-		assertEquals(stock.getStockItem(), foundStock.getStockItem());
-		assertEquals(stock.getStockQuantity(), foundStock.getStockQuantity());
-	}
+	assertEquals(stock, foundStock);
+	assertEquals(stock.getStockDate(), foundStock.getStockDate());
+	assertEquals(stock.getStockShop(), foundStock.getStockShop());
+	assertEquals(stock.getStockItem(), foundStock.getStockItem());
+	assertEquals(stock.getStockQuantity(), foundStock.getStockQuantity());
+    }
 
-	@Test
-	public void testDelete() {
-		stockDao.delete(stock.getId());
+    @Test
+    public void testDelete() {
+	stockDao.delete(stock.getId());
 
-		Stock foundStock = stockDao.find(stock.getId());
+	Stock foundStock = stockDao.find(stock.getId());
 
-		assertNull(foundStock);
-	}
+	assertNull(foundStock);
+    }
 
-	@Test
-	public void testUpdate() {
-		Stock updatedStock = new Stock();
-		updatedStock.setId(stock.getId());
-		updatedStock.setStockDate(stock.getStockDate());
-		updatedStock.setStockShop(stock.getStockShop());
-		updatedStock.setStockItem(stock.getStockItem());
-		updatedStock.setStockQuantity(30);
+    @Test
+    public void testUpdate() {
+	Stock updatedStock = new Stock();
+	updatedStock.setId(stock.getId());
+	updatedStock.setStockDate(stock.getStockDate());
+	updatedStock.setStockShop(stock.getStockShop());
+	updatedStock.setStockItem(stock.getStockItem());
+	updatedStock.setStockQuantity(30);
 
-		stockDao.update(updatedStock);
+	stockDao.update(updatedStock);
 
-		Stock foundStock = stockDao.find(stock.getId());
+	Stock foundStock = stockDao.find(stock.getId());
 
-		assertEquals(updatedStock, foundStock);
-		assertEquals(updatedStock.getStockDate(), foundStock.getStockDate());
-		assertEquals(updatedStock.getStockShop(), foundStock.getStockShop());
-		assertEquals(updatedStock.getStockItem(), foundStock.getStockItem());
-		assertEquals(updatedStock.getStockQuantity(), foundStock.getStockQuantity());
-	}
+	assertEquals(updatedStock, foundStock);
+	assertEquals(updatedStock.getStockDate(), foundStock.getStockDate());
+	assertEquals(updatedStock.getStockShop(), foundStock.getStockShop());
+	assertEquals(updatedStock.getStockItem(), foundStock.getStockItem());
+	assertEquals(updatedStock.getStockQuantity(),
+		foundStock.getStockQuantity());
+    }
 }

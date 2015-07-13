@@ -19,41 +19,46 @@ import com.lacueva.control.commons.DateUtilThreadSafe;
 import com.lacueva.control.dao.SaleDao;
 
 @Repository("saleDao")
-public class SaleDaoImpl extends GenericDaoImpl<Sale>implements SaleDao {
+public class SaleDaoImpl extends GenericDaoImpl<Sale> implements SaleDao {
 
-	private final Logger logger = LoggerFactory.getLogger(getClass());
+    private final Logger logger = LoggerFactory.getLogger(getClass());
 
-	@Override
-	public List<Sale> findSalesByShopAndDate(final Shop shop, final Date date) throws ParseException {
-		Date formattedDate = DateUtilThreadSafe.parse(DateUtilThreadSafe.format(date));
+    @Override
+    public List<Sale> findSalesByShopAndDate(final Shop shop, final Date date)
+	    throws ParseException {
+	Date formattedDate = DateUtilThreadSafe.parse(DateUtilThreadSafe
+		.format(date));
 
-		Calendar calendar = Calendar.getInstance();
-		calendar.setTime(date);
-		calendar.add(Calendar.DATE, 1);
-		Date nextDay = calendar.getTime();
+	Calendar calendar = Calendar.getInstance();
+	calendar.setTime(date);
+	calendar.add(Calendar.DATE, 1);
+	Date nextDay = calendar.getTime();
 
-		return findSalesByShopAndBetweenDates(shop, formattedDate, nextDay);
+	return findSalesByShopAndBetweenDates(shop, formattedDate, nextDay);
+    }
+
+    @Override
+    public List<Sale> findSalesByShopAndBetweenDates(final Shop shop,
+	    final Date startDate, final Date endDate) {
+	logger.debug("Finding Sales by Shop and Dates");
+
+	List<Sale> salesList = new ArrayList<Sale>();
+
+	if (shop != null && shop.getId() != null && startDate != null
+		&& endDate != null) {
+	    logger.debug("Finding Sales with Shop= " + shop.getId()
+		    + ", StartDate= " + startDate + ", EndDate= " + endDate);
+
+	    TypedQuery<Sale> query = entityManager.createNamedQuery(
+		    "Sales.findByShopAndBetweenDates", Sale.class);
+	    query.setParameter("shop", shop);
+	    query.setParameter("startDate", startDate, TemporalType.DATE);
+	    query.setParameter("endDate", endDate, TemporalType.DATE);
+
+	    salesList.addAll(query.getResultList());
+
+	    logger.debug("Found with data= " + salesList);
 	}
-
-	@Override
-	public List<Sale> findSalesByShopAndBetweenDates(final Shop shop, final Date startDate, final Date endDate) {
-		logger.debug("Finding Sales by Shop and Dates");
-
-		List<Sale> salesList = new ArrayList<Sale>();
-
-		if (shop != null && shop.getId() != null && startDate != null && endDate != null) {
-			logger.debug(
-					"Finding Sales with Shop= " + shop.getId() + ", StartDate= " + startDate + ", EndDate= " + endDate);
-
-			TypedQuery<Sale> query = entityManager.createNamedQuery("Sales.findByShopAndBetweenDates", Sale.class);
-			query.setParameter("shop", shop);
-			query.setParameter("startDate", startDate, TemporalType.DATE);
-			query.setParameter("endDate", endDate, TemporalType.DATE);
-
-			salesList.addAll(query.getResultList());
-
-			logger.debug("Found with data= " + salesList);
-		}
-		return salesList;
-	}
+	return salesList;
+    }
 }
