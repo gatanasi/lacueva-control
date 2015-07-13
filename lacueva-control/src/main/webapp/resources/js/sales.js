@@ -26,8 +26,10 @@ $(document).ready(function() {
 function addRow() {
 	count++;
 
-	var newRow = '<tr>' + '<td class="text col-sm-1"><select class="itemType"></td>' + '<td class="text col-sm-5">' + '<input type="text" class="qty"/></td>'
-			+ '<td class="text col-sm-5"><input type="text" class="amount"/></td>' + '<td><a><span title="Eliminar" class="delBtn glyphicon glyphicon-remove col-sm-1"></span></a></td>' + '</tr>';
+	var selectItemType = '<select class="itemType">' + $("#itemType").clone().show().html() + '</select>';
+
+	var newRow = '<tr>' + '<td class="text col-sm-1">' + selectItemType + '</td>' + '<td class="text col-sm-5">' + '<input type="text" class="qty"/></td>'
+			+ '<td class="text col-sm-5"><input type="text" class="amount"/></td>' + '<td><a><span title="Eliminar" class="delNewBtn glyphicon glyphicon-remove col-sm-1"></span></a></td>' + '</tr>';
 
 	$("#salesTable > tbody").append(newRow);
 
@@ -37,24 +39,48 @@ function addRow() {
 	$(".qty").on("focusout", updateTotals);
 	$(".amount").on("focusout", updateTotals);
 
-	$(".delBtn").off("click");
-	$(".delBtn").on("click", delRow);
+	$(".delNewBtn").off("click");
+	$(".delNewBtn").on("click", delNewRow);
 }
 
 function delRow() {
+	var tr = $(this).closest('tr');
 	BootstrapDialog.show({
 		type : BootstrapDialog.TYPE_WARNING,
 		title : 'Eliminar',
 		message : 'Está seguro que desea eliminar esta fila?',
-		data : {
-			'href' : $(".delBtn").closest('a').data('href')
-		},
 		buttons : [ {
+			id : 'btnConfirm',
 			label : 'Confirmar',
 			cssClass : 'btn-danger',
+			autospin : true,
 			action : function(dialog) {
-				window.location = dialog.getData('href');
-				dialog.close();
+				dialog.enableButtons(false);
+				dialog.setClosable(false);
+				dialog.getModalBody().html('Eliminando...');
+				var request = $.ajax({
+					url : "sales/delete/",
+					method : "POST",
+					data : {
+						id : $(tr).data('id')
+					}
+				});
+				request.done(function(msg) {
+					console.log.html(msg);
+					dialog.setType(BootstrapDialog.TYPE_SUCCESS);
+					dialog.getModalBody().html('Eliminada correctamente');
+
+					$(tr).remove();
+
+					updateTotals();
+				});
+				request.fail(function(jqXHR, textStatus) {
+					dialog.getModalBody().html('Error: ' + textStatus);
+					console.log('Error: ' + textStatus);
+					dialog.enableButtons(true);
+					dialog.getButton('btnConfirm').stopSpin();
+					dialog.setClosable(true);
+				});
 			}
 		}, {
 			label : 'Cancelar',
@@ -65,11 +91,22 @@ function delRow() {
 	});
 }
 
+function delNewRow() {
+	var tr = $(this).closest('tr');
+	$(tr).remove();
+
+	updateTotals();
+}
+
 function editRow() {
 	BootstrapDialog.show({
 		title : 'Editar',
-		message : 'I send ajax request!',
+		message : 'Edición de venta',
+		data : {
+			'href' : $(".editBtn").closest('a').data('href')
+		},
 		buttons : [ {
+			id : 'btnAccept',
 			icon : 'glyphicon glyphicon-send',
 			label : 'Aceptar',
 			cssClass : 'btn-primary',
@@ -78,9 +115,22 @@ function editRow() {
 				dialog.enableButtons(false);
 				dialog.setClosable(false);
 				dialog.getModalBody().html('Enviando modificaciones...');
-				setTimeout(function() {
-					dialog.close();
-				}, 5000);
+				var request = $.ajax({
+					url : "sales/edit/",
+					method : "POST",
+					data : {
+						id : '15'
+					}
+				});
+				request.done(function(msg) {
+					$("#log").html(msg);
+				});
+				request.fail(function(jqXHR, textStatus) {
+					dialog.getModalBody().html('Error: ' + jqXHR.html());
+					dialog.enableButtons(true);
+					dialog.getButton('btnAccept').stopSpin();
+					dialog.setClosable(true);
+				});
 			}
 		}, {
 			label : 'Cancelar',

@@ -27,7 +27,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.lacueva.control.bean.Sale;
 import com.lacueva.control.bean.Shop;
-import com.lacueva.control.commons.DateUtilThreadSafe;
 import com.lacueva.control.dao.SaleDao;
 
 /**
@@ -82,10 +81,9 @@ public class SalesController {
 	return "sales";
     }
 
-    @RequestMapping(value = "delete/{date}/{id}", method = RequestMethod.GET)
-    public String deleteSaleById(
-	    @PathVariable @DateTimeFormat(iso = ISO.DATE) Date date,
-	    @PathVariable Long id, RedirectAttributes redirectAttrs) {
+    @RequestMapping(value = "delete", method = RequestMethod.POST)
+    public String deleteSaleById(@RequestParam Long id,
+	    RedirectAttributes redirectAttrs) {
 	logger.info("Welcome sales delete path variable!");
 
 	saleDao.delete(id);
@@ -94,23 +92,24 @@ public class SalesController {
 
 	redirectAttrs.addFlashAttribute("message", message);
 
-	return "redirect:/#sales/" + DateUtilThreadSafe.format(date);
+	return message;
     }
 
-    @RequestMapping(value = "edit/{date}", method = RequestMethod.POST)
-    public String editSale(
-	    @PathVariable @DateTimeFormat(iso = ISO.DATE) Date date, Long id,
+    @RequestMapping(value = "edit", method = RequestMethod.POST)
+    public String editSale(@RequestParam Long id,
 	    RedirectAttributes redirectAttrs) {
-	logger.info("Entering Sales Edit using Date: "
-		+ DateUtilThreadSafe.format(date) + " and ID: " + id);
+	logger.info("Entering Sales Edit for ID: " + id);
 
-	saleDao.delete(id);
+	Sale updatedSale = new Sale();
+	updatedSale.setId(id);
+
+	saleDao.update(updatedSale);
 
 	String message = "Venta editada correctamente";
 
 	redirectAttrs.addFlashAttribute("message", message);
 
-	return "redirect:/#sales/" + DateUtilThreadSafe.format(date);
+	return message;
     }
 
     @RequestMapping(value = "/prueba", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)

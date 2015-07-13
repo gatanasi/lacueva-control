@@ -17,6 +17,11 @@
 		<div id="date-picker" class="col-sm-2"></div>
 	</div>
 	<div class="panel-body">
+		<select id="itemType" hidden="true">
+			<c:forEach items="${currShop.shopItems}" var="item">
+				<option value="${item.itemType}"><c:out value="${item.itemType}"></c:out></option>
+			</c:forEach>
+		</select>
 		<div id="table">
 			<table class="table table-striped table-bordered" id="salesTable">
 				<thead>
@@ -42,9 +47,7 @@
 					<c:forEach items="${sales}" var="sale">
 						<tr data-id="${sale.id}">
 							<td class="text col-sm-1"><select class="itemType" disabled>
-									<c:forEach items="${sales}" var="val">
-										<option value="${val.saleItem.itemType}" ${sale.saleItem.itemType == val.saleItem.itemType ? 'selected' : ' '}><c:out value="${val.saleItem.itemType}"></c:out></option>
-									</c:forEach>
+									<option value="${sale.saleItem.itemType}"><c:out value="${sale.saleItem.itemType}"></c:out></option>
 							</select></td>
 							<td class="text col-sm-5"><c:out value="${sale.saleQuantity}" /></td>
 							<td class="text col-sm-5"><c:out value="${sale.saleAmount}" /></td>
