@@ -49,7 +49,7 @@
 							<td class="text col-sm-5"><c:out value="${sale.saleQuantity}" /></td>
 							<td class="text col-sm-5"><c:out value="${sale.saleAmount}" /></td>
 							<td><a href="#sales/edit/<fmt:formatDate pattern="yyyy-MM-dd" value="${searchDate}" />/${sale.id}"> <span title="Modificar" class="editBtn glyphicon glyphicon-pencil col-sm-1"></span></a>
-								<a href="sales/delete/<fmt:formatDate pattern="yyyy-MM-dd" value="${searchDate}" />/${sale.id}"><span title="Eliminar" class="delBtn glyphicon glyphicon-remove col-sm-1"></span></a></td>
+								<a data-href="sales/delete/<fmt:formatDate pattern="yyyy-MM-dd" value="${searchDate}" />/${sale.id}"><span title="Eliminar" class="delBtn glyphicon glyphicon-remove col-sm-1"></span></a></td>
 						</tr>
 					</c:forEach>
 				</tbody>
@@ -59,7 +59,10 @@
 </div>
 <link href="<c:url value="/resources/css/pickadate/classic.css" />" rel="stylesheet" type="text/css" />
 <link href="<c:url value="/resources/css/pickadate/classic.date.css" />" rel="stylesheet" type="text/css" />
+<link href="<c:url value="/resources/css/bootstrap3-dialog/bootstrap-dialog.min.css" />" rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="<c:url value="/resources/js/pickadate/picker.js" />" defer></script>
 <script type="text/javascript" src="<c:url value="/resources/js/pickadate/picker.date.js" />" defer></script>
 <script type="text/javascript" src="<c:url value="/resources/js/pickadate/translations/es_ES.js" />" defer></script>
+<script type="text/javascript" src="<c:url value="/resources/js/bootstrap3-dialog/bootstrap-dialog.min.js" />" defer></script>
+<script type="text/javascript" src="<c:url value="/resources/js/bootstrap3-dialog/i18n.js" />" defer></script>
 <script type="text/javascript" src="<c:url value="/resources/js/sales.js" />" defer></script>

@@ -41,14 +41,27 @@ function addRow() {
 }
 
 function delRow() {
-	count--;
-	var r = confirm("Esta seguro que desea eliminar la fila?");
-	if (r == true) {
-		var tr = $(this).closest('tr');
-		$(tr).remove();
-
-		updateTotals();
-	}
+	BootstrapDialog.show({
+		type : BootstrapDialog.TYPE_WARNING,
+		title : 'Eliminar',
+		message : 'Está seguro que desea eliminar esta fila?',
+		data : {
+			'href' : $(".delBtn").closest('a').data('href')
+		},
+		buttons : [ {
+			label : 'Cancelar',
+			action : function(dialog) {
+				dialog.close();
+			}
+		}, {
+			label : 'Confirmar',
+			cssClass : 'btn-danger',
+			action : function(dialog) {
+				window.location = dialog.getData('href');
+				dialog.close();
+			}
+		} ]
+	});
 }
 
 function sumOfColumns(table, columnIndex) {
