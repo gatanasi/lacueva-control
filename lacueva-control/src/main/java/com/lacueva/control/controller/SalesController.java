@@ -23,7 +23,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.lacueva.control.bean.Sale;
 import com.lacueva.control.bean.Shop;
@@ -78,21 +77,19 @@ public class SalesController {
 	return "sales";
     }
 
-    @RequestMapping(value = "delete", method = RequestMethod.POST)
-    public String deleteSaleById(@RequestParam Long id, RedirectAttributes redirectAttrs) {
-	logger.info("Welcome sales delete path variable!");
+    @RequestMapping(value = "/delete", method = RequestMethod.POST)
+    public @ResponseBody String deleteSaleById(@RequestParam Long id) {
+	logger.info("Entering Sales Edit for ID: " + id);
 
 	saleDao.delete(id);
 
 	String message = "Venta borrada correctamente";
 
-	redirectAttrs.addFlashAttribute("message", message);
-
 	return message;
     }
 
-    @RequestMapping(value = "edit", method = RequestMethod.POST)
-    public String editSale(@RequestParam Long id, RedirectAttributes redirectAttrs) {
+    @RequestMapping(value = "/edit", method = RequestMethod.POST)
+    public @ResponseBody String editSale(@RequestParam Long id) {
 	logger.info("Entering Sales Edit for ID: " + id);
 
 	Sale updatedSale = new Sale();
@@ -102,13 +99,11 @@ public class SalesController {
 
 	String message = "Venta editada correctamente";
 
-	redirectAttrs.addFlashAttribute("message", message);
-
 	return message;
     }
 
     @RequestMapping(value = "/prueba", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public @ResponseBody Sale getSaleinJSON(@RequestParam(value = "id") Long id, Model model) {
+    public @ResponseBody Sale getSaleinJSON(@RequestParam(value = "id") Long id) {
 	if (id != null) {
 	    Sale sale = saleDao.find(id);
 	    return sale;

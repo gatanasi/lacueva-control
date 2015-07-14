@@ -51,8 +51,8 @@
 							</select></td>
 							<td class="text col-sm-5"><c:out value="${sale.saleQuantity}" /></td>
 							<td class="text col-sm-5"><c:out value="${sale.saleAmount}" /></td>
-							<td><a data-href="sales/edit/"> <span title="Modificar" class="editBtn glyphicon glyphicon-pencil col-sm-1"></span></a> <a
-								data-href="sales/delete/<fmt:formatDate pattern="yyyy-MM-dd" value="${searchDate}" />/${sale.id}"><span title="Eliminar" class="delBtn glyphicon glyphicon-remove col-sm-1"></span></a></td>
+							<td><a href="#"> <span title="Modificar" class="editBtn glyphicon glyphicon-pencil col-sm-1"></span></a> <a href="#"><span title="Eliminar"
+									class="delBtn glyphicon glyphicon-remove col-sm-1"></span></a></td>
 						</tr>
 					</c:forEach>
 				</tbody>

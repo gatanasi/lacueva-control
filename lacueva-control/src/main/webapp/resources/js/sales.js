@@ -61,14 +61,18 @@ function delRow() {
 				var request = $.ajax({
 					url : "sales/delete/",
 					method : "POST",
+					dataType : "text",
+					timeout : 10000,
 					data : {
 						id : $(tr).data('id')
 					}
 				});
 				request.done(function(msg) {
-					console.log.html(msg);
 					dialog.setType(BootstrapDialog.TYPE_SUCCESS);
-					dialog.getModalBody().html('Eliminada correctamente');
+					dialog.getModalBody().html(msg);
+
+					$('#btnConfirm').remove();
+					$('#btnCancel').text('Cerrar');
 
 					$(tr).remove();
 
@@ -76,19 +80,23 @@ function delRow() {
 				});
 				request.fail(function(jqXHR, textStatus) {
 					dialog.getModalBody().html('Error: ' + textStatus);
-					console.log('Error: ' + textStatus);
+					$('#btnConfirm').text('Reintentar');
+				});
+				request.always(function() {
 					dialog.enableButtons(true);
-					dialog.getButton('btnConfirm').stopSpin();
 					dialog.setClosable(true);
 				});
 			}
 		}, {
+			id : 'btnCancel',
 			label : 'Cancelar',
 			action : function(dialog) {
 				dialog.close();
 			}
 		} ]
 	});
+
+	return false;
 }
 
 function delNewRow() {
@@ -99,12 +107,11 @@ function delNewRow() {
 }
 
 function editRow() {
+	var a = $(this).closest('a');
+
 	BootstrapDialog.show({
 		title : 'Editar',
 		message : 'Edición de venta',
-		data : {
-			'href' : $(".editBtn").closest('a').data('href')
-		},
 		buttons : [ {
 			id : 'btnAccept',
 			icon : 'glyphicon glyphicon-send',
@@ -139,6 +146,8 @@ function editRow() {
 			}
 		} ]
 	});
+
+	return false;
 }
 
 function sumOfColumns(table, columnIndex) {
