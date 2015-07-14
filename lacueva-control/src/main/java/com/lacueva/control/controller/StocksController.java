@@ -55,12 +55,10 @@ public class StocksController {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public String sales(Model model, @ModelAttribute("currShop") Shop currShop)
-	    throws ParseException {
+    public String sales(Model model, @ModelAttribute("currShop") Shop currShop) throws ParseException {
 	logger.info("Welcome stocks!");
 
-	List<Sale> salesList = saleDao.findSalesByShopAndDate(currShop,
-		new Date());
+	List<Sale> salesList = saleDao.findSalesByShopAndDate(currShop, new Date());
 
 	model.addAttribute("sales", salesList);
 
@@ -70,8 +68,7 @@ public class StocksController {
     }
 
     @RequestMapping(value = "/prueba", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public @ResponseBody Sale getSaleinJSON(
-	    @RequestParam(value = "id") String id, Model model) {
+    public @ResponseBody Sale getSaleinJSON(@RequestParam(value = "id") String id, Model model) {
 	if (id != null) {
 	    Sale sale = saleDao.find(Long.parseLong(id));
 	    return sale;

@@ -26,8 +26,8 @@ import javax.persistence.TemporalType;
 public class Shop implements Serializable {
 
     /**
-	 * 
-	 */
+     * 
+     */
     private static final long serialVersionUID = -6244165518004783894L;
 
     @Id
@@ -99,10 +99,8 @@ public class Shop implements Serializable {
 
     {
 	StringBuilder sb = new StringBuilder("Shop [");
-	sb.append("shopId=").append(getId()).append(", shopDate=")
-		.append(getShopDate()).append(", shopName=")
-		.append(getShopName()).append(", shopCash=")
-		.append(getShopCash()).append(", shopItems=")
+	sb.append("shopId=").append(getId()).append(", shopDate=").append(getShopDate()).append(", shopName=")
+		.append(getShopName()).append(", shopCash=").append(getShopCash()).append(", shopItems=")
 		.append(getShopItems()).append("]");
 
 	return sb.toString();

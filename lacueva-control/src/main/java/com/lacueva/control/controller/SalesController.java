@@ -59,16 +59,13 @@ public class SalesController {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public String sales(Model model, @ModelAttribute("currShop") Shop currShop)
-	    throws ParseException {
+    public String sales(Model model, @ModelAttribute("currShop") Shop currShop) throws ParseException {
 	return salesByDate(model, currShop, new Date());
     }
 
     @RequestMapping(value = "/{date}", method = RequestMethod.GET)
-    public String salesByDate(Model model,
-	    @ModelAttribute("currShop") Shop currShop,
-	    @PathVariable @DateTimeFormat(iso = ISO.DATE) Date date)
-	    throws ParseException {
+    public String salesByDate(Model model, @ModelAttribute("currShop") Shop currShop,
+	    @PathVariable @DateTimeFormat(iso = ISO.DATE) Date date) throws ParseException {
 	logger.info("Welcome sales path variable!");
 
 	List<Sale> salesList = saleDao.findSalesByShopAndDate(currShop, date);
@@ -82,8 +79,7 @@ public class SalesController {
     }
 
     @RequestMapping(value = "delete", method = RequestMethod.POST)
-    public String deleteSaleById(@RequestParam Long id,
-	    RedirectAttributes redirectAttrs) {
+    public String deleteSaleById(@RequestParam Long id, RedirectAttributes redirectAttrs) {
 	logger.info("Welcome sales delete path variable!");
 
 	saleDao.delete(id);
@@ -96,8 +92,7 @@ public class SalesController {
     }
 
     @RequestMapping(value = "edit", method = RequestMethod.POST)
-    public String editSale(@RequestParam Long id,
-	    RedirectAttributes redirectAttrs) {
+    public String editSale(@RequestParam Long id, RedirectAttributes redirectAttrs) {
 	logger.info("Entering Sales Edit for ID: " + id);
 
 	Sale updatedSale = new Sale();
@@ -113,8 +108,7 @@ public class SalesController {
     }
 
     @RequestMapping(value = "/prueba", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public @ResponseBody Sale getSaleinJSON(
-	    @RequestParam(value = "id") Long id, Model model) {
+    public @ResponseBody Sale getSaleinJSON(@RequestParam(value = "id") Long id, Model model) {
 	if (id != null) {
 	    Sale sale = saleDao.find(id);
 	    return sale;

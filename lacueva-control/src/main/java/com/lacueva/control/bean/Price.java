@@ -23,8 +23,8 @@ import javax.persistence.Table;
 public class Price implements Serializable {
 
     /**
-	 * 
-	 */
+     * 
+     */
     private static final long serialVersionUID = -417359377983858106L;
 
     @Id

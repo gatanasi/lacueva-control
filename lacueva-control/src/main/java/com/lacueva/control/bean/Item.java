@@ -23,8 +23,8 @@ import org.springframework.format.annotation.NumberFormat;
 public class Item implements Serializable {
 
     /**
-	 * 
-	 */
+     * 
+     */
     private static final long serialVersionUID = 9155589603647542985L;
 
     @Id
@@ -86,10 +86,8 @@ public class Item implements Serializable {
 
     {
 	StringBuilder sb = new StringBuilder("Item [");
-	sb.append("itemId=").append(getId()).append(", itemType=")
-		.append(getItemType()).append(", itemWeight=")
-		.append(getItemWeight()).append(", itemBurnable=")
-		.append(getItemBurnable()).append("]");
+	sb.append("itemId=").append(getId()).append(", itemType=").append(getItemType()).append(", itemWeight=")
+		.append(getItemWeight()).append(", itemBurnable=").append(getItemBurnable()).append("]");
 
 	return sb.toString();
     }

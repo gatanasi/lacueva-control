@@ -23,8 +23,8 @@ import javax.persistence.Table;
 public class Promo implements Serializable {
 
     /**
-	 * 
-	 */
+     * 
+     */
     private static final long serialVersionUID = 8277072360031739945L;
 
     @Id
@@ -104,8 +104,8 @@ public class Promo implements Serializable {
 	if (getPromoItem() != null) {
 	    sb.append(getPromoItem().getItemType());
 	}
-	sb.append(", promoQuantity=").append(getPromoQuantity())
-		.append(", promoValue=").append(getPromoValue()).append("]");
+	sb.append(", promoQuantity=").append(getPromoQuantity()).append(", promoValue=").append(getPromoValue())
+		.append("]");
 
 	return sb.toString();
     }

@@ -24,8 +24,8 @@ import javax.persistence.TemporalType;
 public class Withdrawal implements Serializable {
 
     /**
-	 * 
-	 */
+     * 
+     */
     private static final long serialVersionUID = 7513645680606430327L;
 
     @Id
@@ -86,13 +86,12 @@ public class Withdrawal implements Serializable {
 
     {
 	StringBuilder sb = new StringBuilder("Withdrawal [");
-	sb.append("withdrawalId=").append(getId()).append(", withdrawalDate=")
-		.append(getWithdrawalDate()).append(", withdrawalShopName=");
+	sb.append("withdrawalId=").append(getId()).append(", withdrawalDate=").append(getWithdrawalDate())
+		.append(", withdrawalShopName=");
 	if (getWithdrawalShop() != null) {
 	    sb.append(getWithdrawalShop().getShopName());
 	}
-	sb.append(", withdrawalAmount=").append(getWithdrawalAmount())
-		.append("]");
+	sb.append(", withdrawalAmount=").append(getWithdrawalAmount()).append("]");
 
 	return sb.toString();
     }

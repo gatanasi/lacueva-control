@@ -19,15 +19,13 @@ import com.lacueva.control.commons.DateUtilThreadSafe;
 import com.lacueva.control.dao.SaleDao;
 
 @Repository("saleDao")
-public class SaleDaoImpl extends GenericDaoImpl<Sale> implements SaleDao {
+public class SaleDaoImpl extends GenericDaoImpl<Sale>implements SaleDao {
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
     @Override
-    public List<Sale> findSalesByShopAndDate(final Shop shop, final Date date)
-	    throws ParseException {
-	Date formattedDate = DateUtilThreadSafe.parse(DateUtilThreadSafe
-		.format(date));
+    public List<Sale> findSalesByShopAndDate(final Shop shop, final Date date) throws ParseException {
+	Date formattedDate = DateUtilThreadSafe.parse(DateUtilThreadSafe.format(date));
 
 	Calendar calendar = Calendar.getInstance();
 	calendar.setTime(date);
@@ -38,19 +36,16 @@ public class SaleDaoImpl extends GenericDaoImpl<Sale> implements SaleDao {
     }
 
     @Override
-    public List<Sale> findSalesByShopAndBetweenDates(final Shop shop,
-	    final Date startDate, final Date endDate) {
+    public List<Sale> findSalesByShopAndBetweenDates(final Shop shop, final Date startDate, final Date endDate) {
 	logger.debug("Finding Sales by Shop and Dates");
 
 	List<Sale> salesList = new ArrayList<Sale>();
 
-	if (shop != null && shop.getId() != null && startDate != null
-		&& endDate != null) {
-	    logger.debug("Finding Sales with Shop= " + shop.getId()
-		    + ", StartDate= " + startDate + ", EndDate= " + endDate);
+	if (shop != null && shop.getId() != null && startDate != null && endDate != null) {
+	    logger.debug(
+		    "Finding Sales with Shop= " + shop.getId() + ", StartDate= " + startDate + ", EndDate= " + endDate);
 
-	    TypedQuery<Sale> query = entityManager.createNamedQuery(
-		    "Sales.findByShopAndBetweenDates", Sale.class);
+	    TypedQuery<Sale> query = entityManager.createNamedQuery("Sales.findByShopAndBetweenDates", Sale.class);
 	    query.setParameter("shop", shop);
 	    query.setParameter("startDate", startDate, TemporalType.DATE);
 	    query.setParameter("endDate", endDate, TemporalType.DATE);

@@ -25,8 +25,8 @@ import javax.persistence.TemporalType;
 public class BlankDisc implements Serializable {
 
     /**
-	 * 
-	 */
+     * 
+     */
     private static final long serialVersionUID = 1527961326372596100L;
 
     @Id
@@ -99,13 +99,12 @@ public class BlankDisc implements Serializable {
 
     {
 	StringBuilder sb = new StringBuilder("BlankDisc");
-	sb.append("blankDiscId=").append(getId()).append(", blankDiscDate=")
-		.append(getBlankDiscDate()).append(", blankDiscItemType=");
+	sb.append("blankDiscId=").append(getId()).append(", blankDiscDate=").append(getBlankDiscDate())
+		.append(", blankDiscItemType=");
 	if (getBlankDiscItem() != null) {
 	    sb.append(getBlankDiscItem().getItemType());
 	}
-	sb.append(", blankDiscQuantity=").append(getBlankDiscQuantity())
-		.append(", blankDiscProviderName=");
+	sb.append(", blankDiscQuantity=").append(getBlankDiscQuantity()).append(", blankDiscProviderName=");
 	if (getBlankDiscProvider() != null) {
 	    sb.append(getBlankDiscProvider().getProviderName());
 	}
