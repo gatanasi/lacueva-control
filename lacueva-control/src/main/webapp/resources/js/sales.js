@@ -1,4 +1,5 @@
 var count = $('#salesTable tbody tr').length;
+var itemTypeOptions = $("#itemType").clone().show().html();
 
 $(document).ready(function() {
 
@@ -26,9 +27,7 @@ $(document).ready(function() {
 function addRow() {
 	count++;
 
-	var selectItemType = '<select class="itemType">' + $("#itemType").clone().show().html() + '</select>';
-
-	var newRow = '<tr>' + '<td class="text col-sm-1">' + selectItemType + '</td>' + '<td class="text col-sm-5">' + '<input type="text" class="qty"/></td>'
+	var newRow = '<tr>' + '<td class="text col-sm-1">' + '<select class="itemType">' + itemTypeOptions + '</select>' + '</td>' + '<td class="text col-sm-5">' + '<input type="text" class="qty"/></td>'
 			+ '<td class="text col-sm-5"><input type="text" class="amount"/></td>' + '<td><a><span title="Eliminar" class="delNewBtn glyphicon glyphicon-remove col-sm-1"></span></a></td>' + '</tr>';
 
 	$("#salesTable > tbody").append(newRow);
@@ -107,11 +106,19 @@ function delNewRow() {
 }
 
 function editRow() {
-	var a = $(this).closest('a');
+	var tr = $(this).closest('tr');
+
+	var itemType = $(tr).find('.itemType').val();
+	var saleQuantity = $(tr).find('.saleQuantity').text();
+	var saleAmount = $(tr).find('.saleAmount').text();
+
+	var form = '<div class="form-group">' + '<label for="itemType">Artículo</label>' + '<select id="itemType">' + itemTypeOptions + '</select>' + '</div>' + '<div class="form-group">'
+			+ '<label for="saleQuantity">Cantidad</label>' + '<input type="text" class="form-control" id="saleQuantity" value=' + saleQuantity + '>' + '</div>' + '<div class="form-group">'
+			+ '<label for="saleAmount">Importe</label>' + '<input type="text" class="form-control" id="saleAmount" value=' + saleAmount + '>' + '</div>';
 
 	BootstrapDialog.show({
 		title : 'Editar',
-		message : 'Edición de venta',
+		message : form,
 		buttons : [ {
 			id : 'btnAccept',
 			icon : 'glyphicon glyphicon-send',

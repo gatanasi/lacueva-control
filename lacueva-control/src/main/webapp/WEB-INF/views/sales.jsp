@@ -49,8 +49,8 @@
 							<td class="text col-sm-1"><select class="itemType" disabled>
 									<option value="${sale.saleItem.itemType}"><c:out value="${sale.saleItem.itemType}"></c:out></option>
 							</select></td>
-							<td class="text col-sm-5"><c:out value="${sale.saleQuantity}" /></td>
-							<td class="text col-sm-5"><c:out value="${sale.saleAmount}" /></td>
+							<td class="saleQuantity text col-sm-5"><c:out value="${sale.saleQuantity}" /></td>
+							<td class="saleAmount text col-sm-5"><c:out value="${sale.saleAmount}" /></td>
 							<td><a href="#"> <span title="Modificar" class="editBtn glyphicon glyphicon-pencil col-sm-1"></span></a> <a href="#"><span title="Eliminar"
 									class="delBtn glyphicon glyphicon-remove col-sm-1"></span></a></td>
 						</tr>
