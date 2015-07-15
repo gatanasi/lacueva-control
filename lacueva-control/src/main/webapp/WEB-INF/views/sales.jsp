@@ -17,9 +17,9 @@
 		<div id="date-picker" class="col-sm-2"></div>
 	</div>
 	<div class="panel-body">
-		<select id="itemType" hidden="true">
+		<select id="itemTypes" hidden="true">
 			<c:forEach items="${currShop.shopItems}" var="item">
-				<option value="${item.itemType}"><c:out value="${item.itemType}"></c:out></option>
+				<option value="${item.id}"><c:out value="${item.itemType}"></c:out></option>
 			</c:forEach>
 		</select>
 		<div id="table">
@@ -46,8 +46,10 @@
 				<tbody>
 					<c:forEach items="${sales}" var="sale">
 						<tr data-id="${sale.id}">
-							<td class="text col-sm-1"><select class="itemType" disabled>
-									<option value="${sale.saleItem.itemType}"><c:out value="${sale.saleItem.itemType}"></c:out></option>
+							<td class="text col-sm-1"><select class="itemType" disabled="disabled">
+									<c:forEach items="${currShop.shopItems}" var="item">
+										<option value="${item.id}" ${sale.saleItem.id == item.id ? 'selected' : ' '}><c:out value="${item.itemType}"></c:out></option>
+									</c:forEach>
 							</select></td>
 							<td class="saleQuantity text col-sm-5"><c:out value="${sale.saleQuantity}" /></td>
 							<td class="saleAmount text col-sm-5"><c:out value="${sale.saleAmount}" /></td>
@@ -63,9 +65,9 @@
 <link href="<c:url value="/resources/css/pickadate/classic.css" />" rel="stylesheet" type="text/css" />
 <link href="<c:url value="/resources/css/pickadate/classic.date.css" />" rel="stylesheet" type="text/css" />
 <link href="<c:url value="/resources/css/bootstrap3-dialog/bootstrap-dialog.min.css" />" rel="stylesheet" type="text/css" />
-<script type="text/javascript" src="<c:url value="/resources/js/pickadate/picker.js" />" defer></script>
-<script type="text/javascript" src="<c:url value="/resources/js/pickadate/picker.date.js" />" defer></script>
-<script type="text/javascript" src="<c:url value="/resources/js/pickadate/translations/es_ES.js" />" defer></script>
-<script type="text/javascript" src="<c:url value="/resources/js/bootstrap3-dialog/bootstrap-dialog.min.js" />" defer></script>
-<script type="text/javascript" src="<c:url value="/resources/js/bootstrap3-dialog/i18n.js" />" defer></script>
-<script type="text/javascript" src="<c:url value="/resources/js/sales.js" />" defer></script>
+<script type="text/javascript" src="<c:url value="/resources/js/pickadate/picker.js" />" defer="defer"></script>
+<script type="text/javascript" src="<c:url value="/resources/js/pickadate/picker.date.js" />" defer="defer"></script>
+<script type="text/javascript" src="<c:url value="/resources/js/pickadate/translations/es_ES.js" />" defer="defer"></script>
+<script type="text/javascript" src="<c:url value="/resources/js/bootstrap3-dialog/bootstrap-dialog.min.js" />" defer="defer"></script>
+<script type="text/javascript" src="<c:url value="/resources/js/bootstrap3-dialog/i18n.js" />" defer="defer"></script>
+<script type="text/javascript" src="<c:url value="/resources/js/sales.js" />" defer="defer"></script>

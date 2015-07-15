@@ -1,5 +1,5 @@
 var count = $('#salesTable tbody tr').length;
-var itemTypeOptions = $("#itemType").clone().show().html();
+var itemTypeOptions = $("#itemTypes").clone().show().html();
 
 $(document).ready(function() {
 
@@ -108,11 +108,12 @@ function delNewRow() {
 function editRow() {
 	var tr = $(this).closest('tr');
 
-	var itemType = $(tr).find('.itemType').val();
+	var saleId = $(tr).data('id');
+	var itemType = $(tr).find('.itemType').clone().html();
 	var saleQuantity = $(tr).find('.saleQuantity').text();
 	var saleAmount = $(tr).find('.saleAmount').text();
 
-	var form = '<div class="form-group">' + '<label for="itemType">Artículo</label>' + '<select id="itemType">' + itemTypeOptions + '</select>' + '</div>' + '<div class="form-group">'
+	var form = '<div class="form-group">' + '<label for="itemType">Artículo</label>' + '<select id="itemType">' + itemType + '</select>' + '</div>' + '<div class="form-group">'
 			+ '<label for="saleQuantity">Cantidad</label>' + '<input type="text" class="form-control" id="saleQuantity" value=' + saleQuantity + '>' + '</div>' + '<div class="form-group">'
 			+ '<label for="saleAmount">Importe</label>' + '<input type="text" class="form-control" id="saleAmount" value=' + saleAmount + '>' + '</div>';
 
@@ -126,15 +127,34 @@ function editRow() {
 			cssClass : 'btn-primary',
 			autospin : true,
 			action : function(dialog) {
+				var newItem = {};
+				newItem.id = $("#itemType").val();
+
+				var currShop = {};
+				currShop.id = 1;
+
+				var updatedSale = {};
+				updatedSale.saleId = saleId;
+				updatedSale.saleDate = new Date();
+				updatedSale.saleShop = currShop;
+				updatedSale.saleItem = newItem;
+				updatedSale.saleQuantity = $("#saleQuantity").val();
+				updatedSale.saleAmount = $("#saleAmount").val();
+
+				var saleDTO = {
+					'updatedSale' : updatedSale
+				};
+
 				dialog.enableButtons(false);
 				dialog.setClosable(false);
 				dialog.getModalBody().html('Enviando modificaciones...');
 				var request = $.ajax({
 					url : "sales/edit/",
 					method : "POST",
-					data : {
-						id : '15'
-					}
+					data : JSON.stringify(saleDTO),
+					contentType : "application/json; charset=utf-8",
+					dataType : "json",
+					timeout : 10000,
 				});
 				request.done(function(msg) {
 					$("#log").html(msg);

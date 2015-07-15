@@ -88,12 +88,9 @@ public class SalesController {
 	return message;
     }
 
-    @RequestMapping(value = "/edit", method = RequestMethod.POST)
-    public @ResponseBody String editSale(@RequestParam Long id) {
-	logger.info("Entering Sales Edit for ID: " + id);
-
-	Sale updatedSale = new Sale();
-	updatedSale.setId(id);
+    @RequestMapping(value = "/edit", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody String editSale(@RequestParam Sale updatedSale) {
+	logger.info("Entering Sales Edit for ID: " + updatedSale.getId());
 
 	saleDao.update(updatedSale);
 

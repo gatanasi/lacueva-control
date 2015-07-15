@@ -11,11 +11,11 @@
 <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
 <link rel="stylesheet" href="<c:url value="/resources/css/lacueva-control.css" />">
-<script src="//code.jquery.com/jquery-2.1.4.min.js" defer></script>
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" defer></script>
-<script src="<c:url value="/resources/js/spin.min.js" />" defer></script>
-<script src="<c:url value="/resources/js/jquery.spin.js" />" defer></script>
-<script src="<c:url value="/resources/js/main.js" />" defer></script>
+<script src="//code.jquery.com/jquery-2.1.4.min.js" defer="defer"></script>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" defer="defer"></script>
+<script src="<c:url value="/resources/js/spin.min.js" />" defer="defer"></script>
+<script src="<c:url value="/resources/js/jquery.spin.js" />" defer="defer"></script>
+<script src="<c:url value="/resources/js/main.js" />" defer="defer"></script>
 </head>
 <body style="padding-top: 60px">
 	<nav class="navbar navbar-inverse navbar-fixed-top">
