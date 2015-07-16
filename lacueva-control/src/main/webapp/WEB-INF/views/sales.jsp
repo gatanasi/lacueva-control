@@ -21,7 +21,7 @@
 			<c:forEach items="${currShop.shopItems}" var="item">
 				<option value="${item.id}"><c:out value="${item.itemType}"></c:out></option>
 			</c:forEach>
-		</select>
+		</select> <input type="hidden" id="currShopId" value="${currShop.id}">
 		<div id="table">
 			<table class="table table-striped table-bordered" id="salesTable">
 				<thead>

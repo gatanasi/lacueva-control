@@ -17,6 +17,7 @@ import org.springframework.web.HttpSessionRequiredException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -79,7 +80,7 @@ public class SalesController {
 
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
     public @ResponseBody String deleteSaleById(@RequestParam Long id) {
-	logger.info("Entering Sales Edit for ID: " + id);
+	logger.info("Entering Sales Delete for ID: " + id);
 
 	saleDao.delete(id);
 
@@ -89,7 +90,7 @@ public class SalesController {
     }
 
     @RequestMapping(value = "/edit", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public @ResponseBody String editSale(@RequestParam Sale updatedSale) {
+    public @ResponseBody String editSale(@RequestBody Sale updatedSale) {
 	logger.info("Entering Sales Edit for ID: " + updatedSale.getId());
 
 	saleDao.update(updatedSale);

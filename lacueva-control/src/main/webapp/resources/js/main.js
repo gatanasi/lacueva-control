@@ -1,6 +1,14 @@
-var home = 'resources/home.html';
+var home = 'home';
 
 $(document).ready(function() {
+
+	function keepSessionAlive() {
+		$.post('ping');
+	}
+
+	$(function() {
+		window.setInterval(keepSessionAlive, 240000);
+	});
 
 	$(window).on('hashchange', function() {
 		loadHashContent(location.hash.slice(1));

@@ -28,7 +28,8 @@ function addRow() {
 	count++;
 
 	var newRow = '<tr>' + '<td class="text col-sm-1">' + '<select class="itemType">' + itemTypeOptions + '</select>' + '</td>' + '<td class="text col-sm-5">' + '<input type="text" class="qty"/></td>'
-			+ '<td class="text col-sm-5"><input type="text" class="amount"/></td>' + '<td><a><span title="Eliminar" class="delNewBtn glyphicon glyphicon-remove col-sm-1"></span></a></td>' + '</tr>';
+			+ '<td class="text col-sm-5"><input type="text" class="amount"/></td>' + '<td><a href="#"><span title="Eliminar" class="delNewBtn glyphicon glyphicon-remove col-sm-1"></span></a></td>'
+			+ '</tr>';
 
 	$("#salesTable > tbody").append(newRow);
 
@@ -77,8 +78,8 @@ function delRow() {
 
 					updateTotals();
 				});
-				request.fail(function(jqXHR, textStatus) {
-					dialog.getModalBody().html('Error: ' + textStatus);
+				request.fail(function(jqXHR, textStatus, errorThrown) {
+					dialog.getModalBody().html('Error: ' + errorThrown);
 					$('#btnConfirm').text('Reintentar');
 				});
 				request.always(function() {
@@ -103,6 +104,8 @@ function delNewRow() {
 	$(tr).remove();
 
 	updateTotals();
+
+	return false;
 }
 
 function editRow() {
@@ -127,17 +130,17 @@ function editRow() {
 			cssClass : 'btn-primary',
 			autospin : true,
 			action : function(dialog) {
-				var newItem = {};
-				newItem.id = $("#itemType").val();
+				var item = {};
+				item.id = $("#itemType").val();
 
 				var currShop = {};
-				currShop.id = 1;
+				currShop.id = $("#currShopId").val();
 
 				var updatedSale = {};
-				updatedSale.saleId = saleId;
+				updatedSale.id = saleId;
 				updatedSale.saleDate = new Date();
 				updatedSale.saleShop = currShop;
-				updatedSale.saleItem = newItem;
+				updatedSale.saleItem = item;
 				updatedSale.saleQuantity = $("#saleQuantity").val();
 				updatedSale.saleAmount = $("#saleAmount").val();
 
@@ -151,22 +154,32 @@ function editRow() {
 				var request = $.ajax({
 					url : "sales/edit/",
 					method : "POST",
-					data : JSON.stringify(saleDTO),
+					data : JSON.stringify(updatedSale),
 					contentType : "application/json; charset=utf-8",
-					dataType : "json",
+					dataType : "text",
 					timeout : 10000,
 				});
 				request.done(function(msg) {
-					$("#log").html(msg);
+					dialog.setType(BootstrapDialog.TYPE_SUCCESS);
+					dialog.getModalBody().html(msg);
+
+					$('#btnAccept').remove();
+					$('#btnCancel').text('Cerrar');
+
+					updateTotals();
 				});
-				request.fail(function(jqXHR, textStatus) {
-					dialog.getModalBody().html('Error: ' + jqXHR.html());
-					dialog.enableButtons(true);
+				request.fail(function(jqXHR, textStatus, errorThrown) {
+					dialog.getModalBody().html('Error: ' + errorThrown);
 					dialog.getButton('btnAccept').stopSpin();
+					$('#btnAccept').text('Reintentar');
+				});
+				request.always(function() {
+					dialog.enableButtons(true);
 					dialog.setClosable(true);
 				});
 			}
 		}, {
+			id : 'btnCancel',
 			label : 'Cancelar',
 			action : function(dialog) {
 				dialog.close();
