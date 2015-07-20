@@ -22,7 +22,7 @@
 				<option value="${item.id}"><c:out value="${item.itemType}"></c:out></option>
 			</c:forEach>
 		</select> <input type="hidden" id="currShopId" value="${currShop.id}">
-		<div id="table">
+		<div>
 			<table class="table table-striped table-bordered" id="salesTable">
 				<thead>
 					<tr>

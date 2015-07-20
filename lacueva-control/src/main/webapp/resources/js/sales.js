@@ -27,8 +27,8 @@ $(document).ready(function() {
 function addRow() {
 
 	for (i = 0; i < 10; i++) {
-		var newRow = '<tr data-id="255">' + '<td class="text col-sm-1">' + '<select class="itemType">' + itemTypeOptions + '</select>' + '</td>' + '<td class="saleQuantity text col-sm-5">'
-				+ '<input type="text"/></td>' + '<td class="saleAmount text col-sm-5"><input type="text"/></td>'
+		var newRow = '<tr>' + '<td class="text col-sm-1">' + '<select class="itemType">' + itemTypeOptions + '</select>' + '</td>' + '<td class="saleQuantity text col-sm-5">'
+				+ '<input type="text" class="form-control"/></td>' + '<td class="saleAmount text col-sm-5"><input type="text" class="form-control"/></td>'
 				+ '<td><a href="#"><span title="Eliminar" class="delNewBtn glyphicon glyphicon-remove col-sm-1"></span></a></td>' + '</tr>';
 
 		$("#salesTable > tbody").append(newRow);
@@ -39,13 +39,15 @@ function addRow() {
 }
 
 function saveRows() {
-	// var tr = $(this).closest('tr');
-	// var tr = $("tr").filter( function(){
-	// return $(this).attr('data-id').match(/255/)
-	// });
+	$("#salesTable").find("tr:not([data-id])").each(function() {
+		var qty = parseFloat($(this).find('.saleQuantity input').val()) || 0;
+		if (qty > 0) {
+			saveSingleRow($(this));
+		}
+	});
+}
 
-	var tr = $("tr[data-id*=255]");
-
+function saveSingleRow(tr) {
 	var item = {};
 	item.id = $(tr).find('.itemType').val();
 
@@ -90,10 +92,9 @@ function saveRows() {
 				updateTotals();
 			});
 	request.fail(function(jqXHR, textStatus, errorThrown) {
-		alert('Error: ' + errorThrown);
-	});
-	request.always(function() {
-
+		console.log('Error: ' + errorThrown);
+		$(tr).find('.saleQuantity').removeClass("has-error").addClass("has-error");
+		$(tr).find('.saleAmount').removeClass("has-error").addClass("has-error");
 	});
 }
 
@@ -252,12 +253,9 @@ function sumOfColumns(table, columnIndex) {
 	table.find("tr").children("td:nth-child(" + columnIndex + ")").each(function() {
 		$this = $(this);
 		if (!$this.hasClass("sum") && $this.html() != "") {
-			var value = parseInt($this.html());
+			var value = parseFloat($this.html());
 			if (isNaN(value)) {
-				value = parseInt($this.find('input').val());
-				if (isNaN(value)) {
-					value = 0;
-				}
+				value = 0;
 			}
 			tot += value;
 		}
