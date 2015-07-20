@@ -1,9 +1,9 @@
-var count = $('#salesTable tbody tr').length;
 var itemTypeOptions = $("#itemTypes").clone().show().html();
 
 $(document).ready(function() {
 
 	$("#addBtn").on("click", addRow);
+	$("#saveBtn").on("click", saveRows);
 	$(".delBtn").on("click", delRow);
 	$(".editBtn").on("click", editRow);
 
@@ -25,26 +25,81 @@ $(document).ready(function() {
 });
 
 function addRow() {
-	count++;
 
-	var newRow = '<tr>' + '<td class="text col-sm-1">' + '<select class="itemType">' + itemTypeOptions + '</select>' + '</td>' + '<td class="text col-sm-5">' + '<input type="text" class="qty"/></td>'
-			+ '<td class="text col-sm-5"><input type="text" class="amount"/></td>' + '<td><a href="#"><span title="Eliminar" class="delNewBtn glyphicon glyphicon-remove col-sm-1"></span></a></td>'
-			+ '</tr>';
+	for (i = 0; i < 10; i++) {
+		var newRow = '<tr data-id="255">' + '<td class="text col-sm-1">' + '<select class="itemType">' + itemTypeOptions + '</select>' + '</td>' + '<td class="saleQuantity text col-sm-5">'
+				+ '<input type="text"/></td>' + '<td class="saleAmount text col-sm-5"><input type="text"/></td>'
+				+ '<td><a href="#"><span title="Eliminar" class="delNewBtn glyphicon glyphicon-remove col-sm-1"></span></a></td>' + '</tr>';
 
-	$("#salesTable > tbody").append(newRow);
-
-	$(".qty").off("focusout");
-	$(".amount").off("focusout");
-
-	$(".qty").on("focusout", updateTotals);
-	$(".amount").on("focusout", updateTotals);
+		$("#salesTable > tbody").append(newRow);
+	}
 
 	$(".delNewBtn").off("click");
 	$(".delNewBtn").on("click", delNewRow);
 }
 
+function saveRows() {
+	// var tr = $(this).closest('tr');
+	// var tr = $("tr").filter( function(){
+	// return $(this).attr('data-id').match(/255/)
+	// });
+
+	var tr = $("tr[data-id*=255]");
+
+	var item = {};
+	item.id = $(tr).find('.itemType').val();
+
+	var currShop = {};
+	currShop.id = $("#currShopId").val();
+
+	var newSale = {};
+	newSale.saleDate = new Date();
+	newSale.saleShop = currShop;
+	newSale.saleItem = item;
+	newSale.saleQuantity = $(tr).find('.saleQuantity input').val();
+	newSale.saleAmount = $(tr).find('.saleAmount input').val();
+
+	var request = $.ajax({
+		url : "sales/create/",
+		method : "POST",
+		data : JSON.stringify(newSale),
+		contentType : "application/json; charset=utf-8",
+		dataType : "text",
+		timeout : 10000,
+	});
+	request
+			.done(function(msg) {
+				$(tr).attr('data-id', msg);
+				$(tr).find('.itemType option[value=' + item.id + ']').attr("selected", true);
+				$(tr).find('.itemType').prop("disabled", true);
+
+				var qty = newSale.saleQuantity;
+				var amount = newSale.saleAmount;
+				var buttons = '<span title="Modificar" class="editBtn glyphicon glyphicon-pencil col-sm-1"></span></a> <a href="#"><span title="Eliminar" class="delBtn glyphicon glyphicon-remove col-sm-1"></span></a>';
+
+				$(tr).find('.saleQuantity input').replaceWith(qty);
+				$(tr).find('.saleAmount input').replaceWith(amount);
+				$(tr).find('.delNewBtn').replaceWith(buttons);
+
+				$(".delBtn").off("click");
+				$(".editBtn").off("click");
+
+				$(".delBtn").on("click", delRow);
+				$(".editBtn").on("click", editRow);
+
+				updateTotals();
+			});
+	request.fail(function(jqXHR, textStatus, errorThrown) {
+		alert('Error: ' + errorThrown);
+	});
+	request.always(function() {
+
+	});
+}
+
 function delRow() {
 	var tr = $(this).closest('tr');
+
 	BootstrapDialog.show({
 		type : BootstrapDialog.TYPE_WARNING,
 		title : 'Eliminar',
@@ -144,10 +199,6 @@ function editRow() {
 				updatedSale.saleQuantity = $("#saleQuantity").val();
 				updatedSale.saleAmount = $("#saleAmount").val();
 
-				var saleDTO = {
-					'updatedSale' : updatedSale
-				};
-
 				dialog.enableButtons(false);
 				dialog.setClosable(false);
 				dialog.getModalBody().html('Enviando modificaciones...');
@@ -165,6 +216,12 @@ function editRow() {
 
 					$('#btnAccept').remove();
 					$('#btnCancel').text('Cerrar');
+
+					$('option:selected', $(tr).find('.itemType')).removeAttr('selected');
+					$(tr).find('.itemType option[value=' + item.id + ']').attr("selected", true);
+
+					$(tr).find('.saleQuantity').text(updatedSale.saleQuantity);
+					$(tr).find('.saleAmount').text(updatedSale.saleAmount);
 
 					updateTotals();
 				});

@@ -34,13 +34,14 @@
 				</thead>
 				<tfoot>
 					<tr>
-						<td colspan="1" class="text-right" rowspan="1">Totales:</td>
-						<td colspan="1" id="sumQty" class="sum" rowspan="1"></td>
-						<td colspan="1" id="sumAmount" class="sum" rowspan="1"></td>
+						<td colspan="1" rowspan="1" class="text-right">Totales:</td>
+						<td colspan="1" rowspan="1" class="sum" id="sumQty"></td>
+						<td colspan="1" rowspan="1" class="sum" id="sumAmount"></td>
 						<td colspan="1" rowspan="1" class=""></td>
 					</tr>
 					<tr>
-						<td colspan="4" rowspan="1"><button id="addBtn" type="button" class="btn btn-default">Agregar l&iacute;nea</button></td>
+						<td colspan="4" rowspan="1"><button id="addBtn" type="button" class="btn btn-default">Agregar 10 l&iacute;neas</button>
+							<button id="saveBtn" type="button" class="btn btn-default">Guardar</button></td>
 					</tr>
 				</tfoot>
 				<tbody>
@@ -48,7 +49,7 @@
 						<tr data-id="${sale.id}">
 							<td class="text col-sm-1"><select class="itemType" disabled="disabled">
 									<c:forEach items="${currShop.shopItems}" var="item">
-										<option value="${item.id}" ${sale.saleItem.id == item.id ? 'selected' : ' '}><c:out value="${item.itemType}"></c:out></option>
+										<option value="${item.id}" ${sale.saleItem.id == item.id ? 'selected="selected"' : ' '}><c:out value="${item.itemType}"></c:out></option>
 									</c:forEach>
 							</select></td>
 							<td class="saleQuantity text col-sm-5"><c:out value="${sale.saleQuantity}" /></td>

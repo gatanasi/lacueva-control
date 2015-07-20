@@ -100,6 +100,14 @@ public class SalesController {
 	return message;
     }
 
+    @RequestMapping(value = "/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody String createSale(@RequestBody Sale sale) {
+
+	Sale createdSale = saleDao.create(sale);
+
+	return createdSale.getId().toString();
+    }
+
     @RequestMapping(value = "/prueba", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody Sale getSaleinJSON(@RequestParam(value = "id") Long id) {
 	if (id != null) {
