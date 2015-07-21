@@ -1,6 +1,7 @@
 package com.lacueva.control.controller;
 
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -35,7 +36,7 @@ import com.lacueva.control.dao.SaleDao;
 @Controller
 @EnableWebMvc
 @RequestMapping(value = "/sales")
-@SessionAttributes("currShop")
+@SessionAttributes({ "currShop", "shopList" })
 public class SalesController {
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
@@ -49,8 +50,18 @@ public class SalesController {
      * @return new Shop
      */
     @ModelAttribute("currShop")
-    public Shop populateShop() {
+    private Shop populateCurrShop() {
 	return new Shop();
+    }
+
+    /**
+     * Populates the Shop List if it's null
+     * 
+     * @return new ArrayList<Shop>
+     */
+    @ModelAttribute("shopList")
+    private List<Shop> populateShopList() {
+	return new ArrayList<Shop>();
     }
 
     @ExceptionHandler(HttpSessionRequiredException.class)

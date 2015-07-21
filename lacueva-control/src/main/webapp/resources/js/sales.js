@@ -2,6 +2,9 @@ var itemTypeOptions = $("#itemTypes").clone().show().html();
 
 $(document).ready(function() {
 
+	$('#shopList li[data-id=' + $("#currShopId").val() + ']').tab('show');
+
+	$('#shopList li').on("click", changeShop);
 	$("#addBtn").on("click", addRow);
 	$("#saveBtn").on("click", saveRows);
 	$(".delBtn").on("click", delRow);
@@ -23,6 +26,24 @@ $(document).ready(function() {
 		}
 	})
 });
+
+function changeShop() {
+	var request = $.ajax({
+		url : "changeShop/",
+		method : "POST",
+		dataType : "text",
+		timeout : 10000,
+		data : {
+			id : $(this).data('id')
+		}
+	});
+	request.done(function(msg) {
+		location.reload(true);
+	});
+	request.fail(function(jqXHR, textStatus, errorThrown) {
+		console.log('Error: ' + errorThrown);
+	});
+}
 
 function addRow() {
 

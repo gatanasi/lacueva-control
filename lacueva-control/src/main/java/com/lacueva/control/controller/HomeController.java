@@ -15,7 +15,7 @@ public class HomeController {
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
-    @RequestMapping(value = "/home", method = RequestMethod.GET)
+    @RequestMapping(value = "/start", method = RequestMethod.GET)
     public String home(Model model) {
 	logger.info("Welcome home! The client locale is.");
 

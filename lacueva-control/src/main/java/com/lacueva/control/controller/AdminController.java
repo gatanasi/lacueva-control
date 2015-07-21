@@ -15,6 +15,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
@@ -37,7 +39,7 @@ import com.lacueva.control.dao.ShopDao;
  * Handles requests for the application admin.
  */
 @Controller
-@SessionAttributes("currShop")
+@SessionAttributes({ "currShop", "shopList" })
 public class AdminController {
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
@@ -115,6 +117,14 @@ public class AdminController {
 	status.setComplete();
 	return "redirect:/";
 
+    }
+
+    @RequestMapping(value = "/changeShop", method = RequestMethod.POST)
+    public @ResponseBody String changeCurrShop(@RequestParam Long id, Model model) {
+
+	Shop newShop = shopDao.find(id);
+	model.addAttribute("currShop", newShop);
+	return "bien ahi";
     }
 
     @RequestMapping(value = "/logout", method = RequestMethod.GET)
@@ -318,6 +328,11 @@ public class AdminController {
 
 	providerDao.create(provider2);
 
+	List<Shop> shopList = new ArrayList<Shop>();
+	shopList.add(shop1);
+	shopList.add(shop2);
+
+	model.addAttribute("shopList", shopList);
 	model.addAttribute("currShop", shop1);
 
 	return "redirect:/";

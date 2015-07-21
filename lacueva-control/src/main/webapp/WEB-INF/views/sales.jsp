@@ -1,6 +1,18 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
+<div class="panel panel-default">
+	<div class="panel-heading">
+		<h3 class="panel-title">Seleccione un local</h3>
+	</div>
+	<div class="panel-body">
+		<ul id="shopList" class="nav nav-pills nav-justified">
+			<c:forEach items="${shopList}" var="shop">
+				<li data-id="${shop.id}" role="presentation"><a href="#" role="pill" data-toggle="pill">${shop.shopName}</a></li>
+			</c:forEach>
+		</ul>
+	</div>
+</div>
 <div class="panel panel-primary">
 	<div class="panel-heading">
 		<h3 class="panel-title">Ventas en ${currShop.shopName}</h3>
