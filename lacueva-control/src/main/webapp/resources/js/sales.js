@@ -1,4 +1,6 @@
 var itemTypeOptions = $("#itemTypes").clone().show().html();
+var priceList;
+var promoList;
 
 $(document).ready(function() {
 
@@ -25,6 +27,9 @@ $(document).ready(function() {
 			}
 		}
 	})
+	
+	getPrices();
+	getPromos();
 });
 
 function changeShop() {
@@ -43,7 +48,64 @@ function changeShop() {
 	request.fail(function(jqXHR, textStatus, errorThrown) {
 		console.log('Error: ' + errorThrown);
 	});
-}
+};
+
+function getPrices() {
+	var request = $.ajax({
+		url : "prices/priceList",
+		method : "GET",
+		data : {
+			'shop' : $("#currShopId").val()
+		},
+		contentType : "application/json; charset=utf-8",
+		dataType : "text",
+		timeout : 10000
+	});
+	request.done(function(msg) {
+		priceList = jQuery.parseJSON(msg);
+	});
+	request.fail(function(jqXHR, textStatus, errorThrown) {
+		console.log('Error: ' + errorThrown);
+	});
+};
+
+function getPromos() {
+	var request = $.ajax({
+		url : "promos/promoList",
+		method : "GET",
+		data : {
+			'shop' : $("#currShopId").val()
+		},
+		contentType : "application/json; charset=utf-8",
+		dataType : "text",
+		timeout : 10000
+	});
+	request.done(function(msg) {
+		promoList = jQuery.parseJSON(msg);
+	});
+	request.fail(function(jqXHR, textStatus, errorThrown) {
+		console.log('Error: ' + errorThrown);
+	});
+};
+
+function getPriceByItem(item){
+	
+};
+
+function calculateFinalPrice(item, qty){
+	var finalPrice = 0.00;
+	var remainingItems = qty;
+	while (remainingItems > 1){
+		var itemPromo = getPromoByItemAndQty(item, remainingItems);
+		finalPrice += itemPromo.promoValue;
+		remainingItems -= itemPromo.promoQuantity;
+	};
+	if (remainingItems == 1){
+		finalPrice += getPriceByItem(item);
+	};
+	
+	return finalPrice;
+};
 
 function addRow() {
 
@@ -53,20 +115,20 @@ function addRow() {
 				+ '<td><a href="#"><span title="Eliminar" class="delNewBtn glyphicon glyphicon-remove col-sm-1"></span></a></td>' + '</tr>';
 
 		$("#salesTable > tbody").append(newRow);
-	}
+	};
 
 	$(".delNewBtn").off("click");
 	$(".delNewBtn").on("click", delNewRow);
-}
+};
 
 function saveRows() {
 	$("#salesTable").find("tr:not([data-id])").each(function() {
 		var qty = parseFloat($(this).find('.saleQuantity input').val()) || 0;
 		if (qty > 0) {
 			saveSingleRow($(this));
-		}
+		};
 	});
-}
+};
 
 function saveSingleRow(tr) {
 	var item = {};
@@ -117,7 +179,7 @@ function saveSingleRow(tr) {
 		$(tr).find('.saleQuantity').removeClass("has-error").addClass("has-error");
 		$(tr).find('.saleAmount').removeClass("has-error").addClass("has-error");
 	});
-}
+};
 
 function delRow() {
 	var tr = $(this).closest('tr');
@@ -174,7 +236,7 @@ function delRow() {
 	});
 
 	return false;
-}
+};
 
 function delNewRow() {
 	var tr = $(this).closest('tr');
@@ -183,7 +245,7 @@ function delNewRow() {
 	updateTotals();
 
 	return false;
-}
+};
 
 function editRow() {
 	var tr = $(this).closest('tr');
@@ -267,7 +329,7 @@ function editRow() {
 	});
 
 	return false;
-}
+};
 
 function sumOfColumns(table, columnIndex) {
 	var tot = 0;
@@ -282,9 +344,9 @@ function sumOfColumns(table, columnIndex) {
 		}
 	});
 	return tot;
-}
+};
 
 function updateTotals() {
 	$('#sumQty').text(sumOfColumns($('#salesTable'), 2));
 	$('#sumAmount').text(sumOfColumns($('#salesTable'), 3));
-}
+};

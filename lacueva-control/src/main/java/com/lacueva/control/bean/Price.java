@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
@@ -19,7 +20,9 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "CUEVA_PRICES")
-@NamedQuery(name = "Prices.findPriceByShopAndItem", query = "SELECT prices FROM Price prices WHERE prices.priceShop = :shop AND prices.priceItem = :item")
+@NamedQueries({
+	@NamedQuery(name = "Prices.findPriceByShopAndItem", query = "SELECT prices FROM Price prices WHERE prices.priceShop = :shop AND prices.priceItem = :item"),
+	@NamedQuery(name = "Prices.findPricesByShop", query = "SELECT prices FROM Price prices WHERE prices.priceShop = :shop") })
 public class Price implements Serializable {
 
     /**
