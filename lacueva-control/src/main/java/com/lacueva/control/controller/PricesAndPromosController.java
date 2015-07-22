@@ -41,8 +41,7 @@ public class PricesAndPromosController {
     private PromoDao promoDao;
 
     @RequestMapping(value = "/prices/priceList", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public @ResponseBody List<PriceDTO> getPriceListinJSON(
-	    @RequestParam(value = "shop") Long id) {
+    public @ResponseBody List<PriceDTO> getPriceListinJSON(@RequestParam(value = "shop") Long id) {
 	Shop shop = new Shop();
 	shop.setId(id);
 	List<Price> prices = priceDao.findPricesByShop(shop);
@@ -54,8 +53,7 @@ public class PricesAndPromosController {
     }
 
     @RequestMapping(value = "/promos/promoList", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public @ResponseBody List<PromoDTO> getPromoListinJSON(
-	    @RequestParam(value = "shop") Long id) {
+    public @ResponseBody List<PromoDTO> getPromoListinJSON(@RequestParam(value = "shop") Long id) {
 	Shop shop = new Shop();
 	shop.setId(id);
 	List<Promo> promos = promoDao.findPromosByShop(shop);

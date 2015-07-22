@@ -15,24 +15,22 @@ import com.lacueva.control.bean.Shop;
 import com.lacueva.control.dao.PromoDao;
 
 @Repository("promoDao")
-public class PromoDaoImpl extends GenericDaoImpl<Promo> implements PromoDao {
+public class PromoDaoImpl extends GenericDaoImpl<Promo>implements PromoDao {
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
     @Override
-    public Promo findPromoByShopAndItemAndQty(final Shop shop, final Item item,
-	    final Integer quantity) {
+    public Promo findPromoByShopAndItemAndQty(final Shop shop, final Item item, final Integer quantity) {
 	logger.debug("Finding Promo by Shop, Item and Quantity");
 
 	Promo promo = new Promo();
 
-	if (shop != null && shop.getId() != null && item != null
-		&& item.getId() != null && quantity != null) {
-	    logger.debug("Finding Promo with Shop= " + shop.getId()
-		    + ", Item= " + item.getId() + ", Quantity= " + quantity);
+	if (shop != null && shop.getId() != null && item != null && item.getId() != null && quantity != null) {
+	    logger.debug(
+		    "Finding Promo with Shop= " + shop.getId() + ", Item= " + item.getId() + ", Quantity= " + quantity);
 
-	    TypedQuery<Promo> query = entityManager.createNamedQuery(
-		    "Promos.findPromoByShopAndItemAndQty", Promo.class);
+	    TypedQuery<Promo> query = entityManager.createNamedQuery("Promos.findPromoByShopAndItemAndQty",
+		    Promo.class);
 	    query.setParameter("shop", shop);
 	    query.setParameter("item", item);
 	    query.setParameter("quantity", quantity);
@@ -55,8 +53,7 @@ public class PromoDaoImpl extends GenericDaoImpl<Promo> implements PromoDao {
 	if (shop != null && shop.getId() != null) {
 	    logger.debug("Finding Promos with Shop= " + shop.getId());
 
-	    TypedQuery<Promo> query = entityManager.createNamedQuery(
-		    "Promos.findPromosByShop", Promo.class);
+	    TypedQuery<Promo> query = entityManager.createNamedQuery("Promos.findPromosByShop", Promo.class);
 	    query.setParameter("shop", shop);
 
 	    List<Promo> foundList = query.getResultList();

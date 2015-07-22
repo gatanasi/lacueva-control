@@ -15,7 +15,7 @@ import com.lacueva.control.bean.Shop;
 import com.lacueva.control.dao.PriceDao;
 
 @Repository("priceDao")
-public class PriceDaoImpl extends GenericDaoImpl<Price> implements PriceDao {
+public class PriceDaoImpl extends GenericDaoImpl<Price>implements PriceDao {
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
@@ -25,13 +25,10 @@ public class PriceDaoImpl extends GenericDaoImpl<Price> implements PriceDao {
 
 	Price price = new Price();
 
-	if (shop != null && shop.getId() != null && item != null
-		&& item.getId() != null) {
-	    logger.debug("Finding Price with Shop= " + shop.getId()
-		    + ", Item= " + item.getId());
+	if (shop != null && shop.getId() != null && item != null && item.getId() != null) {
+	    logger.debug("Finding Price with Shop= " + shop.getId() + ", Item= " + item.getId());
 
-	    TypedQuery<Price> query = entityManager.createNamedQuery(
-		    "Prices.findPriceByShopAndItem", Price.class);
+	    TypedQuery<Price> query = entityManager.createNamedQuery("Prices.findPriceByShopAndItem", Price.class);
 	    query.setParameter("shop", shop);
 	    query.setParameter("item", item);
 
@@ -53,8 +50,7 @@ public class PriceDaoImpl extends GenericDaoImpl<Price> implements PriceDao {
 	if (shop != null && shop.getId() != null) {
 	    logger.debug("Finding Prices with Shop= " + shop.getId());
 
-	    TypedQuery<Price> query = entityManager.createNamedQuery(
-		    "Prices.findPricesByShop", Price.class);
+	    TypedQuery<Price> query = entityManager.createNamedQuery("Prices.findPricesByShop", Price.class);
 	    query.setParameter("shop", shop);
 
 	    List<Price> foundList = query.getResultList();
