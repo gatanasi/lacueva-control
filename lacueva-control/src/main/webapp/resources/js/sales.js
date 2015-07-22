@@ -27,7 +27,7 @@ $(document).ready(function() {
 			}
 		}
 	})
-	
+
 	getPrices();
 	getPromos();
 });
@@ -88,23 +88,72 @@ function getPromos() {
 	});
 };
 
-function getPriceByItem(item){
-	
+function getPriceByItem(itemId) {
+	var itemPrice = 0.00;
+	$.each(priceList, function(key, value) {
+		if (value.priceItem.id == itemId) {
+			itemPrice = parseFloat(value.priceValue);
+			return false;
+		}
+	});
+	return itemPrice;
 };
 
-function calculateFinalPrice(item, qty){
+function getPromoByItemAndQty(itemId, qty) {
+	var itemPromo;
+	var promoQty = 0;
+	var maxApplicablePromo = 0;
+	$.each(promoList, function(key, value) {
+		if (value.promoItem.id == itemId) {
+			promoQty = parseInt(value.promoQuantity);
+			if (promoQty <= qty) {
+				if (maxApplicablePromo < promoQty) {
+					maxApplicablePromo = promoQty;
+					itemPromo = value;
+				}
+			}
+		}
+	});
+	return itemPromo;
+};
+
+function calculateFinalPrice(itemId, qty) {
 	var finalPrice = 0.00;
-	var remainingItems = qty;
-	while (remainingItems > 1){
-		var itemPromo = getPromoByItemAndQty(item, remainingItems);
-		finalPrice += itemPromo.promoValue;
-		remainingItems -= itemPromo.promoQuantity;
-	};
-	if (remainingItems == 1){
-		finalPrice += getPriceByItem(item);
-	};
-	
+	var remainingItems = parseInt(qty);
+	var itemPromo = getPromoByItemAndQty(itemId, remainingItems);
+	while ((remainingItems > 1) && (itemPromo != null)) {
+		finalPrice += parseFloat(itemPromo.promoValue);
+		remainingItems -= parseInt(itemPromo.promoQuantity);
+		itemPromo = getPromoByItemAndQty(itemId, remainingItems);
+	}
+
+	if (remainingItems > 0) {
+		finalPrice += (getPriceByItem(itemId) * remainingItems);
+	}
+
 	return finalPrice;
+};
+
+function setSaleAmount() {
+	var tr = $(this).closest('tr');
+
+	var itemId = $(tr).find('.itemType').val();
+	var qty = parseInt($(tr).find('.saleQuantity input').val());
+
+	if ((getPriceByItem(itemId) > 0)) {
+		if (!isNaN(qty)) {
+			var finalPrice = calculateFinalPrice(itemId, qty);
+			$(tr).find('.saleQuantity input').val(qty);
+			$(tr).find('.saleQuantity input').prop('disabled', false);
+			$(tr).find('.saleAmount input').val(finalPrice);
+			$(tr).find('.saleAmount input').prop('disabled', true);
+		}
+	} else {
+		$(tr).find('.saleQuantity input').val(1);
+		$(tr).find('.saleQuantity input').prop('disabled', true);
+		$(tr).find('.saleAmount input').val('');
+		$(tr).find('.saleAmount input').prop('disabled', false);
+	}
 };
 
 function addRow() {
@@ -115,7 +164,13 @@ function addRow() {
 				+ '<td><a href="#"><span title="Eliminar" class="delNewBtn glyphicon glyphicon-remove col-sm-1"></span></a></td>' + '</tr>';
 
 		$("#salesTable > tbody").append(newRow);
-	};
+	}
+
+	$(".saleQuantity input").off("focusout");
+	$(".itemType").off("change");
+
+	$(".saleQuantity input").on("focusout", setSaleAmount);
+	$(".itemType").on("change", setSaleAmount);
 
 	$(".delNewBtn").off("click");
 	$(".delNewBtn").on("click", delNewRow);
@@ -126,7 +181,7 @@ function saveRows() {
 		var qty = parseFloat($(this).find('.saleQuantity input').val()) || 0;
 		if (qty > 0) {
 			saveSingleRow($(this));
-		};
+		}
 	});
 };
 
