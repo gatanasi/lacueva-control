@@ -37,6 +37,7 @@ public class ItemDaoTest {
 	item.setItemType("DVD");
 	item.setItemWeight(16.4f);
 	item.setItemBurnable(false);
+	item.setItemPriority(1);
 
 	itemDao.create(item);
     }
@@ -47,6 +48,7 @@ public class ItemDaoTest {
 	itemCreate.setItemType("DVD");
 	itemCreate.setItemWeight(16.4f);
 	itemCreate.setItemBurnable(false);
+	itemCreate.setItemPriority(2);
 
 	itemDao.create(itemCreate);
 
@@ -56,6 +58,7 @@ public class ItemDaoTest {
 	assertEquals(itemCreate.getItemType(), foundItem.getItemType());
 	assertEquals(itemCreate.getItemWeight(), foundItem.getItemWeight());
 	assertEquals(itemCreate.getItemBurnable(), foundItem.getItemBurnable());
+	assertEquals(itemCreate.getItemPriority(), foundItem.getItemPriority());
     }
 
     @Test
@@ -66,6 +69,7 @@ public class ItemDaoTest {
 	assertEquals(item.getItemType(), foundItem.getItemType());
 	assertEquals(item.getItemWeight(), foundItem.getItemWeight());
 	assertEquals(item.getItemBurnable(), foundItem.getItemBurnable());
+	assertEquals(item.getItemPriority(), foundItem.getItemPriority());
     }
 
     @Test
@@ -98,6 +102,7 @@ public class ItemDaoTest {
 	updatedItem.setItemType(item.getItemType());
 	updatedItem.setItemWeight(6f);
 	updatedItem.setItemBurnable(item.getItemBurnable());
+	updatedItem.setItemPriority(item.getItemPriority());
 
 	itemDao.update(updatedItem);
 
@@ -107,6 +112,7 @@ public class ItemDaoTest {
 	assertEquals(updatedItem.getItemType(), foundItem.getItemType());
 	assertEquals(updatedItem.getItemWeight(), foundItem.getItemWeight());
 	assertEquals(updatedItem.getItemBurnable(), foundItem.getItemBurnable());
+	assertEquals(updatedItem.getItemPriority(), foundItem.getItemPriority());
     }
 
 }

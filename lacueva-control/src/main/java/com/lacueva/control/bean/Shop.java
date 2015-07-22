@@ -1,6 +1,7 @@
 package com.lacueva.control.bean;
 
 import java.io.Serializable;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -16,6 +17,8 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
+import com.lacueva.control.commons.ItemPriorityComparator;
 
 /**
  * Entity implementation class for Entity: Shop
@@ -91,6 +94,9 @@ public class Shop implements Serializable {
     }
 
     public void setShopItems(List<Item> shopItems) {
+	if (shopItems.size() > 1) {
+	    Collections.sort(shopItems, new ItemPriorityComparator());
+	}
 	this.shopItems = shopItems;
     }
 

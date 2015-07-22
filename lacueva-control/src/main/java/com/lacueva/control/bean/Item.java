@@ -45,6 +45,9 @@ public class Item implements Serializable {
     @Column(name = "ITEM_BURNABLE")
     private Boolean itemBurnable;
 
+    @Column(name = "ITEM_PRIORITY")
+    private Integer itemPriority;
+
     public Item() {
 	super();
     }
@@ -81,13 +84,22 @@ public class Item implements Serializable {
 	this.itemBurnable = itemBurnable;
     }
 
+    public Integer getItemPriority() {
+	return itemPriority;
+    }
+
+    public void setItemPriority(Integer itemPriority) {
+	this.itemPriority = itemPriority;
+    }
+
     @Override
     public String toString()
 
     {
 	StringBuilder sb = new StringBuilder("Item [");
 	sb.append("itemId=").append(getId()).append(", itemType=").append(getItemType()).append(", itemWeight=")
-		.append(getItemWeight()).append(", itemBurnable=").append(getItemBurnable()).append("]");
+		.append(getItemWeight()).append(", itemBurnable=").append(getItemBurnable()).append(", itemPriority=")
+		.append(getItemPriority()).append("]");
 
 	return sb.toString();
     }
