@@ -17,7 +17,7 @@
 						<td class="text"><c:out value="${shop.shopCash}" /></td>
 
 						<td class="text"><c:forEach items="${shop.shopItems}" var="shopItem">
-								<c:out value="${shopItem.itemType}" /> | 
+								<c:out value="${shopItem.itemName}" /> | 
 					</c:forEach></td>
 					</tr>
 				</c:forEach>

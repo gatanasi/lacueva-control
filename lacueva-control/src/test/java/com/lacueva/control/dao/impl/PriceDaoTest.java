@@ -49,7 +49,7 @@ public class PriceDaoTest {
     @Before
     public void before() throws ParseException {
 	item = new Item();
-	item.setItemType("DVD");
+	item.setItemName("DVD");
 	item.setItemWeight(16.4f);
 	item.setItemBurnable(false);
 

@@ -1,4 +1,4 @@
-var itemTypeOptions = $("#itemTypes").clone().show().html();
+var itemNameOptions = $("#itemNames").clone().show().html();
 var priceList;
 var promoList;
 
@@ -137,17 +137,19 @@ function calculateFinalPrice(itemId, qty) {
 function setSaleAmount() {
 	var tr = $(this).closest('tr');
 
-	var itemId = $(tr).find('.itemType').val();
+	var itemId = $(tr).find('.itemName').val();
 	var qty = parseInt($(tr).find('.saleQuantity input').val());
 
-	if ((getPriceByItem(itemId) > 0)) {
+	if (getPriceByItem(itemId) > 0) {
 		if (!isNaN(qty)) {
 			var finalPrice = calculateFinalPrice(itemId, qty);
 			$(tr).find('.saleQuantity input').val(qty);
-			$(tr).find('.saleQuantity input').prop('disabled', false);
 			$(tr).find('.saleAmount input').val(finalPrice);
-			$(tr).find('.saleAmount input').prop('disabled', true);
+		} else {
+			$(tr).find('.saleAmount input').val('');
 		}
+		$(tr).find('.saleQuantity input').prop('disabled', false);
+		$(tr).find('.saleAmount input').prop('disabled', true);
 	} else {
 		$(tr).find('.saleQuantity input').val(1);
 		$(tr).find('.saleQuantity input').prop('disabled', true);
@@ -159,18 +161,18 @@ function setSaleAmount() {
 function addRow() {
 
 	for (i = 0; i < 10; i++) {
-		var newRow = '<tr>' + '<td class="text col-sm-1">' + '<select class="itemType">' + itemTypeOptions + '</select>' + '</td>' + '<td class="saleQuantity text col-sm-5">'
-				+ '<input type="text" class="form-control"/></td>' + '<td class="saleAmount text col-sm-5"><input type="text" class="form-control"/></td>'
-				+ '<td><a href="#"><span title="Eliminar" class="delNewBtn glyphicon glyphicon-remove col-sm-1"></span></a></td>' + '</tr>';
+		var newRow = '<tr>' + '<td class="text col-sm-1">' + '<select class="itemName">' + itemNameOptions + '</select>' + '</td>' + '<td class="saleQuantity text col-sm-5">'
+				+ '<input type="text" class="form-control"/></td>' + '<td class="saleAmount text col-sm-5"><input type="text" class="form-control" disabled/></td>'
+				+ '<td class="col-sm-1"><a href="#"><span title="Eliminar" class="delNewBtn glyphicon glyphicon-remove col-sm-1"></span></a></td>' + '</tr>';
 
 		$("#salesTable > tbody").append(newRow);
 	}
 
 	$(".saleQuantity input").off("focusout");
-	$(".itemType").off("change");
+	$(".itemName").off("change");
 
 	$(".saleQuantity input").on("focusout", setSaleAmount);
-	$(".itemType").on("change", setSaleAmount);
+	$(".itemName").on("change", setSaleAmount);
 
 	$(".delNewBtn").off("click");
 	$(".delNewBtn").on("click", delNewRow);
@@ -187,7 +189,7 @@ function saveRows() {
 
 function saveSingleRow(tr) {
 	var item = {};
-	item.id = $(tr).find('.itemType').val();
+	item.id = $(tr).find('.itemName').val();
 
 	var currShop = {};
 	currShop.id = $("#currShopId").val();
@@ -210,8 +212,8 @@ function saveSingleRow(tr) {
 	request
 			.done(function(msg) {
 				$(tr).attr('data-id', msg);
-				$(tr).find('.itemType option[value=' + item.id + ']').attr("selected", true);
-				$(tr).find('.itemType').prop("disabled", true);
+				$(tr).find('.itemName option[value=' + item.id + ']').attr("selected", true);
+				$(tr).find('.itemName').prop("disabled", true);
 
 				var qty = newSale.saleQuantity;
 				var amount = newSale.saleAmount;
@@ -306,11 +308,11 @@ function editRow() {
 	var tr = $(this).closest('tr');
 
 	var saleId = $(tr).data('id');
-	var itemType = $(tr).find('.itemType').clone().html();
+	var itemName = $(tr).find('.itemName').clone().html();
 	var saleQuantity = $(tr).find('.saleQuantity').text();
 	var saleAmount = $(tr).find('.saleAmount').text();
 
-	var form = '<div class="form-group">' + '<label for="itemType">Artículo</label>' + '<select id="itemType">' + itemType + '</select>' + '</div>' + '<div class="form-group">'
+	var form = '<div class="form-group">' + '<label for="itemName">Artículo</label>' + '<select id="itemName">' + itemName + '</select>' + '</div>' + '<div class="form-group">'
 			+ '<label for="saleQuantity">Cantidad</label>' + '<input type="text" class="form-control" id="saleQuantity" value=' + saleQuantity + '>' + '</div>' + '<div class="form-group">'
 			+ '<label for="saleAmount">Importe</label>' + '<input type="text" class="form-control" id="saleAmount" value=' + saleAmount + '>' + '</div>';
 
@@ -325,7 +327,7 @@ function editRow() {
 			autospin : true,
 			action : function(dialog) {
 				var item = {};
-				item.id = $("#itemType").val();
+				item.id = $("#itemName").val();
 
 				var currShop = {};
 				currShop.id = $("#currShopId").val();
@@ -356,8 +358,8 @@ function editRow() {
 					$('#btnAccept').remove();
 					$('#btnCancel').text('Cerrar');
 
-					$('option:selected', $(tr).find('.itemType')).removeAttr('selected');
-					$(tr).find('.itemType option[value=' + item.id + ']').attr("selected", true);
+					$('option:selected', $(tr).find('.itemName')).removeAttr('selected');
+					$(tr).find('.itemName option[value=' + item.id + ']').attr("selected", true);
 
 					$(tr).find('.saleQuantity').text(updatedSale.saleQuantity);
 					$(tr).find('.saleAmount').text(updatedSale.saleAmount);

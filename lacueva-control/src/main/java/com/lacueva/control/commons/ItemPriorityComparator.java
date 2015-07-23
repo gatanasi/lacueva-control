@@ -8,6 +8,14 @@ public class ItemPriorityComparator implements Comparator<Item> {
 
     @Override
     public int compare(Item item1, Item item2) {
-	return item1.getItemPriority().compareTo(item2.getItemPriority());
+	if (item1.getItemPriority() != null) {
+	    if (item2.getItemPriority() != null) {
+		return item1.getItemPriority().compareTo(item2.getItemPriority());
+	    } else {
+		return 1;
+	    }
+	} else {
+	    return 0;
+	}
     }
 }

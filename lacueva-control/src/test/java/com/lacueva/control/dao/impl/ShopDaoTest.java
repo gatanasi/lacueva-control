@@ -47,17 +47,17 @@ public class ShopDaoTest {
     public void before() throws ParseException {
 	itemsList = new ArrayList<Item>();
 	Item itemforList = new Item();
-	itemforList.setItemType("DVD");
+	itemforList.setItemName("DVD");
 	itemforList.setItemWeight(1.3f);
 	itemforList.setItemBurnable(true);
 	itemforList.setItemPriority(1);
 	Item itemforList2 = new Item();
-	itemforList2.setItemType("ENVELOPE_WITH_FLAP");
+	itemforList2.setItemName("ENVELOPE_WITH_FLAP");
 	itemforList2.setItemWeight(0.62f);
 	itemforList2.setItemBurnable(false);
 	itemforList2.setItemPriority(5);
 	Item itemforList3 = new Item();
-	itemforList3.setItemType("BD");
+	itemforList3.setItemName("BD");
 	itemforList3.setItemWeight(2.3f);
 	itemforList3.setItemBurnable(true);
 	itemforList3.setItemPriority(3);
@@ -93,7 +93,7 @@ public class ShopDaoTest {
     public void testCreate() throws ParseException {
 	List<Item> itemsListCreate = new ArrayList<Item>();
 	Item itemforListCreate = new Item();
-	itemforListCreate.setItemType("DVD");
+	itemforListCreate.setItemName("DVD");
 	itemforListCreate.setItemWeight(16.4f);
 	itemforListCreate.setItemBurnable(false);
 	itemforListCreate.setItemPriority(2);

@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -33,10 +35,14 @@ public class Item implements Serializable {
     @Column(name = "ITEM_ID")
     private Long id;
 
-    @Column(name = "ITEM_TYPE", nullable = false)
+    @Column(name = "ITEM_NAME", nullable = false)
     @NotNull
     @Size(min = 1)
-    private String itemType;
+    private String itemName;
+
+    @OneToOne
+    @JoinColumn(name = "ITEM_TYPE_ID")
+    private ItemType itemType;
 
     @Column(name = "ITEM_WEIGHT")
     @NumberFormat
@@ -60,11 +66,19 @@ public class Item implements Serializable {
 	this.id = id;
     }
 
-    public String getItemType() {
+    public String getItemName() {
+	return itemName;
+    }
+
+    public void setItemName(String itemName) {
+	this.itemName = itemName;
+    }
+
+    public ItemType getItemType() {
 	return itemType;
     }
 
-    public void setItemType(String itemType) {
+    public void setItemType(ItemType itemType) {
 	this.itemType = itemType;
     }
 
@@ -97,9 +111,9 @@ public class Item implements Serializable {
 
     {
 	StringBuilder sb = new StringBuilder("Item [");
-	sb.append("itemId=").append(getId()).append(", itemType=").append(getItemType()).append(", itemWeight=")
-		.append(getItemWeight()).append(", itemBurnable=").append(getItemBurnable()).append(", itemPriority=")
-		.append(getItemPriority()).append("]");
+	sb.append("itemId=").append(getId()).append(", itemName=").append(getItemName()).append(", itemType=")
+		.append(getItemType()).append(", itemWeight=").append(getItemWeight()).append(", itemBurnable=")
+		.append(getItemBurnable()).append(", itemPriority=").append(getItemPriority()).append("]");
 
 	return sb.toString();
     }

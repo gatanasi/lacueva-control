@@ -29,9 +29,9 @@
 		<div id="date-picker" class="col-sm-2"></div>
 	</div>
 	<div class="panel-body">
-		<select id="itemTypes" hidden="true">
+		<select id="itemNames" hidden="true">
 			<c:forEach items="${currShop.shopItems}" var="item">
-				<option value="${item.id}"><c:out value="${item.itemType}"></c:out></option>
+				<option value="${item.id}"><c:out value="${item.itemName}"></c:out></option>
 			</c:forEach>
 		</select> <input type="hidden" id="currShopId" value="${currShop.id}">
 		<div>
@@ -59,14 +59,14 @@
 				<tbody>
 					<c:forEach items="${sales}" var="sale">
 						<tr data-id="${sale.id}">
-							<td class="text col-sm-1"><select class="itemType" disabled="disabled">
+							<td class="text col-sm-1"><select class="itemName" disabled="disabled">
 									<c:forEach items="${currShop.shopItems}" var="item">
-										<option value="${item.id}" ${sale.saleItem.id == item.id ? 'selected="selected"' : ' '}><c:out value="${item.itemType}"></c:out></option>
+										<option value="${item.id}" ${sale.saleItem.id == item.id ? 'selected="selected"' : ' '}><c:out value="${item.itemName}"></c:out></option>
 									</c:forEach>
 							</select></td>
 							<td class="saleQuantity text col-sm-5"><c:out value="${sale.saleQuantity}" /></td>
 							<td class="saleAmount text col-sm-5"><c:out value="${sale.saleAmount}" /></td>
-							<td><a href="#"> <span title="Modificar" class="editBtn glyphicon glyphicon-pencil col-sm-1"></span></a> <a href="#"><span title="Eliminar"
+							<td class="col-sm-1"><a href="#"> <span title="Modificar" class="editBtn glyphicon glyphicon-pencil col-sm-1"></span></a> <a href="#"><span title="Eliminar"
 									class="delBtn glyphicon glyphicon-remove col-sm-1"></span></a></td>
 						</tr>
 					</c:forEach>

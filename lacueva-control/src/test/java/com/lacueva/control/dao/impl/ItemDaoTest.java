@@ -34,7 +34,7 @@ public class ItemDaoTest {
     @Before
     public void before() {
 	item = new Item();
-	item.setItemType("DVD");
+	item.setItemName("DVD");
 	item.setItemWeight(16.4f);
 	item.setItemBurnable(false);
 	item.setItemPriority(1);
@@ -45,7 +45,7 @@ public class ItemDaoTest {
     @Test
     public void testCreate() {
 	Item itemCreate = new Item();
-	itemCreate.setItemType("DVD");
+	itemCreate.setItemName("DVD");
 	itemCreate.setItemWeight(16.4f);
 	itemCreate.setItemBurnable(false);
 	itemCreate.setItemPriority(2);
@@ -55,7 +55,7 @@ public class ItemDaoTest {
 	Item foundItem = itemDao.find(itemCreate.getId());
 
 	assertEquals(itemCreate, foundItem);
-	assertEquals(itemCreate.getItemType(), foundItem.getItemType());
+	assertEquals(itemCreate.getItemName(), foundItem.getItemName());
 	assertEquals(itemCreate.getItemWeight(), foundItem.getItemWeight());
 	assertEquals(itemCreate.getItemBurnable(), foundItem.getItemBurnable());
 	assertEquals(itemCreate.getItemPriority(), foundItem.getItemPriority());
@@ -66,7 +66,7 @@ public class ItemDaoTest {
 	Item foundItem = itemDao.find(item.getId());
 
 	assertEquals(item, foundItem);
-	assertEquals(item.getItemType(), foundItem.getItemType());
+	assertEquals(item.getItemName(), foundItem.getItemName());
 	assertEquals(item.getItemWeight(), foundItem.getItemWeight());
 	assertEquals(item.getItemBurnable(), foundItem.getItemBurnable());
 	assertEquals(item.getItemPriority(), foundItem.getItemPriority());
@@ -99,7 +99,7 @@ public class ItemDaoTest {
     public void testUpdate() {
 	Item updatedItem = new Item();
 	updatedItem.setId(item.getId());
-	updatedItem.setItemType(item.getItemType());
+	updatedItem.setItemName(item.getItemName());
 	updatedItem.setItemWeight(6f);
 	updatedItem.setItemBurnable(item.getItemBurnable());
 	updatedItem.setItemPriority(item.getItemPriority());
@@ -109,7 +109,7 @@ public class ItemDaoTest {
 	Item foundItem = itemDao.find(item.getId());
 
 	assertEquals(updatedItem, foundItem);
-	assertEquals(updatedItem.getItemType(), foundItem.getItemType());
+	assertEquals(updatedItem.getItemName(), foundItem.getItemName());
 	assertEquals(updatedItem.getItemWeight(), foundItem.getItemWeight());
 	assertEquals(updatedItem.getItemBurnable(), foundItem.getItemBurnable());
 	assertEquals(updatedItem.getItemPriority(), foundItem.getItemPriority());

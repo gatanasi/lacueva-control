@@ -13,7 +13,8 @@
 				</tr>
 				<c:forEach items="${items}" var="item">
 					<tr>
-						<td class="text">${item.itemType}</td>
+						<td class="text">${item.itemName}</td>
+						<td class="text">${item.itemType.itemTypeName}</td>
 						<td class="text">${item.itemWeight}</td>
 						<td class="text">${item.itemBurnable}</td>
 						<td><a href="#" class="edit"> <span title="Modificar Art&iacute;culo" class="glyphicon glyphicon-pencil" id="edit"></span></a></td>
