@@ -16,6 +16,12 @@
 		</div>
 		<fieldset class="form-group">
 			<hr>
+			<form:label cssClass="col-sm-2 control-label" path="itemName">
+		  			Nombre <form:errors path="itemName" cssClass="label label-danger" />
+			</form:label>
+			<div class="col-sm-10">
+				<form:input cssClass="form-control" path="itemName" />
+			</div>
 			<form:label cssClass="col-sm-2 control-label" path="itemType">
 		  			Tipo <form:errors path="itemType" cssClass="label label-danger" />
 			</form:label>

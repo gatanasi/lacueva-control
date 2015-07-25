@@ -31,7 +31,7 @@
 					<li id="navsales"><a href="#sales">Ventas</a></li>
 					<li id="navinputs"><a href="#inputs">Ingresos</a></li>
 					<li id="navwithdrawals"><a href="#withdrawals">Retiros</a></li>
-					<li id="navblankdiscs"><a href='#blankdiscs'>V&iacute;rgenes</a></li>
+					<li id="navblankdiscs"><a href='/initSession'>V&iacute;rgenes</a></li>
 					<li id="navstocks"><a href='#stocks'>Inventarios</a></li>
 					<li id="navdashboard"><a href='#dashboard'>Resumen</a></li>
 					<li id="navadmin" class="dropdown"><a href="#navadmin" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Administraci&oacute;n <span

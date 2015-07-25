@@ -7,9 +7,12 @@
 		<div id="table">
 			<table class="table table-striped table-bordered" id="itemsTable">
 				<tr>
+					<th>Nombre</th>
 					<th>Tipo</th>
 					<th>Peso</th>
 					<th>Grabable</th>
+					<th>&nbsp;</th>
+					<th>&nbsp;</th>
 				</tr>
 				<c:forEach items="${items}" var="item">
 					<tr>

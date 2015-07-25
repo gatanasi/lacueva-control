@@ -132,6 +132,16 @@ public class AdminController {
 	return "bien ahi";
     }
 
+    @RequestMapping(value = "/initSession", method = RequestMethod.GET)
+    public String initSession(Model model) {
+
+	List<Shop> shopList = shopDao.getAll();
+
+	model.addAttribute("shopList", shopList);
+	model.addAttribute("currShop", shopList.get(0));
+	return "redirect:/";
+    }
+
     @RequestMapping(value = "/logout", method = RequestMethod.GET)
     public String prepare(Model model) {
 

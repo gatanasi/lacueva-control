@@ -5,6 +5,7 @@
 		<class>com.lacueva.control.bean.BlankDisc</class>
 		<class>com.lacueva.control.bean.Input</class>
 		<class>com.lacueva.control.bean.Item</class>
+		<class>com.lacueva.control.bean.ItemType</class>
 		<class>com.lacueva.control.bean.Price</class>
 		<class>com.lacueva.control.bean.Promo</class>
 		<class>com.lacueva.control.bean.Provider</class>
@@ -13,7 +14,8 @@
 		<class>com.lacueva.control.bean.Stock</class>
 		<class>com.lacueva.control.bean.Withdrawal</class>
 		<properties>
-			<property name="hibernate.dialect" value="org.hibernate.dialect.HSQLDialect" />
+			<!-- <property name="hibernate.dialect" value="org.hibernate.dialect.HSQLDialect" />-->
+			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect" />
 			<property name="hibernate.hbm2ddl.auto" value="create" />
 			<property name="hibernate.show_sql" value="true" />
 			<property name="hibernate.ejb.naming_strategy" value="org.hibernate.cfg.ImprovedNamingStrategy" />
