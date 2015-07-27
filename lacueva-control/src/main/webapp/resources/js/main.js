@@ -1,10 +1,10 @@
 var home = 'home';
 
-$(document).ready(function() {
+function keepSessionAlive() {
+	$.post('ping');
+}
 
-	function keepSessionAlive() {
-		$.post('ping');
-	}
+$(document).ready(function() {
 
 	$(function() {
 		window.setInterval(keepSessionAlive, 240000);

@@ -2,6 +2,10 @@ var itemNameOptions = $("#itemNames").clone().show().html();
 var priceList;
 var promoList;
 
+function autosave() {
+	console.log("autosaving...");
+}
+
 $(document).ready(function() {
 
 	$('#shopList li[data-id=' + $("#currShopId").val() + ']').tab('show');
@@ -30,6 +34,10 @@ $(document).ready(function() {
 
 	getPrices();
 	getPromos();
+	
+	$(function() {
+		window.setInterval(autosave, 240000);
+	});
 });
 
 function changeShop() {
