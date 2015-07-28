@@ -3,7 +3,7 @@ var priceList;
 var promoList;
 
 function autosave() {
-	console.log("autosaving...");
+	console.log("Autoguardando...");
 }
 
 $(document).ready(function() {
@@ -36,7 +36,7 @@ $(document).ready(function() {
 	getPromos();
 	
 	$(function() {
-		window.setInterval(autosave, 240000);
+		window.setInterval(autosave, 60000);
 	});
 });
 
