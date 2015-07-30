@@ -2,10 +2,6 @@ var itemNameOptions = $("#itemNames").clone().show().html();
 var priceList;
 var promoList;
 
-$(function() {
-	window.setInterval(autosave, 60000);
-});
-
 function getCurrentDate() {
 	var today = new Date();
 
@@ -19,6 +15,7 @@ function getCurrentDate() {
 
 function autosave() {
 	console.log("Autoguardando...");
+	console.log(new Date());
 	saveRows(true);
 }
 
@@ -52,6 +49,46 @@ $(document).ready(function() {
 
 	getPrices();
 	getPromos();
+
+	/*
+	 * console.log("autosaveTimer ID prev= " + autosaveTimer); var autosaveTimer =
+	 * $("#intervalsDiv").data('autosaveid'); console.log("autosaveid= " +
+	 * autosaveTimer); if (autosaveTimer == '') { autosaveTimer =
+	 * setInterval(autosave, 60000); $("#intervalsDiv").attr('data-autosaveid',
+	 * autosaveTimer); }
+	 * 
+	 * console.log("autosaveTimer ID= " + autosaveTimer);
+	 */
+
+	$("#autosaveTimer").TimeCircles({
+		"animation" : "smooth",
+		"bg_width" : 1,
+		"fg_width" : 0.13,
+		"circle_bg_color" : "#EEEEEE",
+		"time" : {
+			"Days" : {
+				"text" : "Dias",
+				"color" : "#CCCCCC",
+				"show" : false
+			},
+			"Hours" : {
+				"text" : "Horas",
+				"color" : "#CCCCCC",
+				"show" : false
+			},
+			"Minutes" : {
+				"text" : "Minutos",
+				"color" : "#CCCCCC",
+				"show" : true
+			},
+			"Seconds" : {
+				"text" : "Segundos",
+				"color" : "#CCCCCC",
+				"show" : true
+			}
+		}
+	});
+	// clearInterval(autosaveTimer - 1);
 });
 
 function changeShop() {
@@ -59,7 +96,7 @@ function changeShop() {
 		url : "changeShop",
 		method : "POST",
 		dataType : "text",
-		timeout : 10000,
+		timeout : generalTimeout,
 		data : {
 			id : $(this).data('id')
 		}
@@ -81,7 +118,7 @@ function getPrices() {
 		},
 		contentType : "application/json; charset=utf-8",
 		dataType : "text",
-		timeout : 10000
+		timeout : generalTimeout
 	});
 	request.done(function(msg) {
 		priceList = jQuery.parseJSON(msg);
@@ -100,7 +137,7 @@ function getPromos() {
 		},
 		contentType : "application/json; charset=utf-8",
 		dataType : "text",
-		timeout : 10000
+		timeout : generalTimeout
 	});
 	request.done(function(msg) {
 		promoList = jQuery.parseJSON(msg);
@@ -242,7 +279,7 @@ function saveSingleRow(tr) {
 		data : JSON.stringify(newSale),
 		contentType : "application/json; charset=utf-8",
 		dataType : "text",
-		timeout : 10000,
+		timeout : generalTimeout
 	});
 	request
 			.done(function(msg) {
@@ -293,7 +330,7 @@ function delRow() {
 					url : "sales/delete",
 					method : "POST",
 					dataType : "text",
-					timeout : 10000,
+					timeout : generalTimeout,
 					data : {
 						id : $(tr).data('id')
 					}
@@ -384,7 +421,7 @@ function editRow() {
 					data : JSON.stringify(updatedSale),
 					contentType : "application/json; charset=utf-8",
 					dataType : "text",
-					timeout : 10000,
+					timeout : generalTimeout
 				});
 				request.done(function(msg) {
 					dialog.setType(BootstrapDialog.TYPE_SUCCESS);

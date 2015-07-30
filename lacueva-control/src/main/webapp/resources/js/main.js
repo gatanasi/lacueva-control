@@ -1,4 +1,5 @@
 var home = 'home';
+var generalTimeout = 20000;
 
 function keepSessionAlive() {
 	$.post('ping');
@@ -6,9 +7,11 @@ function keepSessionAlive() {
 
 $(document).ready(function() {
 
-	$(function() {
-		window.setInterval(keepSessionAlive, 240000);
-	});
+	var keepAlive = $("#intervalsDiv").data('keepaliveid');
+	if (keepAlive == '') {
+		keepAlive = setInterval(keepSessionAlive, 300000);
+		$("#intervalsDiv").attr('data-keepaliveid', keepAlive);
+	}
 
 	$(window).on('hashchange', function() {
 		loadHashContent(location.hash.slice(1));

@@ -52,8 +52,10 @@
 						<td colspan="1" rowspan="1" class=""></td>
 					</tr>
 					<tr>
-						<td colspan="4" rowspan="1"><button id="addBtn" type="button" class="btn btn-default">Agregar 10 l&iacute;neas</button>
-							<button id="saveBtn" type="button" class="btn btn-default">Guardar</button></td>
+						<td colspan="1" rowspan="1" class="col-sm-1"><button id="addBtn" type="button" class="btn btn-default">Agregar 10 l&iacute;neas</button></td>
+						<td colspan="3" rowspan="1" class="col-sm-1"><button id="saveBtn" type="button" class="btn btn-default">Guardar</button>
+							<div id="autosaveTimer" style="width: 100%;" class="stopwatch col-sm-10" data-timer="90" ></div>
+							</td>
 					</tr>
 				</tfoot>
 				<tbody>
@@ -77,10 +79,12 @@
 </div>
 <link href="<c:url value="/resources/css/pickadate/classic.css" />" rel="stylesheet" type="text/css" />
 <link href="<c:url value="/resources/css/pickadate/classic.date.css" />" rel="stylesheet" type="text/css" />
+<link href="<c:url value="/resources/css/timecircles/TimeCircles.css" />" rel="stylesheet" type="text/css" />
 <link href="<c:url value="/resources/css/bootstrap3-dialog/bootstrap-dialog.min.css" />" rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="<c:url value="/resources/js/pickadate/picker.js" />" defer="defer"></script>
 <script type="text/javascript" src="<c:url value="/resources/js/pickadate/picker.date.js" />" defer="defer"></script>
 <script type="text/javascript" src="<c:url value="/resources/js/pickadate/translations/es_ES.js" />" defer="defer"></script>
+<script type="text/javascript" src="<c:url value="/resources/js/timecircles/TimeCircles.js" />" defer="defer"></script>
 <script type="text/javascript" src="<c:url value="/resources/js/bootstrap3-dialog/bootstrap-dialog.min.js" />" defer="defer"></script>
 <script type="text/javascript" src="<c:url value="/resources/js/bootstrap3-dialog/i18n.js" />" defer="defer"></script>
 <script type="text/javascript" src="<c:url value="/resources/js/sales.js" />" defer="defer"></script>
