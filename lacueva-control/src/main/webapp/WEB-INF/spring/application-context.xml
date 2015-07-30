@@ -14,7 +14,7 @@
 
 	<context:component-scan base-package="com.lacueva.control" />
 
-	<context:property-placeholder location="classpath:persistence-mysql.properties" />
+	<context:property-placeholder location="classpath:persistence-hsql.properties" />
 
 	<beans:bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
 		<beans:property name="dataSource" ref="dataSource" />

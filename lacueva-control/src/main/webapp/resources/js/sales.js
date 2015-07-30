@@ -2,8 +2,24 @@ var itemNameOptions = $("#itemNames").clone().show().html();
 var priceList;
 var promoList;
 
+$(function() {
+	window.setInterval(autosave, 60000);
+});
+
+function getCurrentDate() {
+	var today = new Date();
+
+	var month = today.getMonth() + 1;
+	var day = today.getDate();
+
+	var todayString = today.getFullYear() + '-' + (('' + month).length < 2 ? '0' : '') + month + '-' + (('' + day).length < 2 ? '0' : '') + day;
+
+	return todayString;
+}
+
 function autosave() {
 	console.log("Autoguardando...");
+	saveRows(true);
 }
 
 $(document).ready(function() {
@@ -12,13 +28,15 @@ $(document).ready(function() {
 
 	$('#shopList li').on("click", changeShop);
 	$("#addBtn").on("click", addRow);
-	$("#saveBtn").on("click", saveRows);
+	$("#saveBtn").on("click", function() {
+		saveRows(false);
+	});
 	$(".delBtn").on("click", delRow);
 	$(".editBtn").on("click", editRow);
 
 	updateTotals();
 
-	$('.date-input').pickadate({
+	$('#datePicker').pickadate({
 		max : true,
 		container : '#date-picker',
 		selectYears : true,
@@ -34,15 +52,11 @@ $(document).ready(function() {
 
 	getPrices();
 	getPromos();
-	
-	$(function() {
-		window.setInterval(autosave, 60000);
-	});
 });
 
 function changeShop() {
 	var request = $.ajax({
-		url : "changeShop/",
+		url : "changeShop",
 		method : "POST",
 		dataType : "text",
 		timeout : 10000,
@@ -186,7 +200,7 @@ function addRow() {
 	$(".delNewBtn").on("click", delNewRow);
 };
 
-function saveRows() {
+function saveRows(autosave) {
 	$("#salesTable").find("tr:not([data-id])").each(function() {
 		var qty = parseFloat($(this).find('.saleQuantity input').val()) || 0;
 		if (qty > 0) {
@@ -202,15 +216,28 @@ function saveSingleRow(tr) {
 	var currShop = {};
 	currShop.id = $("#currShopId").val();
 
+	console.log(getCurrentDate());
+
+	console.log($('#datePicker').data('value'));
+
+	var date;
+	if (getCurrentDate() == $('#datePicker').data('value')) {
+		date = new Date();
+	} else {
+		date = new Date($('#datePicker').data('value'));
+	}
+
+	console.log(date);
+
 	var newSale = {};
-	newSale.saleDate = new Date();
+	newSale.saleDate = date;
 	newSale.saleShop = currShop;
 	newSale.saleItem = item;
 	newSale.saleQuantity = $(tr).find('.saleQuantity input').val();
 	newSale.saleAmount = $(tr).find('.saleAmount input').val();
 
 	var request = $.ajax({
-		url : "sales/create/",
+		url : "sales/create",
 		method : "POST",
 		data : JSON.stringify(newSale),
 		contentType : "application/json; charset=utf-8",
@@ -263,7 +290,7 @@ function delRow() {
 				dialog.setClosable(false);
 				dialog.getModalBody().html('Eliminando...');
 				var request = $.ajax({
-					url : "sales/delete/",
+					url : "sales/delete",
 					method : "POST",
 					dataType : "text",
 					timeout : 10000,
@@ -352,7 +379,7 @@ function editRow() {
 				dialog.setClosable(false);
 				dialog.getModalBody().html('Enviando modificaciones...');
 				var request = $.ajax({
-					url : "sales/edit/",
+					url : "sales/edit",
 					method : "POST",
 					data : JSON.stringify(updatedSale),
 					contentType : "application/json; charset=utf-8",
