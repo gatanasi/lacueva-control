@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.DateTimeFormat.ISO;
 import org.springframework.http.MediaType;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.HttpSessionRequiredException;
@@ -34,6 +35,7 @@ import com.lacueva.control.dao.SaleDao;
  * Handles requests for the application sales.
  */
 @Controller
+@PreAuthorize("hasRole('ROLE_USER')")
 @EnableWebMvc
 @RequestMapping(value = "/sales")
 @SessionAttributes({ "currShop", "shopList" })

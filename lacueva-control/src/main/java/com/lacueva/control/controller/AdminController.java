@@ -9,6 +9,7 @@ import javax.validation.Valid;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -41,6 +42,7 @@ import com.lacueva.control.dao.ShopDao;
  * Handles requests for the application admin.
  */
 @Controller
+@PreAuthorize("hasRole('ROLE_ADMIN')")
 @SessionAttributes({ "currShop", "shopList" })
 public class AdminController {
 
@@ -142,7 +144,7 @@ public class AdminController {
 	return "redirect:/";
     }
 
-    @RequestMapping(value = "/logout", method = RequestMethod.GET)
+    @RequestMapping(value = "/dataGen", method = RequestMethod.GET)
     public String prepare(Model model) {
 
 	ItemType itemType1 = new ItemType();

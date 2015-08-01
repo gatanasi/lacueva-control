@@ -6,6 +6,12 @@
 <head>
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<!--
+		Used for including CSRF token in JSON requests
+		Also see bottom of this file for adding CSRF token to JQuery AJAX requests
+	-->
+<meta name="_csrf" content="${_csrf.token}" />
+<meta name="_csrf_header" content="${_csrf.headerName}" />
 <title>LaCueva Control</title>
 <link rel="shortcut icon" href="<c:url value="/resources/images/favicon.ico" />">
 <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
@@ -28,10 +34,11 @@
 			</div>
 			<div class="collapse navbar-collapse" id="navbar-collapse">
 				<ul class="nav navbar-nav" id="navmenu">
+					<li id="navinitsession"><a href="<c:url value="/initSession" />">Inicializar</a></li>
 					<li id="navsales"><a href="#sales">Ventas</a></li>
 					<li id="navinputs"><a href="#inputs">Ingresos</a></li>
 					<li id="navwithdrawals"><a href="#withdrawals">Retiros</a></li>
-					<li id="navblankdiscs"><a href="<c:url value="/initSession" />">V&iacute;rgenes</a></li>
+					<li id="navblankdiscs"><a href="#blankdiscs">V&iacute;rgenes</a></li>
 					<li id="navstocks"><a href='#stocks'>Inventarios</a></li>
 					<li id="navdashboard"><a href='#dashboard'>Resumen</a></li>
 					<li id="navadmin" class="dropdown"><a href="#navadmin" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Administraci&oacute;n <span
@@ -44,10 +51,12 @@
 							<li id="navprices"><a href="#prices">Precios</a></li>
 							<li role="separator" class="divider"></li>
 							<li id="navpromos"><a href="#promos">Promociones</a></li>
+							<li role="separator" class="divider"></li>
+							<li id="navdatagen"><a href="/dataGen">Generar datos</a></li>
 						</ul></li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
-					<li id="navlogout"><a href="<c:url value="/logout" />" title="logout">Cerrar sesi&oacute;n</a></li>
+					<li id="navlogout"><a href="<c:url value="/logout" />">Cerrar sesi&oacute;n</a></li>
 				</ul>
 			</div>
 		</div>
