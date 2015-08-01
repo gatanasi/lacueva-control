@@ -54,7 +54,7 @@
 					<tr>
 						<td colspan="1" rowspan="1" class="col-sm-1"><button id="addBtn" type="button" class="btn btn-default">Agregar 10 l&iacute;neas</button></td>
 						<td colspan="3" rowspan="1" class="col-sm-1"><button id="saveBtn" type="button" class="btn btn-default">Guardar</button>
-							<div id="autosaveTimer" style="width: 100%;" class="stopwatch col-sm-10" data-timer="90" ></div>
+							<div id="autosaveTimer" style="width: 100%;" class="stopwatch col-sm-10" data-timer="30" ></div>
 							</td>
 					</tr>
 				</tfoot>

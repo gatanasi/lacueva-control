@@ -16,7 +16,8 @@ function getCurrentDate() {
 function autosave() {
 	console.log("Autoguardando...");
 	console.log(new Date());
-	saveRows(true);
+	// saveRows(true);
+	$("#autosaveTimer").TimeCircles().restart();
 }
 
 $(document).ready(function() {
@@ -65,6 +66,7 @@ $(document).ready(function() {
 		"bg_width" : 1,
 		"fg_width" : 0.13,
 		"circle_bg_color" : "#EEEEEE",
+		"count_past_zero" : false,
 		"time" : {
 			"Days" : {
 				"text" : "Dias",
@@ -87,7 +89,12 @@ $(document).ready(function() {
 				"show" : true
 			}
 		}
+	}).addListener(function(unit, value, total) {
+		if (total <= 0) {
+			autosave();
+		}
 	});
+
 	// clearInterval(autosaveTimer - 1);
 });
 

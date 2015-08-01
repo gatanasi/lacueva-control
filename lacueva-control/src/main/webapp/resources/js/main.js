@@ -7,6 +7,12 @@ function keepSessionAlive() {
 
 $(document).ready(function() {
 
+	$("#navmenu").find("li").on("click", "a:not([class='dropdown-toggle'])", function() {
+		$("#navmenu").find("li").removeClass('active');
+		$(this).parent().addClass('active');
+		$('.navbar-collapse.in').collapse('hide');
+	});
+
 	var keepAlive = $("#intervalsDiv").data('keepaliveid');
 	if (keepAlive == '') {
 		keepAlive = setInterval(keepSessionAlive, 300000);
