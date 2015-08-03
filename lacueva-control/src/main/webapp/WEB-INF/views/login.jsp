@@ -34,7 +34,7 @@
 				<div class="alert alert-success">Has cerrado sesi&oacute;n exitosamente.</div>
 			</c:if>
 			<c:if test="${not empty param.time}">
-				<div class="alert alert-warning">>Su sesi&oacute;n ha expirado.</div>
+				<div class="alert alert-warning">Su sesi&oacute;n ha expirado.</div>
 			</c:if>
 			<label for="username" class="sr-only">Usuario</label>
 			<input type="text" id="username" name="username" class="form-control" placeholder="Usuario" required="required" autofocus="autofocus">

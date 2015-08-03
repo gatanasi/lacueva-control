@@ -1,4 +1,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="s"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page session="false"%>
 <!DOCTYPE html>
@@ -34,7 +36,7 @@
 			</div>
 			<div class="collapse navbar-collapse" id="navbar-collapse">
 				<ul class="nav navbar-nav" id="navmenu">
-					<li id="navinitsession"><a href="<c:url value="/initSession" />">Inicializar</a></li>
+					<!-- <li id="navinitsession"><a href="<c:url value="/initSession" />">Inicializar</a></li> -->
 					<li id="navsales"><a href="#sales">Ventas</a></li>
 					<li id="navinputs"><a href="#inputs">Ingresos</a></li>
 					<li id="navwithdrawals"><a href="#withdrawals">Retiros</a></li>
@@ -56,7 +58,10 @@
 						</ul></li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
-					<li id="navlogout"><a href="<c:url value="/logout" />">Cerrar sesi&oacute;n</a></li>
+					<c:url value="/logout" var="logoutUrl" />
+					<form:form id="logoutForm" name="logoutForm" action="${logoutUrl}" method="POST">
+					</form:form>
+					<li id="navlogout"><a href="javascript:document.getElementById('logoutForm').submit()">Cerrar sesi&oacute;n</a></li>
 				</ul>
 			</div>
 		</div>
