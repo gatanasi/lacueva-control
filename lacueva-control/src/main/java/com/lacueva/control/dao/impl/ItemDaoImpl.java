@@ -6,6 +6,6 @@ import com.lacueva.control.bean.Item;
 import com.lacueva.control.dao.ItemDao;
 
 @Repository("itemDao")
-public class ItemDaoImpl extends GenericDaoImpl<Item>implements ItemDao {
+public class ItemDaoImpl extends GenericDaoImpl<Item> implements ItemDao {
 
 }

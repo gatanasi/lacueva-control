@@ -31,16 +31,25 @@ http://www.springframework.org/schema/security http://www.springframework.org/sc
 		</security:session-management>
 	</security:http>
 
+	<bean id="daoAuthenticationProvider" class="org.springframework.security.authentication.dao.DaoAuthenticationProvider">
+		<property name="userDetailsService" ref="userService" />
+	</bean>
+
+	<bean id="authenticationManager" class="org.springframework.security.authentication.ProviderManager">
+		<property name="providers">
+			<list>
+				<ref local="daoAuthenticationProvider" />
+			</list>
+		</property>
+	</bean>
+
 	<bean id="encoder" class="org.springframework.security.crypto.password.StandardPasswordEncoder" />
 
 	<security:authentication-manager>
-		<security:authentication-provider>
+		<security:authentication-provider user-service-ref="userService">
 			<security:password-encoder ref="encoder" />
-			<security:user-service>
-				<!-- Password: "koala" for both -->
-				<security:user name="user" password="4efe081594ce25ee4efd9f7067f7f678a347bccf2de201f3adf2a3eb544850b465b4e51cdc3fcdde" authorities="ROLE_USER" />
-				<security:user name="admin" password="4efe081594ce25ee4efd9f7067f7f678a347bccf2de201f3adf2a3eb544850b465b4e51cdc3fcdde" authorities="ROLE_ADMIN, ROLE_USER" />
-			</security:user-service>
+			<!--<security:user-service> Password: "koala" for both <security:user name="user" password="4efe081594ce25ee4efd9f7067f7f678a347bccf2de201f3adf2a3eb544850b465b4e51cdc3fcdde" authorities="ROLE_USER" 
+				/> <security:user name="admin" password="4efe081594ce25ee4efd9f7067f7f678a347bccf2de201f3adf2a3eb544850b465b4e51cdc3fcdde" authorities="ROLE_ADMIN, ROLE_USER" /> </security:user-service> -->
 		</security:authentication-provider>
 	</security:authentication-manager>
 

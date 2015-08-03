@@ -15,7 +15,7 @@ import com.lacueva.control.bean.Shop;
 import com.lacueva.control.dao.PriceDao;
 
 @Repository("priceDao")
-public class PriceDaoImpl extends GenericDaoImpl<Price>implements PriceDao {
+public class PriceDaoImpl extends GenericDaoImpl<Price> implements PriceDao {
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
 

@@ -1,8 +1,10 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="s"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page session="false"%>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -36,26 +38,27 @@
 			</div>
 			<div class="collapse navbar-collapse" id="navbar-collapse">
 				<ul class="nav navbar-nav" id="navmenu">
-					<!-- <li id="navinitsession"><a href="<c:url value="/initSession" />">Inicializar</a></li> -->
 					<li id="navsales"><a href="#sales">Ventas</a></li>
-					<li id="navinputs"><a href="#inputs">Ingresos</a></li>
-					<li id="navwithdrawals"><a href="#withdrawals">Retiros</a></li>
-					<li id="navblankdiscs"><a href="#blankdiscs">V&iacute;rgenes</a></li>
-					<li id="navstocks"><a href='#stocks'>Inventarios</a></li>
-					<li id="navdashboard"><a href='#dashboard'>Resumen</a></li>
-					<li id="navadmin" class="dropdown"><a href="#navadmin" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Administraci&oacute;n <span
-							class="caret"></span></a>
-						<ul class="dropdown-menu" role="menu">
-							<li id="navitems"><a href="#items">Art&iacute;culos</a></li>
-							<li role="separator" class="divider"></li>
-							<li id="navshops"><a href="#shops">Locales</a></li>
-							<li role="separator" class="divider"></li>
-							<li id="navprices"><a href="#prices">Precios</a></li>
-							<li role="separator" class="divider"></li>
-							<li id="navpromos"><a href="#promos">Promociones</a></li>
-							<li role="separator" class="divider"></li>
-							<li id="navdatagen"><a href="/dataGen">Generar datos</a></li>
-						</ul></li>
+					<sec:authorize access="hasRole('ROLE_ADMIN')">
+						<li id="navinputs"><a href="#inputs">Ingresos</a></li>
+						<li id="navwithdrawals"><a href="#withdrawals">Retiros</a></li>
+						<li id="navblankdiscs"><a href="#blankdiscs">V&iacute;rgenes</a></li>
+						<li id="navstocks"><a href='#stocks'>Inventarios</a></li>
+						<li id="navdashboard"><a href='#dashboard'>Resumen</a></li>
+						<li id="navadmin" class="dropdown"><a href="#navadmin" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Administraci&oacute;n <span
+								class="caret"></span></a>
+							<ul class="dropdown-menu" role="menu">
+								<li id="navitems"><a href="#items">Art&iacute;culos</a></li>
+								<li role="separator" class="divider"></li>
+								<li id="navshops"><a href="#shops">Locales</a></li>
+								<li role="separator" class="divider"></li>
+								<li id="navprices"><a href="#prices">Precios</a></li>
+								<li role="separator" class="divider"></li>
+								<li id="navpromos"><a href="#promos">Promociones</a></li>
+								<li role="separator" class="divider"></li>
+								<li id="navdatagen"><a href="/dataGen">Generar datos</a></li>
+							</ul></li>
+					</sec:authorize>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
 					<c:url value="/logout" var="logoutUrl" />

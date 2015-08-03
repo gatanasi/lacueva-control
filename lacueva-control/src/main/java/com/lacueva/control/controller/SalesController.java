@@ -77,7 +77,7 @@ public class SalesController {
     @RequestMapping(value = "/{date}", method = RequestMethod.GET)
     public String salesByDate(Model model, @ModelAttribute("currShop") Shop currShop,
 	    @PathVariable @DateTimeFormat(iso = ISO.DATE) Date date) throws ParseException {
-	logger.info("Welcome sales path variable!");
+	logger.info("Getting Sales for date: " + date.toString());
 
 	List<Sale> salesList = saleDao.findSalesByShopAndDate(currShop, date);
 
@@ -113,18 +113,10 @@ public class SalesController {
 
     @RequestMapping(value = "/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody String createSale(@RequestBody Sale sale) {
+	logger.info("Entering Sales Create: " + sale.toString());
 
 	Sale createdSale = saleDao.create(sale);
 
 	return createdSale.getId().toString();
-    }
-
-    @RequestMapping(value = "/prueba", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public @ResponseBody Sale getSaleinJSON(@RequestParam(value = "id") Long id) {
-	if (id != null) {
-	    Sale sale = saleDao.find(id);
-	    return sale;
-	} else
-	    return null;
     }
 }
