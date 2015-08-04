@@ -43,7 +43,7 @@ public class Shop implements Serializable {
     @Column(name = "SHOP_DATE", nullable = false)
     private Date shopDate;
 
-    @Column(name = "SHOP_NAME", nullable = false, unique = true)
+    @Column(name = "SHOP_NAME", length = 20, nullable = false, unique = true)
     private String shopName;
 
     @Column(name = "SHOP_CASH")

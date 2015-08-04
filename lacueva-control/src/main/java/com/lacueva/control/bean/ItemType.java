@@ -31,9 +31,9 @@ public class ItemType implements Serializable {
     @Column(name = "ITEM_TYPE_ID")
     private Long id;
 
-    @Column(name = "ITEM_TYPE_NAME", nullable = false)
     @NotNull
     @Size(min = 1)
+    @Column(name = "ITEM_TYPE_NAME", length = 50, nullable = false)
     private String itemTypeName;
 
     public ItemType() {

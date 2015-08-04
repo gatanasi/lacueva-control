@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context" xmlns:security="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
+
+	<context:component-scan base-package="com.lacueva.control.security" />
+
+	<!-- CSRF protection -->
+	<!-- Provides automatic CSRF token inclusion when using Spring MVC Form tags. /> -->
+
+	<security:global-method-security proxy-target-class="true" />
+
+	<security:http pattern="/robots.txt" security="none" />
+	<security:http pattern="/resources/**" security="none" />
+
+	<security:http create-session="never" use-expressions="true">
+		<security:csrf />
+		<security:headers>
+			<security:xss-protection />
+		</security:headers>
+		<security:intercept-url pattern="/login" access="permitAll" />
+		<security:intercept-url pattern="/logout" access="permitAll" />
+		<security:intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')" />
+		<security:intercept-url pattern="/**" access="isFullyAuthenticated()" />
+		<security:form-login login-page="/login" login-processing-url="/login.do" default-target-url="/initSession" always-use-default-target="true" authentication-failure-url="/login?err=1"
+			username-parameter="username" password-parameter="password" />
+		<security:logout logout-url="/logout" logout-success-url="/login?out=1" delete-cookies="JSESSIONID" invalidate-session="true" />
+		<security:session-management invalid-session-url="/login?time=1">
+			<security:concurrency-control max-sessions="1" expired-url="/login?time=1" />
+		</security:session-management>
+	</security:http>
+
+	<bean id="encoder" class="org.springframework.security.crypto.password.StandardPasswordEncoder" />
+
+	<security:authentication-manager>
+		<security:authentication-provider user-service-ref="userDetailsService">
+			<security:password-encoder ref="encoder" />
+		</security:authentication-provider>
+	</security:authentication-manager>
+
+</beans>

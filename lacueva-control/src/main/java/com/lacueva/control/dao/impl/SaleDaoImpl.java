@@ -19,7 +19,7 @@ import com.lacueva.control.commons.DateUtilThreadSafe;
 import com.lacueva.control.dao.SaleDao;
 
 @Repository("saleDao")
-public class SaleDaoImpl extends GenericDaoImpl<Sale> implements SaleDao {
+public class SaleDaoImpl extends GenericDaoImpl<Sale>implements SaleDao {
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
@@ -42,8 +42,8 @@ public class SaleDaoImpl extends GenericDaoImpl<Sale> implements SaleDao {
 	List<Sale> salesList = new ArrayList<Sale>();
 
 	if (shop != null && shop.getId() != null && startDate != null && endDate != null) {
-	    logger.debug("Finding Sales with Shop= " + shop.getId() + ", StartDate= " + startDate + ", EndDate= "
-		    + endDate);
+	    logger.debug(
+		    "Finding Sales with Shop= " + shop.getId() + ", StartDate= " + startDate + ", EndDate= " + endDate);
 
 	    TypedQuery<Sale> query = entityManager.createNamedQuery("Sales.findByShopAndBetweenDates", Sale.class);
 	    query.setParameter("shop", shop);

@@ -15,7 +15,7 @@ import com.lacueva.control.bean.Shop;
 import com.lacueva.control.dao.PromoDao;
 
 @Repository("promoDao")
-public class PromoDaoImpl extends GenericDaoImpl<Promo> implements PromoDao {
+public class PromoDaoImpl extends GenericDaoImpl<Promo>implements PromoDao {
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
@@ -26,11 +26,11 @@ public class PromoDaoImpl extends GenericDaoImpl<Promo> implements PromoDao {
 	Promo promo = new Promo();
 
 	if (shop != null && shop.getId() != null && item != null && item.getId() != null && quantity != null) {
-	    logger.debug("Finding Promo with Shop= " + shop.getId() + ", Item= " + item.getId() + ", Quantity= "
-		    + quantity);
+	    logger.debug(
+		    "Finding Promo with Shop= " + shop.getId() + ", Item= " + item.getId() + ", Quantity= " + quantity);
 
-	    TypedQuery<Promo> query = entityManager
-		    .createNamedQuery("Promos.findPromoByShopAndItemAndQty", Promo.class);
+	    TypedQuery<Promo> query = entityManager.createNamedQuery("Promos.findPromoByShopAndItemAndQty",
+		    Promo.class);
 	    query.setParameter("shop", shop);
 	    query.setParameter("item", item);
 	    query.setParameter("quantity", quantity);

@@ -29,7 +29,7 @@ public class Provider implements Serializable {
     @Column(name = "PROVIDER_ID")
     private Long id;
 
-    @Column(name = "PROVIDER_NAME", nullable = false, unique = true)
+    @Column(name = "PROVIDER_NAME", length = 20, nullable = false, unique = true)
     private String providerName;
 
     public Provider() {

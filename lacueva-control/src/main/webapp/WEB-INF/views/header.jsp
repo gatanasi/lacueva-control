@@ -48,13 +48,13 @@
 						<li id="navadmin" class="dropdown"><a href="#navadmin" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Administraci&oacute;n <span
 								class="caret"></span></a>
 							<ul class="dropdown-menu" role="menu">
-								<li id="navitems"><a href="#items">Art&iacute;culos</a></li>
+								<li id="navitems"><a href="#admin/items">Art&iacute;culos</a></li>
 								<li role="separator" class="divider"></li>
-								<li id="navshops"><a href="#shops">Locales</a></li>
+								<li id="navshops"><a href="#admin/shops">Locales</a></li>
 								<li role="separator" class="divider"></li>
-								<li id="navprices"><a href="#prices">Precios</a></li>
+								<li id="navprices"><a href="#admin/prices">Precios</a></li>
 								<li role="separator" class="divider"></li>
-								<li id="navpromos"><a href="#promos">Promociones</a></li>
+								<li id="navpromos"><a href="#admin/promos">Promociones</a></li>
 								<li role="separator" class="divider"></li>
 								<li id="navdatagen"><a href="/dataGen">Generar datos</a></li>
 							</ul></li>

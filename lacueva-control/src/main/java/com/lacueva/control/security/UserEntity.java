@@ -5,6 +5,8 @@ import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
@@ -14,6 +16,8 @@ import javax.validation.constraints.NotNull;
  */
 @Entity
 @Table(name = "CUEVA_USERS")
+@NamedQueries({
+	@NamedQuery(name = "Users.findUserByUsername", query = "SELECT users FROM UserEntity users WHERE users.username = :username") })
 public class UserEntity implements Serializable {
 
     /**
@@ -23,16 +27,16 @@ public class UserEntity implements Serializable {
 
     @Id
     @NotNull
-    @Column(name = "USERS_USERNAME", nullable = false)
+    @Column(name = "USERS_USERNAME", length = 20, nullable = false)
     private String username;
 
     @NotNull
-    @Column(name = "USERS_PASSWORD", nullable = false)
+    @Column(name = "USERS_PASSWORD", length = 100, nullable = false)
     private String password;
 
     @NotNull
     @Column(name = "USERS_ENABLED", nullable = false)
-    private Boolean enabled;
+    private Boolean enabled = true;
 
     public UserEntity() {
 	super();
@@ -66,7 +70,7 @@ public class UserEntity implements Serializable {
 
     {
 	StringBuilder sb = new StringBuilder("User [");
-	sb.append("username=").append(getUsername()).append(", password=**PROTECTED**").append("enabled=")
+	sb.append("username=").append(getUsername()).append(", password=**PROTECTED**").append(", enabled=")
 		.append(isEnabled()).append("]");
 
 	return sb.toString();

@@ -1,56 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:security="http://www.springframework.org/schema/security"
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
+http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
-	<!-- CSRF protection -->
-	<!-- Provides automatic CSRF token inclusion when using Spring MVC Form tags. <bean id="requestDataValueProcessor" class="org.springframework.security.web.servlet.support.csrf.CsrfRequestDataValueProcessor" 
-		/> -->
+	<context:property-placeholder location="classpath:persistence-hsql.properties" />
 
-	<security:global-method-security pre-post-annotations="enabled" secured-annotations="enabled" proxy-target-class="true" />
-
-	<security:http pattern="/robots.txt" security="none" />
-	<security:http pattern="/resources/**" security="none" />
-
-	<security:http create-session="never" use-expressions="true">
-		<security:csrf />
-		<security:headers>
-			<security:xss-protection />
-		</security:headers>
-		<security:intercept-url pattern="/login" access="permitAll" />
-		<security:intercept-url pattern="/logout" access="permitAll" />
-		<security:intercept-url pattern="/" access="hasRole('ROLE_USER')" />
-		<security:intercept-url pattern="/home" access="hasRole('ROLE_USER')" />
-		<security:intercept-url pattern="/ping" access="hasRole('ROLE_USER')" />
-		<security:intercept-url pattern="/**" access="isFullyAuthenticated()" />
-		<security:form-login login-page="/login" login-processing-url="/login.do" default-target-url="/initSession" always-use-default-target="true" authentication-failure-url="/login?err=1"
-			username-parameter="username" password-parameter="password" />
-		<security:logout logout-url="/logout" logout-success-url="/login?out=1" delete-cookies="JSESSIONID" invalidate-session="true" />
-		<security:session-management invalid-session-url="/login?time=1">
-			<security:concurrency-control max-sessions="1" expired-url="/login?time=1" />
-		</security:session-management>
-	</security:http>
-
-	<bean id="daoAuthenticationProvider" class="org.springframework.security.authentication.dao.DaoAuthenticationProvider">
-		<property name="userDetailsService" ref="userService" />
-	</bean>
-
-	<bean id="authenticationManager" class="org.springframework.security.authentication.ProviderManager">
-		<property name="providers">
-			<list>
-				<ref local="daoAuthenticationProvider" />
-			</list>
+	<bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="jpaVendorAdapter">
+			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter" />
 		</property>
 	</bean>
 
-	<bean id="encoder" class="org.springframework.security.crypto.password.StandardPasswordEncoder" />
+	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="${jdbc.driverClassName}" />
+		<property name="url" value="${jdbc.url}" />
+		<property name="username" value="${jdbc.user}" />
+		<property name="password" value="${jdbc.pass}" />
+	</bean>
 
-	<security:authentication-manager>
-		<security:authentication-provider user-service-ref="userService">
-			<security:password-encoder ref="encoder" />
-			<!--<security:user-service> Password: "koala" for both <security:user name="user" password="4efe081594ce25ee4efd9f7067f7f678a347bccf2de201f3adf2a3eb544850b465b4e51cdc3fcdde" authorities="ROLE_USER" 
-				/> <security:user name="admin" password="4efe081594ce25ee4efd9f7067f7f678a347bccf2de201f3adf2a3eb544850b465b4e51cdc3fcdde" authorities="ROLE_ADMIN, ROLE_USER" /> </security:user-service> -->
-		</security:authentication-provider>
-	</security:authentication-manager>
+	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+		<property name="entityManagerFactory" ref="entityManagerFactory" />
+	</bean>
 
 </beans>

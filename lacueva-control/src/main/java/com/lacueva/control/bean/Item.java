@@ -35,9 +35,9 @@ public class Item implements Serializable {
     @Column(name = "ITEM_ID")
     private Long id;
 
-    @Column(name = "ITEM_NAME", nullable = false, unique = true)
     @NotNull
     @Size(min = 1)
+    @Column(name = "ITEM_NAME", length = 50, nullable = false, unique = true)
     private String itemName;
 
     @OneToOne

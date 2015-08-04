@@ -32,18 +32,6 @@
 		<org.codehaus.mojo-version>1.4.0</org.codehaus.mojo-version>
 	</properties>
 	<dependencies>
-		<dependency>
-			<groupId>cglib</groupId>
-			<artifactId>cglib-nodep</artifactId>
-			<version>3.1</version>
-		</dependency>
-		<dependency>
-			<groupId>org.aspectj</groupId>
-			<artifactId>aspectjweaver</artifactId>
-			<version>1.8.6</version>
-		</dependency>
-
-
 		<!-- Spring -->
 		<dependency>
 			<groupId>org.springframework</groupId>
