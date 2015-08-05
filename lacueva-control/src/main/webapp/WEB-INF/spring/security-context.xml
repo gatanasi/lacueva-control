@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context" xmlns:security="http://www.springframework.org/schema/security"
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:security="http://www.springframework.org/schema/security"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
-http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
+	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+	http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
+
+	<!-- Enable @Transactional support -->
+	<tx:annotation-driven />
 
 	<context:component-scan base-package="com.lacueva.control.security" />
 
@@ -21,8 +26,26 @@ http://www.springframework.org/schema/security http://www.springframework.org/sc
 		</security:headers>
 		<security:intercept-url pattern="/login" access="permitAll" />
 		<security:intercept-url pattern="/logout" access="permitAll" />
+		<security:intercept-url pattern="/" access="isFullyAuthenticated()" />
+		<security:intercept-url pattern="/home" access="isFullyAuthenticated()" />
+		<security:intercept-url pattern="/ping" access="isFullyAuthenticated()" />
+		<security:intercept-url pattern="/initSession" access="isFullyAuthenticated()" />
+		<security:intercept-url pattern="/sales/**" access="isFullyAuthenticated()" />
+		<security:intercept-url pattern="/prices/priceList" access="isFullyAuthenticated()" />
+		<security:intercept-url pattern="/promos/promoList" access="isFullyAuthenticated()" />
+
+		<security:intercept-url pattern="/changeShop" access="hasRole('ROLE_ADMIN')" />
 		<security:intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')" />
-		<security:intercept-url pattern="/**" access="isFullyAuthenticated()" />
+		<security:intercept-url pattern="/inputs/**" access="hasRole('ROLE_ADMIN')" />
+		<security:intercept-url pattern="/stocks/**" access="hasRole('ROLE_ADMIN')" />
+		<security:intercept-url pattern="/withdrawals/**" access="hasRole('ROLE_ADMIN')" />
+
+		<!-- DELETE FOR PRODUCTION -->
+		<security:intercept-url pattern="/dataGen" access="hasRole('ROLE_ADMIN')" />
+		<security:intercept-url pattern="/usersGen" access="permitAll" />
+
+		<security:intercept-url pattern="/**" access="denyAll" />
+
 		<security:form-login login-page="/login" login-processing-url="/login.do" default-target-url="/initSession" always-use-default-target="true" authentication-failure-url="/login?err=1"
 			username-parameter="username" password-parameter="password" />
 		<security:logout logout-url="/logout" logout-success-url="/login?out=1" delete-cookies="JSESSIONID" invalidate-session="true" />

@@ -3,19 +3,20 @@
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page session="false"%>
-
-<div class="panel panel-default">
-	<div class="panel-heading">
-		<h3 class="panel-title">Seleccione un local</h3>
+<sec:authorize access="hasRole('ROLE_ADMIN')">
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<h3 class="panel-title">Seleccione un local</h3>
+		</div>
+		<div class="panel-body">
+			<ul id="shopList" class="nav nav-pills nav-justified">
+				<c:forEach items="${shopList}" var="shop">
+					<li data-id="${shop.id}" role="presentation"><a href="#" role="pill" data-toggle="pill">${shop.shopName}</a></li>
+				</c:forEach>
+			</ul>
+		</div>
 	</div>
-	<div class="panel-body">
-		<ul id="shopList" class="nav nav-pills nav-justified">
-			<c:forEach items="${shopList}" var="shop">
-				<li data-id="${shop.id}" role="presentation"><a href="#" role="pill" data-toggle="pill">${shop.shopName}</a></li>
-			</c:forEach>
-		</ul>
-	</div>
-</div>
+</sec:authorize>
 <div class="panel panel-primary">
 	<div class="panel-heading">
 		<h3 class="panel-title">Ventas en ${currShop.shopName}</h3>
@@ -57,8 +58,7 @@
 					<tr>
 						<td colspan="1" rowspan="1" class="col-sm-1"><button id="addBtn" type="button" class="btn btn-default">Agregar 10 l&iacute;neas</button></td>
 						<td colspan="3" rowspan="1" class="col-sm-1"><button id="saveBtn" type="button" class="btn btn-default">Guardar</button>
-							<div id="autosaveTimer" style="width: 100%;" class="stopwatch col-sm-10" data-timer="30" ></div>
-							</td>
+							<div id="autosaveTimer" style="width: 100%;" class="stopwatch col-sm-10" data-timer="30"></div></td>
 					</tr>
 				</tfoot>
 				<tbody>

@@ -13,6 +13,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.StandardPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,6 +36,10 @@ import com.lacueva.control.dao.PromoDao;
 import com.lacueva.control.dao.ProviderDao;
 import com.lacueva.control.dao.SaleDao;
 import com.lacueva.control.dao.ShopDao;
+import com.lacueva.control.security.Authority;
+import com.lacueva.control.security.AuthorityDao;
+import com.lacueva.control.security.UserEntity;
+import com.lacueva.control.security.UserEntityDao;
 
 /**
  * Handles requests for the application commons.
@@ -47,24 +52,24 @@ public class CommonsController {
 
     @Inject
     private SaleDao saleDao;
-
     @Inject
     private ShopDao shopDao;
-
     @Inject
     private ItemTypeDao itemTypeDao;
-
     @Inject
     private ItemDao itemDao;
-
     @Inject
     private PriceDao priceDao;
-
     @Inject
     private PromoDao promoDao;
-
     @Inject
     private ProviderDao providerDao;
+    @Inject
+    private UserEntityDao userEntityDao;
+    @Inject
+    private AuthorityDao authorityDao;
+    @Inject
+    private StandardPasswordEncoder encoder;
 
     @RequestMapping(value = "/changeShop", method = RequestMethod.POST)
     public @ResponseBody String changeCurrShop(@RequestParam Long id, Model model) {
@@ -107,7 +112,7 @@ public class CommonsController {
     }
 
     @RequestMapping(value = "/dataGen", method = RequestMethod.GET)
-    public String prepare(Model model) {
+    public String dataGen() {
 
 	ItemType itemType1 = new ItemType();
 	itemType1.setItemTypeName("DVD");
@@ -275,7 +280,7 @@ public class CommonsController {
 	shop1.setShopName("Galeria");
 	shop1.setShopCash(2000);
 	shop1.setShopItems(itemsForShop1);
-	shopDao.create(shop1);
+	shop1 = shopDao.create(shop1);
 
 	Shop shop2 = new Shop();
 
@@ -283,7 +288,7 @@ public class CommonsController {
 	shop2.setShopName("Morgan");
 	shop2.setShopCash(6000);
 	shop2.setShopItems(itemsForShop2);
-	shopDao.create(shop2);
+	shop2 = shopDao.create(shop2);
 
 	Price price = new Price();
 	price.setPriceItem(item1);
@@ -494,8 +499,43 @@ public class CommonsController {
 	shopList.add(shop1);
 	shopList.add(shop2);
 
-	model.addAttribute("shopList", shopList);
-	model.addAttribute("currShop", shop1);
+	return "redirect:/";
+    }
+
+    @RequestMapping(value = "/usersGen", method = RequestMethod.GET)
+    public String usersGen() {
+	UserEntity userAdmin = new UserEntity();
+	userAdmin.setUsername("admin");
+	userAdmin.setPassword(encoder.encode("gustavo"));
+	userAdmin.setEnabled(true);
+	UserEntity userGaleria = new UserEntity();
+	userGaleria.setUsername("galeria");
+	userGaleria.setPassword(encoder.encode("galeria"));
+	userGaleria.setEnabled(true);
+	UserEntity userMorgan = new UserEntity();
+	userMorgan.setUsername("morgan");
+	userMorgan.setPassword(encoder.encode("morgan"));
+	userMorgan.setEnabled(true);
+	userEntityDao.create(userAdmin);
+	userEntityDao.create(userGaleria);
+	userEntityDao.create(userMorgan);
+
+	Authority roleAdmin = new Authority();
+	roleAdmin.setUser(userAdmin);
+	roleAdmin.setRole("ROLE_ADMIN");
+	Authority roleAdminUser = new Authority();
+	roleAdminUser.setUser(userAdmin);
+	roleAdminUser.setRole("ROLE_USER");
+	Authority roleGaleria = new Authority();
+	roleGaleria.setUser(userGaleria);
+	roleGaleria.setRole("ROLE_1");
+	Authority roleMorgan = new Authority();
+	roleMorgan.setUser(userMorgan);
+	roleMorgan.setRole("ROLE_2");
+	authorityDao.create(roleAdmin);
+	authorityDao.create(roleAdminUser);
+	authorityDao.create(roleGaleria);
+	authorityDao.create(roleMorgan);
 
 	return "redirect:/";
     }
