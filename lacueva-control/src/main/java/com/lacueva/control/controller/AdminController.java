@@ -13,6 +13,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
@@ -41,7 +43,7 @@ public class AdminController {
 
     @RequestMapping(value = "/items", method = RequestMethod.GET)
     public String items(Model model) {
-	logger.info("Welcome items!");
+	logger.info("Getting all Items...");
 
 	List<Item> itemsList = itemDao.getAll();
 
@@ -49,7 +51,7 @@ public class AdminController {
 
 	logger.info(itemsList.toString());
 
-	return "items";
+	return "admin/items";
     }
 
     @RequestMapping(value = "/items/create", method = RequestMethod.GET)
@@ -76,6 +78,17 @@ public class AdminController {
 	return "redirect:/admin/items/create";
     }
 
+    @RequestMapping(value = "/items/delete", method = RequestMethod.POST)
+    public @ResponseBody String deleteItemById(@RequestParam Long id) {
+	logger.info("Entering Items Delete for ID: " + id);
+
+	itemDao.delete(id);
+
+	String message = "Artículo borrado correctamente";
+
+	return message;
+    }
+
     @RequestMapping(value = "/shops", method = RequestMethod.GET)
     public String shops(Model model) {
 	logger.info("Welcome items!");
@@ -86,7 +99,7 @@ public class AdminController {
 
 	logger.info(shopsList.toString());
 
-	return "shops";
+	return "admin/shops";
     }
 
     @RequestMapping(value = "/dashboard", method = RequestMethod.GET)

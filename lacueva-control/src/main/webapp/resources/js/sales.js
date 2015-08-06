@@ -2,24 +2,6 @@ var itemNameOptions = $("#itemNames").clone().show().html();
 var priceList;
 var promoList;
 
-function getCurrentDate() {
-	var today = new Date();
-
-	var month = today.getMonth() + 1;
-	var day = today.getDate();
-
-	var todayString = today.getFullYear() + '-' + (('' + month).length < 2 ? '0' : '') + month + '-' + (('' + day).length < 2 ? '0' : '') + day;
-
-	return todayString;
-}
-
-function autosave() {
-	console.log("Autoguardando...");
-	console.log(new Date());
-	// saveRows(true);
-	$("#autosaveTimer").TimeCircles().restart();
-}
-
 $(document).ready(function() {
 
 	$('#shopList li[data-id=' + $("#currShopId").val() + ']').tab('show');
@@ -34,19 +16,7 @@ $(document).ready(function() {
 
 	updateTotals();
 
-	$('#datePicker').pickadate({
-		max : true,
-		container : '#date-picker',
-		selectYears : true,
-		selectMonths : true,
-		format : 'dd/mm/yyyy',
-		formatSubmit : 'yyyy-mm-dd',
-		onSet : function(event) {
-			if (event.select) {
-				window.location.href = "#sales/" + this.get('select', 'yyyy-mm-dd');
-			}
-		}
-	})
+	createDatePicker();
 
 	getPrices();
 	getPromos();
@@ -98,6 +68,55 @@ $(document).ready(function() {
 	// clearInterval(autosaveTimer - 1);
 });
 
+function getCurrentDate() {
+	var today = new Date();
+
+	var month = today.getMonth() + 1;
+	var day = today.getDate();
+
+	var todayString = today.getFullYear() + '-' + (('' + month).length < 2 ? '0' : '') + month + '-' + (('' + day).length < 2 ? '0' : '') + day;
+
+	return todayString;
+};
+
+function displayErrorMsg() {
+	BootstrapDialog.show({
+		type : BootstrapDialog.TYPE_ERROR,
+		title : 'Error',
+		message : 'Ha ocurrido un error, por favor vuelva a cargar la página',
+		buttons : [ {
+			id : 'btnClose',
+			label : 'Cerrar',
+			action : function(dialog) {
+				dialog.close();
+			}
+		} ]
+	});
+};
+
+function autosave() {
+	console.log("Autoguardando...");
+	console.log(new Date());
+	// saveRows(true);
+	$("#autosaveTimer").TimeCircles().restart();
+};
+
+function createDatePicker() {
+	$('#datePicker').pickadate({
+		max : true,
+		container : '#date-picker',
+		selectYears : true,
+		selectMonths : true,
+		format : 'dd/mm/yyyy',
+		formatSubmit : 'yyyy-mm-dd',
+		onSet : function(event) {
+			if (event.select) {
+				window.location.href = "#sales/" + this.get('select', 'yyyy-mm-dd');
+			}
+		}
+	});
+};
+
 function changeShop() {
 	var request = $.ajax({
 		url : "changeShop",
@@ -113,6 +132,7 @@ function changeShop() {
 	});
 	request.fail(function(jqXHR, textStatus, errorThrown) {
 		console.log('Error: ' + errorThrown);
+		displayErrorMsg();
 	});
 };
 
@@ -132,7 +152,12 @@ function getPrices() {
 	});
 	request.fail(function(jqXHR, textStatus, errorThrown) {
 		console.log('Error: ' + errorThrown);
+		displayErrorMsg();
 	});
+
+	if (priceList == null || priceList == 'undefined') {
+		displayErrorMsg();
+	}
 };
 
 function getPromos() {
@@ -151,7 +176,12 @@ function getPromos() {
 	});
 	request.fail(function(jqXHR, textStatus, errorThrown) {
 		console.log('Error: ' + errorThrown);
+		displayErrorMsg();
 	});
+
+	if (promoList == null || promoList == 'undefined') {
+		displayErrorMsg();
+	}
 };
 
 function getPriceByItem(itemId) {
@@ -225,7 +255,6 @@ function setSaleAmount() {
 };
 
 function addRow() {
-
 	for (i = 0; i < 10; i++) {
 		var newRow = '<tr>' + '<td class="text col-sm-1">' + '<select class="itemName">' + itemNameOptions + '</select>' + '</td>' + '<td class="saleQuantity text col-sm-5">'
 				+ '<input type="text" class="form-control"/></td>' + '<td class="saleAmount text col-sm-5"><input type="text" class="form-control" disabled/></td>'

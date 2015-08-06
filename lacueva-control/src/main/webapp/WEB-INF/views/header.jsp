@@ -55,8 +55,6 @@
 								<li id="navprices"><a href="#admin/prices">Precios</a></li>
 								<li role="separator" class="divider"></li>
 								<li id="navpromos"><a href="#admin/promos">Promociones</a></li>
-								<li role="separator" class="divider"></li>
-								<li id="navdatagen"><a href="/dataGen">Generar datos</a></li>
 							</ul></li>
 					</sec:authorize>
 				</ul>
