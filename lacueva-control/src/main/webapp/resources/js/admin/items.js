@@ -1,9 +1,10 @@
+var itemTypeNameOptions = $("#itemTypeName").clone().show().html();
+
 $(document).ready(function() {
 
 	$("#createBtn").on("click", createItem);
 	$(".delBtn").on("click", delRow);
 	$(".editBtn").on("click", editRow);
-
 });
 
 function getCurrentDate() {
@@ -69,8 +70,6 @@ function delRow() {
 					$('#btnCancel').text('Cerrar');
 
 					$(tr).remove();
-
-					updateTotals();
 				});
 				request.fail(function(jqXHR, textStatus, errorThrown) {
 					dialog.getModalBody().html('Error: ' + errorThrown);
@@ -96,14 +95,18 @@ function delRow() {
 function editRow() {
 	var tr = $(this).closest('tr');
 
-	var saleId = $(tr).data('id');
-	var itemName = $(tr).find('.itemName').clone().html();
-	var saleQuantity = $(tr).find('.saleQuantity').text();
-	var saleAmount = $(tr).find('.saleAmount').text();
+	var itemId = $(tr).data('id');
+	var itemName = $(tr).find('.itemName').text();
+	var itemTypeTable = $(tr).find('.itemType').clone().html();
+	var itemWeight = $(tr).find('.itemWeight').text();
+	var itemBurnable = $(tr).find('.itemBurnable').text();
+	var itemPriority = $(tr).find('.itemPriority').text();
 
-	var form = '<div class="form-group">' + '<label for="itemName">Artículo</label>' + '<select id="itemName">' + itemName + '</select>' + '</div>' + '<div class="form-group">'
-			+ '<label for="saleQuantity">Cantidad</label>' + '<input type="text" class="form-control" id="saleQuantity" value=' + saleQuantity + '>' + '</div>' + '<div class="form-group">'
-			+ '<label for="saleAmount">Importe</label>' + '<input type="text" class="form-control" id="saleAmount" value=' + saleAmount + '>' + '</div>';
+	var form = '<div class="form-group">' + '<label for="itemName">Nombre</label>' + '<input type="text" class="form-control" id="itemName" value="' + itemName + '">' + '</div>'
+			+ '<div class="form-group">' + '<label for="itemType">Tipo</label>' + '<select id="itemType">' + itemTypeTable + '</select>' + '</div>' + '<div class="form-group">'
+			+ '<label for="itemWeight">Peso</label>' + '<input type="text" class="form-control" id="itemWeight" value=' + itemWeight + '>' + '</div>' + '<div class="form-group">'
+			+ '<label for="itemBurnable">Grabable</label>' + '<input type="text" class="form-control" id="itemBurnable" value=' + itemBurnable + '>' + '</div>' + '<div class="form-group">'
+			+ '<label for="itemPriority">Prioridad</label>' + '<input type="text" class="form-control" id="itemPriority" value=' + itemPriority + '>' + '</div>';
 
 	BootstrapDialog.show({
 		title : 'Editar',
@@ -115,27 +118,24 @@ function editRow() {
 			cssClass : 'btn-primary',
 			autospin : true,
 			action : function(dialog) {
-				var item = {};
-				item.id = $("#itemName").val();
+				var itemType = {};
+				itemType.id = $("#itemType").val();
 
-				var currShop = {};
-				currShop.id = $("#currShopId").val();
-
-				var updatedSale = {};
-				updatedSale.id = saleId;
-				updatedSale.saleDate = new Date();
-				updatedSale.saleShop = currShop;
-				updatedSale.saleItem = item;
-				updatedSale.saleQuantity = $("#saleQuantity").val();
-				updatedSale.saleAmount = $("#saleAmount").val();
+				var updatedItem = {};
+				updatedItem.id = itemId;
+				updatedItem.itemName = $("#itemName").val();
+				updatedItem.itemType = itemType;
+				updatedItem.itemWeight = $("#itemWeight").val();
+				updatedItem.itemBurnable = $("#itemBurnable").val();
+				updatedItem.itemPriority = $("#itemPriority").val();
 
 				dialog.enableButtons(false);
 				dialog.setClosable(false);
 				dialog.getModalBody().html('Enviando modificaciones...');
 				var request = $.ajax({
-					url : "sales/edit",
+					url : "admin/items/edit",
 					method : "POST",
-					data : JSON.stringify(updatedSale),
+					data : JSON.stringify(updatedItem),
 					contentType : "application/json; charset=utf-8",
 					dataType : "text",
 					timeout : generalTimeout
@@ -147,13 +147,12 @@ function editRow() {
 					$('#btnAccept').remove();
 					$('#btnCancel').text('Cerrar');
 
-					$('option:selected', $(tr).find('.itemName')).removeAttr('selected');
-					$(tr).find('.itemName option[value=' + item.id + ']').attr("selected", true);
-
-					$(tr).find('.saleQuantity').text(updatedSale.saleQuantity);
-					$(tr).find('.saleAmount').text(updatedSale.saleAmount);
-
-					updateTotals();
+					$(tr).find('.itemName').text(updatedItem.itemName);
+					$('option:selected', $(tr).find('.itemType')).removeAttr('selected');
+					$(tr).find('.itemType option[value=' + itemType.id + ']').attr("selected", true);
+					$(tr).find('.itemWeight').text(updatedItem.itemWeight);
+					$(tr).find('.itemBurnable').text(updatedItem.itemBurnable);
+					$(tr).find('.itemPriority').text(updatedItem.itemPriority);
 				});
 				request.fail(function(jqXHR, textStatus, errorThrown) {
 					dialog.getModalBody().html('Error: ' + errorThrown);

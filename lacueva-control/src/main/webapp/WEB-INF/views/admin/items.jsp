@@ -7,9 +7,9 @@
 		<h3 class="panel-title">Administraci&oacute;n de Art&iacute;culos</h3>
 	</div>
 	<div class="panel-body">
-		<select id="itemNames" hidden="true">
-			<c:forEach items="${currShop.shopItems}" var="item">
-				<option value="${item.id}"><c:out value="${item.itemName}"></c:out></option>
+		<select id="itemTypeName" hidden="true">
+			<c:forEach items="${itemTypes}" var="itemType">
+				<option value="${itemType.id}"><c:out value="${itemType.itemTypeName}"></c:out></option>
 			</c:forEach>
 		</select>
 		<div>
@@ -33,7 +33,11 @@
 					<c:forEach items="${items}" var="item">
 						<tr data-id="${item.id}">
 							<td class="itemName text col-sm-3"><c:out value="${item.itemName}" /></td>
-							<td class="itemType text col-sm-3"><c:out value="${item.itemType.itemTypeName}" /></td>
+							<td class="text col-sm-3"><select class="itemType" disabled="disabled">
+									<c:forEach items="${itemTypes}" var="itemType">
+										<option value="${itemType.id}" ${item.itemType.id == itemType.id ? 'selected="selected"' : ' '}><c:out value="${itemType.itemTypeName}"></c:out></option>
+									</c:forEach>
+							</select></td>
 							<td class="itemWeight text col-sm-3"><c:out value="${item.itemWeight}" /></td>
 							<td class="itemBurnable text col-sm-1"><c:out value="${item.itemBurnable}" /></td>
 							<td class="itemPriority text col-sm-1"><c:out value="${item.itemPriority}" /></td>

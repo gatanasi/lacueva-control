@@ -33,7 +33,7 @@ public class ItemType implements Serializable {
 
     @NotNull
     @Size(min = 1)
-    @Column(name = "ITEM_TYPE_NAME", length = 50, nullable = false)
+    @Column(name = "ITEM_TYPE_NAME", length = 50, nullable = false, unique = true)
     private String itemTypeName;
 
     public ItemType() {

@@ -154,10 +154,6 @@ function getPrices() {
 		console.log('Error: ' + errorThrown);
 		displayErrorMsg();
 	});
-
-	if (priceList == null || priceList == 'undefined') {
-		displayErrorMsg();
-	}
 };
 
 function getPromos() {
@@ -178,10 +174,6 @@ function getPromos() {
 		console.log('Error: ' + errorThrown);
 		displayErrorMsg();
 	});
-
-	if (promoList == null || promoList == 'undefined') {
-		displayErrorMsg();
-	}
 };
 
 function getPriceByItem(itemId) {
