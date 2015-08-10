@@ -53,4 +53,5 @@
 <link href="<c:url value="/resources/css/bootstrap3-dialog/bootstrap-dialog.min.css" />" rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="<c:url value="/resources/js/bootstrap3-dialog/bootstrap-dialog.min.js" />" defer="defer"></script>
 <script type="text/javascript" src="<c:url value="/resources/js/bootstrap3-dialog/i18n.js" />" defer="defer"></script>
+<script type="text/javascript" src="<c:url value="/resources/js/commons.js" />" defer="defer"></script>
 <script type="text/javascript" src="<c:url value="/resources/js/admin/items.js" />" defer="defer"></script>

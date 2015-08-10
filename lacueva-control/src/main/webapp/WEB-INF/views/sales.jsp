@@ -90,4 +90,5 @@
 <script type="text/javascript" src="<c:url value="/resources/js/timecircles/TimeCircles.js" />" defer="defer"></script>
 <script type="text/javascript" src="<c:url value="/resources/js/bootstrap3-dialog/bootstrap-dialog.min.js" />" defer="defer"></script>
 <script type="text/javascript" src="<c:url value="/resources/js/bootstrap3-dialog/i18n.js" />" defer="defer"></script>
+<script type="text/javascript" src="<c:url value="/resources/js/commons.js" />" defer="defer"></script>
 <script type="text/javascript" src="<c:url value="/resources/js/sales.js" />" defer="defer"></script>

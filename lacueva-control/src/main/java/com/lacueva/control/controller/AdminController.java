@@ -63,7 +63,15 @@ public class AdminController {
 
 	Item createdItem = itemDao.create(item);
 
-	return createdItem.getId().toString();
+	String message = "";
+
+	if (createdItem != null && createdItem.getId() != null) {
+	    message = "Artículo borrado correctamente";
+	} else {
+	    message = "Ha ocurrido un error al guardar";
+	}
+
+	return message;
     }
 
     @RequestMapping(value = "/items/delete", method = RequestMethod.POST)
@@ -90,15 +98,52 @@ public class AdminController {
 
     @RequestMapping(value = "/shops", method = RequestMethod.GET)
     public String shops(Model model) {
-	logger.info("Welcome items!");
+	logger.info("Getting all Shops...");
 
 	List<Shop> shopsList = shopDao.getAll();
 
 	model.addAttribute("shops", shopsList);
 
-	logger.info(shopsList.toString());
-
 	return "admin/shops";
+    }
+
+    @RequestMapping(value = "/shops/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody String createShop(@RequestBody Shop shop) {
+	logger.info("Entering Shops Create: " + shop.toString());
+
+	Shop createdShop = shopDao.create(shop);
+
+	String message = "";
+
+	if (createdShop != null && createdShop.getId() != null) {
+	    message = "Local borrado correctamente";
+	} else {
+	    message = "Ha ocurrido un error al guardar";
+	}
+
+	return message;
+    }
+
+    @RequestMapping(value = "/shops/delete", method = RequestMethod.POST)
+    public @ResponseBody String deleteShopById(@RequestParam Long id) {
+	logger.info("Entering Shops Delete for ID: " + id);
+
+	shopDao.delete(id);
+
+	String message = "Local borrado correctamente";
+
+	return message;
+    }
+
+    @RequestMapping(value = "/shops/edit", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody String editShop(@RequestBody Shop updatedShop) {
+	logger.info("Entering Shops Edit for ID: " + updatedShop.getId());
+
+	shopDao.update(updatedShop);
+
+	String message = "Local editado correctamente";
+
+	return message;
     }
 
     @RequestMapping(value = "/dashboard", method = RequestMethod.GET)
