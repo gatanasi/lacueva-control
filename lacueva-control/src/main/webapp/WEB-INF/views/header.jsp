@@ -48,6 +48,8 @@
 						<li id="navadmin" class="dropdown"><a href="#navadmin" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Administraci&oacute;n <span
 								class="caret"></span></a>
 							<ul class="dropdown-menu" role="menu">
+								<li id="navitems"><a href="#admin/itemTypes">Tipos de Art&iacute;culo</a></li>
+								<li role="separator" class="divider"></li>
 								<li id="navitems"><a href="#admin/items">Art&iacute;culos</a></li>
 								<li role="separator" class="divider"></li>
 								<li id="navshops"><a href="#admin/shops">Locales</a></li>

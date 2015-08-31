@@ -43,6 +43,56 @@ public class AdminController {
     @Inject
     private ItemTypeDao itemTypeDao;
 
+    @RequestMapping(value = "/itemTypes", method = RequestMethod.GET)
+    public String itemTypes(Model model) {
+	logger.info("Getting all ItemTypes...");
+
+	List<ItemType> itemTypesList = itemTypeDao.getAll();
+
+	model.addAttribute("itemTypes", itemTypesList);
+
+	return "admin/itemTypes";
+    }
+
+    @RequestMapping(value = "/itemTypes/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody String createItemType(@RequestBody ItemType item) {
+	logger.info("Entering ItemTypes Create: " + item.toString());
+
+	ItemType createdItem = itemTypeDao.create(item);
+
+	String message = "";
+
+	if (createdItem != null && createdItem.getId() != null) {
+	    message = "Tipo de Artículo creado correctamente";
+	} else {
+	    message = "Ha ocurrido un error al guardar";
+	}
+
+	return message;
+    }
+
+    @RequestMapping(value = "/itemTypes/delete", method = RequestMethod.POST)
+    public @ResponseBody String deleteItemTypeById(@RequestParam Long id) {
+	logger.info("Entering ItemTypes Delete for ID: " + id);
+
+	itemTypeDao.delete(id);
+
+	String message = "Tipo de Artículo borrado correctamente";
+
+	return message;
+    }
+
+    @RequestMapping(value = "/itemTypes/edit", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody String editItemType(@RequestBody ItemType updatedItemType) {
+	logger.info("Entering ItemTypes Edit for ID: " + updatedItemType.getId());
+
+	itemTypeDao.update(updatedItemType);
+
+	String message = "Tipo de Artículo editado correctamente";
+
+	return message;
+    }
+
     @RequestMapping(value = "/items", method = RequestMethod.GET)
     public String items(Model model) {
 	logger.info("Getting all Items...");
@@ -66,7 +116,7 @@ public class AdminController {
 	String message = "";
 
 	if (createdItem != null && createdItem.getId() != null) {
-	    message = "Artículo borrado correctamente";
+	    message = "Artículo creado correctamente";
 	} else {
 	    message = "Ha ocurrido un error al guardar";
 	}
