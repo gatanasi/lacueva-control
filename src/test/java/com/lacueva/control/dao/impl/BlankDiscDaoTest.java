@@ -11,6 +11,8 @@ import javax.persistence.PersistenceContext;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.annotation.DirtiesContext.ClassMode;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -25,6 +27,7 @@ import com.lacueva.control.dao.ProviderDao;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("/test-context.xml")
+@DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD)
 public class BlankDiscDaoTest {
 
     @PersistenceContext
