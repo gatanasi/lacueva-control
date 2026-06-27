@@ -5,3 +5,6 @@
 target/
 hsql/
 *.log
+**/WEB-INF/classes/
+**/WEB-INF/lib/
+.mvn/

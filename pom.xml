@@ -32,6 +32,7 @@
 		<maven-war-plugin-version>3.4.0</maven-war-plugin-version>
 		<maven-surefire-plugin-version>3.5.4</maven-surefire-plugin-version>
 		<org.codehaus.mojo-version>1.4.0</org.codehaus.mojo-version>
+		<jetty-maven-plugin-version>9.4.53.v20231009</jetty-maven-plugin-version>
 	</properties>
 	<dependencies>
 		<!-- Spring -->
@@ -283,6 +284,15 @@
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>exec-maven-plugin</artifactId>
 				<version>${org.codehaus.mojo-version}</version>
+			</plugin>
+			<plugin>
+				<groupId>org.eclipse.jetty</groupId>
+				<artifactId>jetty-maven-plugin</artifactId>
+				<version>${jetty-maven-plugin-version}</version>
+				<configuration>
+					<stopPort>9999</stopPort>
+					<stopKey>stop</stopKey>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
