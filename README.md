@@ -14,7 +14,7 @@ Built originally for a family business, it features user management, sales contr
 - **Frontend**: JSP, JSTL, Bootstrap 3.3, jQuery 2.1
 
 ## Screenshots
-![LaCueva Control](screenshot.png)
+<img width="999" height="645" alt="image" src="https://github.com/user-attachments/assets/06996be3-8192-450f-be8f-63089c94e547" />
 
 ## License
 This project is licensed under the [MIT License](LICENSE).
